@@ -2,11 +2,10 @@ import { NextRequest, NextResponse } from 'next/server'
 
 // Host-based routing so the gateway and the dashboard share ONE deployment but ship
 // independently (Option B):
-//   • `/api/*`      → always served (the gateway API, e.g. app.patchway.xyz/api/v1/*).
+//   • `/api/*`      → always served (the gateway API, on the gateway host).
 //   • UI routes     → served ONLY on the console host (console.patchway.xyz) and on
-//                     localhost (dev). Everywhere else (app.*, the raw *.vercel.app URL)
-//                     they 404, so the unfinished dashboard stays dark until Phase 3
-//                     wires `console.patchway.xyz`.
+//                     localhost (dev). Everywhere else (the gateway host, the raw
+//                     *.vercel.app URL) they 404, so only the console exposes a UI.
 export function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname
 

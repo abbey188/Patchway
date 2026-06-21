@@ -188,7 +188,7 @@ export default function PublicVerifyPage({ params }: Props) {
     (v.digestAvailable ? 1 : 0) +
     v.artifactChecks.filter((a: { available: boolean }) => a.available).length
 
-  const proofUrl = typeof window !== 'undefined' ? window.location.href : `https://app.patchway.xyz/verify/${relayId}`
+  const proofUrl = typeof window !== 'undefined' ? window.location.href : `https://console.patchway.xyz/verify/${relayId}`
   const closed = relay.statusLabel === 'completed' || relay.statusLabel === 'expired'
 
   return shell(

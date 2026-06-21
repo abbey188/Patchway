@@ -81,7 +81,7 @@ const proof = await sdk.relay.verify(relayId)
 ### Two ways to run
 
 - **Hosted (default):** `Patchway.connect(keypair)` with no extra config talks to the
-  managed gateway at `app.patchway.xyz`. A keypair is all you need.
+  managed Patchway gateway. A keypair is all you need.
 - **Self-host:** set `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, and
   `PATCHWAY_ENCRYPTION_KEY` and the SDK runs against your own backend.
 
