@@ -1,7 +1,7 @@
 'use client'
 
 import { MonoId } from './MonoId'
-import { getAgentIcon } from '@/lib/agent-icons'
+import { AgentAvatar } from './AgentAvatar'
 import type { Agent } from '@/lib/types'
 
 type Props = {
@@ -30,21 +30,7 @@ export function AgentCard({ agent, onClick, relayCount = 0, memoryCount = 0 }: P
     >
       {/* Header row */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-        <div
-          style={{
-            width: '36px',
-            height: '36px',
-            borderRadius: '8px',
-            background: isInactive ? 'rgba(100,50,50,0.15)' : 'rgba(1,112,59,0.15)',
-            border: isInactive ? '1px solid rgba(100,50,50,0.3)' : '1px solid rgba(1,112,59,0.3)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0,
-          }}
-        >
-          {(() => { const Icon = getAgentIcon(agent.name); return <Icon size={16} color={isInactive ? '#888' : '#3AD17B'} /> })()}
-        </div>
+        <AgentAvatar seed={agent.channelId} size={40} />
         <div style={{ flex: 1, minWidth: 0 }}>
           <div
             style={{
