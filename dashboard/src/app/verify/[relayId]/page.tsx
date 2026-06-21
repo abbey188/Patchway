@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 import { ExternalLink, Copy, Check } from 'lucide-react'
 import { StatusBadge } from '@/components/console/StatusBadge'
 import { MonoId } from '@/components/console/MonoId'
+import { RelayTrace } from '@/components/console/RelayTrace'
 
 // ── Public, unauthenticated trust report for a single relay handoff. This is the
 // shareable proof artifact: sdk.relay.proofUrl(relayId) → /verify/:relayId.
@@ -209,6 +210,20 @@ export default function PublicVerifyPage({ params }: Props) {
       </div>
       <div style={{ fontSize: '12px', color: '#6B726B', marginBottom: '20px' }}>
         Reconstructed directly from Sui (on-chain state) and Walrus (storage). Anyone can reproduce this — no trust in Patchway required.
+      </div>
+
+      {/* Relay Trace (hero) */}
+      <div style={{ background: 'var(--surface)', borderRadius: '14px', padding: '22px 26px', marginBottom: '16px' }}>
+        <RelayTrace
+          fromSeed={relay.from_channel}
+          fromLabel={agentNames?.[relay.from_channel] ?? `${relay.from_channel.slice(0, 8)}…`}
+          toSeed={relay.to_channel}
+          toLabel={agentNames?.[relay.to_channel] ?? `${relay.to_channel.slice(0, 8)}…`}
+          status={relay.statusLabel}
+          createdAt={relay.created_at != null ? Number(relay.created_at) : null}
+          grantedAt={accessWindow?.grantedAtEpoch ?? null}
+          revokedAt={accessWindow?.revokedAtEpoch ?? null}
+        />
       </div>
 
       {/* Integrity */}
