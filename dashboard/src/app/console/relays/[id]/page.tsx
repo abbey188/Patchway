@@ -24,11 +24,11 @@ function formatRelTime(iso: string | null): string {
 function SectionCard({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div style={{
-      background: '#1C201C',
-      border: '1px solid #242824',
-      borderRadius: '10px',
+      background: 'var(--raised)',
+      borderRadius: '12px',
       padding: '18px 20px',
       marginBottom: '16px',
+      boxShadow: '0 1px 2px rgba(0,0,0,0.3)',
     }}>
       <div style={{ fontSize: '15px', fontWeight: 600, color: '#ECEFEC', marginBottom: '14px' }}>
         {title}
@@ -76,80 +76,19 @@ function VerifyBadge({ pass, label }: { pass: boolean; label: string }) {
   )
 }
 
-function LifecycleBar({ status, createdAt, acceptedAt, completedAt, grantedAtEpoch, revokedAtEpoch }: {
-  status: string
-  createdAt: string | null
-  acceptedAt: string | null
-  completedAt: string | null
-  grantedAtEpoch?: number | null
-  revokedAtEpoch?: number | null
-}) {
-  const closed = status === 'completed' || status === 'expired'
-  const stages = [
-    { label: 'Created', reached: true, time: createdAt },
-    {
-      label: 'Grant open',
-      reached: status !== 'pending',
-      time: grantedAtEpoch != null ? String(grantedAtEpoch) : acceptedAt,
-    },
-    {
-      label: 'Grant revoked',
-      reached: closed,
-      time: revokedAtEpoch != null ? String(revokedAtEpoch) : completedAt,
-    },
-  ]
-
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
-      {stages.map((stage, i) => (
-        <div key={stage.label} style={{ display: 'flex', alignItems: 'center', flex: i < stages.length - 1 ? 1 : undefined }}>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
-            <div style={{
-              width: '14px',
-              height: '14px',
-              borderRadius: '50%',
-              background: stage.reached ? '#01703b' : '#242824',
-              border: stage.reached ? '2px solid #3AD17B' : '2px solid #242824',
-              flexShrink: 0,
-            }} />
-            <span style={{ fontSize: '11px', fontWeight: 600, color: stage.reached ? '#3AD17B' : '#474D47', whiteSpace: 'nowrap' }}>
-              {stage.label}
-            </span>
-            {stage.time && (
-              <span style={{ fontSize: '10px', color: '#474D47', whiteSpace: 'nowrap' }}>
-                epoch {stage.time}
-              </span>
-            )}
-          </div>
-          {i < stages.length - 1 && (
-            <div style={{
-              flex: 1,
-              height: '2px',
-              background: stages[i + 1].reached ? '#01703b' : '#242824',
-              margin: '-14px 8px 20px',
-            }} />
-          )}
-        </div>
-      ))}
-    </div>
-  )
-}
-
 function ParticipantCard({ label, channelId, agentName }: { label: string; channelId: string; agentName?: string }) {
   return (
     <div style={{
-      background: '#1C201C',
-      border: '1px solid #242824',
-      borderRadius: '10px',
+      background: 'var(--raised)',
+      borderRadius: '12px',
       padding: '18px 20px',
       flex: 1,
+      boxShadow: '0 1px 2px rgba(0,0,0,0.3)',
     }}>
       <div style={{
-        fontSize: '10px',
-        fontWeight: 700,
-        textTransform: 'uppercase',
-        letterSpacing: '0.08em',
-        color: '#474D47',
+        fontSize: '12px',
+        fontWeight: 500,
+        color: '#6B726B',
         marginBottom: '10px',
       }}>
         {label}
@@ -186,6 +125,13 @@ export default function RelayDetailPage({ params }: Props) {
   const { id } = use(params)
   const router = useRouter()
 
+  // Smart back: return to wherever the user came from (Overview or Relays). Fall back
+  // to the relays list for direct links / fresh tabs where there's no in-app history.
+  const goBack = () => {
+    if (typeof window !== 'undefined' && window.history.length > 1) router.back()
+    else router.push('/console/relays')
+  }
+
   const { data: verification, isPending } = useQuery({
     queryKey: ['relay-verify', id],
     queryFn: () => fetchVerification(id),
@@ -206,10 +152,10 @@ export default function RelayDetailPage({ params }: Props) {
     return (
       <div>
         <button
-          onClick={() => router.push('/console/relays')}
+          onClick={goBack}
           style={{ display: 'flex', alignItems: 'center', gap: '5px', background: 'none', border: 'none', color: '#474D47', fontSize: '13px', cursor: 'pointer', marginBottom: '16px', padding: 0 }}
         >
-          <ArrowLeft size={14} /> Back to relays
+          <ArrowLeft size={14} /> Back
         </button>
         <div style={{ color: '#474D47', fontSize: '14px' }}>Relay not found on-chain</div>
       </div>
@@ -230,12 +176,12 @@ export default function RelayDetailPage({ params }: Props) {
     <div>
       {/* Back */}
       <button
-        onClick={() => router.push('/console/relays')}
+        onClick={goBack}
         style={{ display: 'flex', alignItems: 'center', gap: '5px', background: 'none', border: 'none', color: '#474D47', fontSize: '13px', cursor: 'pointer', marginBottom: '18px', padding: 0 }}
         onMouseEnter={(e) => (e.currentTarget.style.color = '#9BA39B')}
         onMouseLeave={(e) => (e.currentTarget.style.color = '#474D47')}
       >
-        <ArrowLeft size={14} /> Back to relays
+        <ArrowLeft size={14} /> Back
       </button>
 
       {/* Header */}
@@ -297,26 +243,16 @@ export default function RelayDetailPage({ params }: Props) {
         </div>
       </SectionCard>
 
-      {/* ═══ ACCESS LIFECYCLE ═══ */}
-      <SectionCard title="Access Lifecycle">
-        <LifecycleBar
-          status={relay.statusLabel}
-          createdAt={String(relay.created_at)}
-          acceptedAt={relay.accepted_at}
-          completedAt={relay.completed_at}
-          grantedAtEpoch={accessWindow?.grantedAtEpoch}
-          revokedAtEpoch={accessWindow?.revokedAtEpoch}
-        />
-        {(relay.statusLabel === 'completed' || relay.statusLabel === 'expired') && (
+      {/* ═══ REVOCATION PROOF ═══ (the access window itself lives in the hero trace) */}
+      {(relay.statusLabel === 'completed' || relay.statusLabel === 'expired') && (
+        <SectionCard title="Revocation proof">
           <div style={{
-            marginTop: '18px',
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
             padding: '10px 14px',
             borderRadius: '8px',
             background: revocationProven === true ? 'rgba(58,209,123,0.06)' : revocationProven === false ? 'rgba(242,112,107,0.06)' : 'rgba(82,82,91,0.10)',
-            border: `1px solid ${revocationProven === true ? 'rgba(58,209,123,0.15)' : revocationProven === false ? 'rgba(242,112,107,0.15)' : '#242824'}`,
           }}>
             <span style={{ fontSize: '16px' }}>{revocationProven === true ? '✓' : revocationProven === false ? '✗' : '•'}</span>
             <span style={{ fontSize: '12px', fontWeight: 600, color: revocationProven === true ? '#3AD17B' : revocationProven === false ? '#F2706B' : '#9BA39B' }}>
@@ -330,8 +266,8 @@ export default function RelayDetailPage({ params }: Props) {
               the granted delegate key is verified absent from the sender&apos;s memory account
             </span>
           </div>
-        )}
-      </SectionCard>
+        </SectionCard>
+      )}
 
       {/* ═══ PARTICIPANTS ═══ */}
       <div style={{ display: 'flex', gap: '12px', marginBottom: '16px' }}>

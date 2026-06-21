@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { DataTable, type Column } from '@/components/console/DataTable'
 import { RelayTrace } from '@/components/console/RelayTrace'
 import { StatusBadge } from '@/components/console/StatusBadge'
+import { VerifyChip } from '@/components/console/VerifyChip'
 import { MonoId } from '@/components/console/MonoId'
 import { fetchRelayEvents } from '@/lib/queries'
 import { effectiveRelayStatus, type RelayGrant, type RelayStatus } from '@/lib/types'
@@ -48,6 +49,12 @@ const COLUMNS: Column<RelayGrant>[] = [
     header: 'Status',
     width: '90px',
     render: (r) => <StatusBadge status={effectiveRelayStatus(r)} />,
+  },
+  {
+    key: 'verified',
+    header: 'Verified',
+    width: '96px',
+    render: (r) => <VerifyChip relayId={r.relayId} status={effectiveRelayStatus(r)} />,
   },
   {
     key: 'relayId',

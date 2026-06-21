@@ -95,11 +95,9 @@ export function AgentCard({ agent, onClick, relayCount = 0, memoryCount = 0 }: P
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
           <span
             style={{
-              fontSize: '10px',
-              fontWeight: 700,
-              textTransform: 'uppercase',
-              letterSpacing: '0.06em',
-              color: '#474D47',
+              fontSize: '11px',
+              fontWeight: 500,
+              color: '#6B726B',
             }}
           >
             Memories
@@ -109,11 +107,9 @@ export function AgentCard({ agent, onClick, relayCount = 0, memoryCount = 0 }: P
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
           <span
             style={{
-              fontSize: '10px',
-              fontWeight: 700,
-              textTransform: 'uppercase',
-              letterSpacing: '0.06em',
-              color: '#474D47',
+              fontSize: '11px',
+              fontWeight: 500,
+              color: '#6B726B',
             }}
           >
             Relays

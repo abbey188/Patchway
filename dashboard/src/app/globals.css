@@ -136,3 +136,15 @@ div[style*="position: fixed"][style*="bottom"]:has(> svg),
 body > div:last-child:not([id]):not([class]):not([data-console-layout]) > div[style*="border-radius: 50%"] {
   display: none !important;
 }
+
+/* Snappy press feedback — instant tactile response on tap, independent of data loading.
+   Uses opacity (not transform) so there's zero layout reflow. */
+button, a, [role="button"] {
+  -webkit-tap-highlight-color: transparent;
+}
+button:active, a:active, [role="button"]:active {
+  opacity: 0.72;
+}
+
+/* Shared spinner keyframe (used by loaders across the console). */
+@keyframes spin { to { transform: rotate(360deg); } }

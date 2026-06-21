@@ -44,6 +44,8 @@ export function ConnectScreen() {
         overflow: 'hidden',
       }}
     >
+      <RouteBackdrop />
+
       <div
         style={{
           width: '420px',
@@ -62,7 +64,7 @@ export function ConnectScreen() {
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/patchway-logo.svg" alt="Patchway" style={{ height: '58px', width: 'auto', display: 'block' }} />
+            <img src="/patchway-logo.svg" alt="Patchway" style={{ height: '74px', width: 'auto', display: 'block' }} />
           </div>
           <p
             style={{
@@ -211,6 +213,46 @@ export function ConnectScreen() {
       <style>{`
         @keyframes spin { to { transform: rotate(360deg) } }
       `}</style>
+    </div>
+  )
+}
+
+// On-brand backdrop: faint agent-handoff "routes" (the RelayTrace motif) flowing across
+// the canvas — connecting paths with nodes and a brighter live access segment. Deliberately
+// not a generic radial glow. An edge vignette keeps it quiet behind the card.
+function RouteBackdrop() {
+  const routes = [
+    { y: 90,  x1: 120, x2: 1040, w1: 470, w2: 760 },
+    { y: 210, x1: 60,  x2: 980,  w1: 360, w2: 620 },
+    { y: 330, x1: 200, x2: 1120, w1: 540, w2: 840 },
+    { y: 450, x1: 90,  x2: 900,  w1: 300, w2: 560 },
+    { y: 570, x1: 160, x2: 1080, w1: 500, w2: 800 },
+    { y: 690, x1: 40,  x2: 940,  w1: 380, w2: 640 },
+  ]
+  const green = '#01703b'
+  const live = '#3AD17B'
+  return (
+    <div aria-hidden style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
+      <svg width="100%" height="100%" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" style={{ display: 'block', opacity: 0.55 }}>
+        {routes.map((r, i) => (
+          <g key={i}>
+            <line x1={r.x1} y1={r.y} x2={r.x2} y2={r.y} stroke={green} strokeWidth="1.5" opacity="0.16" />
+            <line x1={r.w1} y1={r.y} x2={r.w2} y2={r.y} stroke={live} strokeWidth="2.5" opacity="0.2" />
+            <circle cx={r.x1} cy={r.y} r="5" fill={green} opacity="0.3" />
+            <circle cx={r.w1} cy={r.y} r="4" fill={live} opacity="0.42" />
+            <circle cx={r.w2} cy={r.y} r="4" fill={green} opacity="0.3" />
+            <circle cx={r.x2} cy={r.y} r="5" fill={green} opacity="0.3" />
+          </g>
+        ))}
+      </svg>
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background:
+            'radial-gradient(ellipse 55% 55% at 50% 50%, rgba(1,112,59,0.06), transparent 70%), radial-gradient(ellipse at center, transparent 22%, #0C0D0C 78%)',
+        }}
+      />
     </div>
   )
 }

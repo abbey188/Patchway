@@ -4,10 +4,10 @@ import { useState } from 'react'
 import { useQuery, keepPreviousData } from '@tanstack/react-query'
 import { useCurrentAccount } from '@mysten/dapp-kit-react'
 import { useRouter } from 'next/navigation'
-import { StatCard } from '@/components/console/StatCard'
 import { DataTable, type Column } from '@/components/console/DataTable'
 import { RelayTrace } from '@/components/console/RelayTrace'
 import { StatusBadge } from '@/components/console/StatusBadge'
+import { VerifyChip } from '@/components/console/VerifyChip'
 import { MonoId } from '@/components/console/MonoId'
 import { fetchChannelsByWallet, fetchRelayEvents } from '@/lib/queries'
 import { effectiveRelayStatus, type RelayGrant } from '@/lib/types'
@@ -44,42 +44,56 @@ function formatTooltipDate(dateStr: string): string {
   return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
 }
 
+const SERIES = [
+  { key: 'relays' as const, label: 'Relays', color: 'var(--green)' },
+  { key: 'memories' as const, label: 'Memories', color: '#5AA6FF' },
+  { key: 'feedback' as const, label: 'Feedback', color: '#F2B23E' },
+]
+
+const MAX_BAR = 220 // px — the chart stretches to do real work as you scroll
+
 function ActivityChart({ data }: { data: DayData[] }) {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null)
 
   const totals = data.map((d) => d.relays + d.memories + d.feedback)
   const max = Math.max(...totals, 1)
   const hasData = totals.some((c) => c > 0)
+  const periodTotals = {
+    relays: data.reduce((s, d) => s + d.relays, 0),
+    memories: data.reduce((s, d) => s + d.memories, 0),
+    feedback: data.reduce((s, d) => s + d.feedback, 0),
+  }
 
   return (
     <div
       style={{
-        background: '#1C201C',
-        border: '1px solid #242824',
-        borderRadius: '10px',
-        padding: '20px 24px',
-        minHeight: '280px',
+        background: 'var(--raised)',
+        borderRadius: '14px',
+        padding: '22px 26px 18px',
         position: 'relative',
+        boxShadow: '0 1px 2px rgba(0,0,0,0.3)',
       }}
     >
-      <div style={{ marginBottom: '20px' }}>
-        <div
-          style={{
-            fontSize: '10px',
-            fontWeight: 700,
-            textTransform: 'uppercase',
-            letterSpacing: '0.08em',
-            color: '#474D47',
-          }}
-        >
-          Activity — last 7 days
+      {/* Header: title + legend with period totals (the chart now reports the numbers) */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '22px', flexWrap: 'wrap', gap: '12px' }}>
+        <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-2)' }}>Activity — last 7 days</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
+          {SERIES.map((s) => (
+            <div key={s.key} style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+              <span style={{ width: '9px', height: '9px', borderRadius: '3px', background: s.color, display: 'inline-block' }} />
+              <span style={{ fontSize: '12px', color: 'var(--text-3)' }}>{s.label}</span>
+              <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text)', fontFamily: "'Geist Mono', monospace", fontVariantNumeric: 'tabular-nums' }}>
+                {periodTotals[s.key]}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'flex-end', gap: '10px', height: '180px', position: 'relative' }}>
+      <div style={{ display: 'flex', alignItems: 'flex-end', gap: '12px', height: `${MAX_BAR + 16}px`, position: 'relative' }}>
         {data.map((day, i) => {
           const total = day.relays + day.memories + day.feedback
-          const barHeight = Math.max(4, (total / max) * 160)
+          const barHeight = total > 0 ? Math.max(6, (total / max) * MAX_BAR) : 3
           const isHovered = hoveredIdx === i
 
           return (
@@ -98,69 +112,79 @@ function ActivityChart({ data }: { data: DayData[] }) {
               onMouseEnter={() => setHoveredIdx(i)}
               onMouseLeave={() => setHoveredIdx(null)}
             >
-              {isHovered && (
+              {isHovered && total > 0 && (
                 <div
                   style={{
                     position: 'absolute',
                     bottom: `${barHeight + 14}px`,
                     left: '50%',
                     transform: 'translateX(-50%)',
-                    background: '#1C201C',
-                    border: '1px solid #2A2E2A',
-                    borderRadius: '8px',
+                    background: 'var(--surface)',
+                    borderRadius: '10px',
                     padding: '12px 16px',
-                    minWidth: '160px',
+                    minWidth: '170px',
                     zIndex: 20,
                     boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
                     pointerEvents: 'none',
                   }}
                 >
-                  <div style={{ fontSize: '12px', fontWeight: 600, color: '#ECEFEC', marginBottom: '10px' }}>
+                  <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text)', marginBottom: '10px' }}>
                     {formatTooltipDate(day.date)}
                   </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '20px' }}>
-                      <span style={{ fontSize: '11px', color: '#9BA39B' }}>Relays</span>
-                      <span style={{ fontSize: '12px', fontWeight: 600, color: '#ECEFEC', fontFamily: "'Geist Mono', monospace" }}>{day.relays}</span>
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '20px' }}>
-                      <span style={{ fontSize: '11px', color: '#9BA39B' }}>Memories</span>
-                      <span style={{ fontSize: '12px', fontWeight: 600, color: '#ECEFEC', fontFamily: "'Geist Mono', monospace" }}>{day.memories}</span>
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '20px' }}>
-                      <span style={{ fontSize: '11px', color: '#9BA39B' }}>Feedback</span>
-                      <span style={{ fontSize: '12px', fontWeight: 600, color: '#ECEFEC', fontFamily: "'Geist Mono', monospace" }}>{day.feedback}</span>
-                    </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '7px' }}>
+                    {SERIES.map((s) => (
+                      <div key={s.key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '20px' }}>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '7px', fontSize: '11px', color: 'var(--text-2)' }}>
+                          <span style={{ width: '8px', height: '8px', borderRadius: '2px', background: s.color }} />
+                          {s.label}
+                        </span>
+                        <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text)', fontFamily: "'Geist Mono', monospace" }}>{day[s.key]}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
 
-              <div
-                style={{
-                  width: '100%',
-                  background: total > 0 ? '#01703b' : '#242824',
-                  borderRadius: '4px 4px 0 0',
-                  height: `${barHeight}px`,
-                  transition: 'height 0.3s ease, opacity 0.15s',
-                  opacity: isHovered ? 1 : 0.85,
-                }}
-              />
+              {total > 0 ? (
+                <div
+                  style={{
+                    width: '100%',
+                    maxWidth: '56px',
+                    height: `${barHeight}px`,
+                    borderRadius: '5px 5px 0 0',
+                    overflow: 'hidden',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    transition: 'opacity 0.15s',
+                    opacity: isHovered ? 1 : 0.9,
+                  }}
+                >
+                  {/* stacked top→bottom: feedback, memories, relays */}
+                  {[...SERIES].reverse().map((s) => {
+                    const seg = (day[s.key] / total) * barHeight
+                    if (seg <= 0) return null
+                    return <div key={s.key} style={{ height: `${seg}px`, background: s.color }} />
+                  })}
+                </div>
+              ) : (
+                <div style={{ width: '100%', maxWidth: '56px', height: '3px', borderRadius: '2px', background: 'var(--hairline)' }} />
+              )}
             </div>
           )
         })}
       </div>
 
-      <div style={{ display: 'flex', gap: '10px', marginTop: '8px' }}>
+      <div style={{ display: 'flex', gap: '12px', marginTop: '10px' }}>
         {data.map((day, i) => (
-          <div key={i} style={{ flex: 1, textAlign: 'center', fontSize: '10px', color: hoveredIdx === i ? '#9BA39B' : '#474D47', transition: 'color 0.15s' }}>
+          <div key={i} style={{ flex: 1, textAlign: 'center', fontSize: '11px', color: hoveredIdx === i ? 'var(--text-2)' : 'var(--text-4)', transition: 'color 0.15s' }}>
             {formatDateLabel(day.date)}
           </div>
         ))}
       </div>
 
       {!hasData && (
-        <div style={{ textAlign: 'center', fontSize: '11px', color: '#474D47', marginTop: '8px' }}>
-          No activity yet
+        <div style={{ textAlign: 'center', fontSize: '12px', color: 'var(--text-4)', marginTop: '12px' }}>
+          No activity yet — your relays and memories will chart here
         </div>
       )}
     </div>
@@ -173,6 +197,12 @@ const RELAY_COLUMNS: Column<RelayGrant>[] = [
     header: 'Status',
     width: '90px',
     render: (r) => <StatusBadge status={effectiveRelayStatus(r)} />,
+  },
+  {
+    key: 'verified',
+    header: 'Verified',
+    width: '96px',
+    render: (r) => <VerifyChip relayId={r.relayId} status={effectiveRelayStatus(r)} />,
   },
   {
     key: 'relayId',
@@ -269,7 +299,7 @@ export default function OverviewPage() {
           Overview
         </h1>
         <p style={{ fontSize: '13px', color: '#6B726B' }}>
-          Your agents at a glance
+          Your activity at a glance
         </p>
       </div>
 
@@ -306,48 +336,100 @@ export default function OverviewPage() {
         </div>
       ) : (
       <>
-      {/* Stat cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '12px', marginBottom: '18px' }}>
+      {/* Hero — the latest verifiable handoff. This is the product's headline:
+          a relay route with its access window + proof, not five abstract counters. */}
+      <div style={{ marginBottom: '14px' }}>
         {!ready ? (
-          Array.from({ length: 5 }).map((_, i) => (
-            <div
-              key={i}
-              style={{
-                background: 'var(--raised)',
-                borderRadius: '12px',
-                height: '96px',
-                opacity: 0.6,
-              }}
-            />
-          ))
+          <div style={{ background: 'var(--raised)', borderRadius: '14px', height: '152px', opacity: 0.6 }} />
+        ) : recentRelays.length > 0 ? (
+          (() => {
+            const latest = recentRelays[0]
+            const status = effectiveRelayStatus(latest)
+            return (
+              <div
+                style={{
+                  background: 'var(--raised)',
+                  borderRadius: '14px',
+                  padding: '22px 24px',
+                  boxShadow: '0 1px 2px rgba(0,0,0,0.3)',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text)' }}>Latest handoff</span>
+                    <StatusBadge status={status} />
+                  </div>
+                  <button
+                    onClick={() => router.push(`/console/relays/${latest.relayId}`)}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--green-live)', fontSize: '13px', fontWeight: 600, padding: 0 }}
+                  >
+                    View proof →
+                  </button>
+                </div>
+                <RelayTrace
+                  fromSeed={latest.fromChannelId}
+                  fromLabel={latest.fromChannelId.slice(0, 6)}
+                  toSeed={latest.toChannelId}
+                  toLabel={latest.toChannelId.slice(0, 6)}
+                  status={status}
+                  createdAt={formatRelTime(latest.createdAt)}
+                  revokedAt={latest.revokedAt ? formatRelTime(latest.revokedAt) : null}
+                />
+              </div>
+            )
+          })()
         ) : (
-          <>
-            <StatCard
-              label="Agents"
-              value={agentCount}
-              sub="registered channels"
-            />
-            <StatCard
-              label="Relays"
-              value={relayCount}
-              sub="total handoffs"
-            />
-            <StatCard
-              label="Memories"
-              value={memoryCount}
-              sub="thread entries on Walrus"
-            />
-            <StatCard
-              label="Artifacts"
-              value={serverData?.stats?.artifactCount ?? 0}
-              sub="blob references"
-            />
-            <StatCard
-              label="Feedback"
-              value={serverData?.stats?.feedbackCount ?? 0}
-              sub="learning entries"
-            />
-          </>
+          <div style={{ background: 'var(--raised)', borderRadius: '14px', padding: '22px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', boxShadow: '0 1px 2px rgba(0,0,0,0.3)' }}>
+            <div>
+              <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text)', marginBottom: '4px' }}>No handoffs yet</div>
+              <div style={{ fontSize: '13px', color: 'var(--text-3)', maxWidth: '460px', lineHeight: 1.5 }}>
+                Your agents are registered. Create a relay to hand off work — the verifiable trace, with its auto-revoking memory window, shows up here.
+              </div>
+            </div>
+            <a href="https://docs.patchway.xyz" target="_blank" rel="noreferrer" style={{ flexShrink: 0, color: 'var(--green-live)', fontSize: '13px', fontWeight: 600 }}>
+              How relays work ↗
+            </a>
+          </div>
+        )}
+      </div>
+
+      {/* Metrics — a unified totals card beneath the hero, columns split by hairlines. */}
+      <div style={{ marginBottom: '18px' }}>
+        {!ready ? (
+          <div style={{ background: 'var(--raised)', borderRadius: '14px', height: '78px', opacity: 0.6 }} />
+        ) : (
+          <div
+            style={{
+              background: 'var(--raised)',
+              borderRadius: '14px',
+              display: 'flex',
+              alignItems: 'stretch',
+              boxShadow: '0 1px 2px rgba(0,0,0,0.3)',
+              overflow: 'hidden',
+            }}
+          >
+            {[
+              { label: 'Agents', value: agentCount },
+              { label: 'Relays', value: relayCount },
+              { label: 'Memories', value: memoryCount },
+              { label: 'Artifacts', value: serverData?.stats?.artifactCount ?? 0 },
+              { label: 'Feedback', value: serverData?.stats?.feedbackCount ?? 0 },
+            ].map((m, i) => (
+              <div
+                key={m.label}
+                style={{
+                  flex: 1,
+                  padding: '18px 22px',
+                  borderLeft: i > 0 ? '1px solid var(--hairline)' : undefined,
+                }}
+              >
+                <div style={{ fontFamily: "'Geist Mono', monospace", fontVariantNumeric: 'tabular-nums', fontSize: '26px', fontWeight: 500, color: 'var(--text)', lineHeight: 1.1, letterSpacing: '-0.02em' }}>
+                  {m.value}
+                </div>
+                <div style={{ fontSize: '12px', color: 'var(--text-3)', marginTop: '4px' }}>{m.label}</div>
+              </div>
+            ))}
+          </div>
         )}
       </div>
 

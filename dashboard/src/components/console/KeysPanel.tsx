@@ -124,7 +124,7 @@ export function KeysPanel() {
         const sui = mist / 1e9
         const low = mist < 20_000_000 // < 0.02 SUI — below the auto-top-up floor
         return (
-          <div style={{ background: '#141614', border: '1px solid #242824', borderRadius: '10px', padding: '14px 16px' }}>
+          <div style={{ background: 'var(--raised)', borderRadius: '10px', padding: '14px 16px', boxShadow: '0 1px 2px rgba(0,0,0,0.3)' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
                 <Fuel size={15} color={low ? '#F2B23E' : '#3AD17B'} />
@@ -173,10 +173,10 @@ export function KeysPanel() {
           </div>
         </div>
 
-        <div style={{ background: '#141614', border: '1px solid #242824', borderRadius: '10px', overflow: 'hidden' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr 90px 90px', padding: '9px 14px', borderBottom: '1px solid #242824', gap: '8px' }}>
+        <div style={{ background: 'var(--raised)', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 1px 2px rgba(0,0,0,0.3)' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr 90px 90px', padding: '9px 14px', borderBottom: '1px solid var(--hairline)', gap: '8px' }}>
             {['Name', 'Public key', 'Type', 'Created'].map((h, i) => (
-              <span key={i} style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#474D47' }}>{h}</span>
+              <span key={i} style={{ fontSize: '11px', fontWeight: 600, color: '#6B726B' }}>{h}</span>
             ))}
           </div>
           {keysPending ? (
@@ -224,10 +224,10 @@ export function KeysPanel() {
         <div style={{ fontSize: '11px', color: '#474D47', marginBottom: '12px' }}>
           Scoped delegate keys Patchway grants on accept and revokes on complete — auto-managed
         </div>
-        <div style={{ background: '#141614', border: '1px solid #242824', borderRadius: '10px', overflow: 'hidden' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 100px', padding: '9px 14px', borderBottom: '1px solid #242824', gap: '8px' }}>
+        <div style={{ background: 'var(--raised)', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 1px 2px rgba(0,0,0,0.3)' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 100px', padding: '9px 14px', borderBottom: '1px solid var(--hairline)', gap: '8px' }}>
             {['Relay', 'From', 'To', 'Status'].map((h) => (
-              <span key={h} style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#474D47' }}>{h}</span>
+              <span key={h} style={{ fontSize: '11px', fontWeight: 600, color: '#6B726B' }}>{h}</span>
             ))}
           </div>
           {grants.length === 0 ? (

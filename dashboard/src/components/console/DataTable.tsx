@@ -40,26 +40,24 @@ export function DataTable<T>({ columns, rows, onRowClick, emptyMessage = 'No dat
   return (
     <div
       style={{
-        background: '#1C201C',
-        border: '1px solid #242824',
-        borderRadius: '10px',
+        background: 'var(--raised)',
+        borderRadius: '12px',
         overflow: 'hidden',
+        boxShadow: '0 1px 2px rgba(0,0,0,0.3)',
       }}
     >
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
-          <tr style={{ borderBottom: '1px solid #242824' }}>
+          <tr style={{ borderBottom: '1px solid var(--hairline)' }}>
             {columns.map((col) => (
               <th
                 key={col.key}
                 style={{
                   padding: '11px 14px',
                   textAlign: 'left',
-                  fontSize: '10px',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.08em',
-                  color: '#474D47',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  color: 'var(--text-4)',
                   width: col.width,
                 }}
               >
