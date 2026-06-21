@@ -51,7 +51,7 @@ export default function ConsoleLayout({ children }: { children: React.ReactNode 
       <Topbar />
 
       {/* Below topbar */}
-      <div style={{ display: 'flex', flex: 1, paddingTop: '58px', overflow: 'hidden' }}>
+      <div style={{ display: 'flex', flex: 1, paddingTop: '86px', overflow: 'hidden' }}>
         <Sidebar />
 
         {/* Content wrap — same bg as sidebar so the curve looks correct */}

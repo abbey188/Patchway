@@ -53,7 +53,7 @@ export function Sidebar() {
     <aside
       style={{
         position: 'fixed',
-        top: '58px',
+        top: '86px',
         left: 0,
         bottom: 0,
         width: '240px',
