@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import { ArrowLeft, ExternalLink } from 'lucide-react'
 import { StatusBadge } from '@/components/console/StatusBadge'
 import { MonoId } from '@/components/console/MonoId'
+import { RelayTrace } from '@/components/console/RelayTrace'
 
 function formatRelTime(iso: string | null): string {
   if (!iso) return '—'
@@ -252,6 +253,20 @@ export default function RelayDetailPage({ params }: Props) {
         >
           Suivision <ExternalLink size={11} />
         </a>
+      </div>
+
+      {/* ═══ RELAY TRACE (hero) ═══ */}
+      <div style={{ background: 'var(--surface)', borderRadius: '14px', padding: '22px 26px', marginBottom: '18px' }}>
+        <RelayTrace
+          fromSeed={relay.from_channel}
+          fromLabel={`${relay.from_channel.slice(0, 8)}…`}
+          toSeed={relay.to_channel}
+          toLabel={`${relay.to_channel.slice(0, 8)}…`}
+          status={relay.statusLabel}
+          createdAt={relay.created_at}
+          grantedAt={accessWindow?.grantedAtEpoch ?? relay.accepted_at}
+          revokedAt={accessWindow?.revokedAtEpoch ?? relay.completed_at}
+        />
       </div>
 
       {/* ═══ VERIFICATION ═══ */}
