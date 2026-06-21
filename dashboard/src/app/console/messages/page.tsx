@@ -142,11 +142,11 @@ export default function MessagesPage() {
                   }}
                 >
                   <div style={{ position: 'relative', width: '38px', height: '32px', flexShrink: 0 }}>
-                    <div style={{ position: 'absolute', left: 0, top: 1, zIndex: 2, borderRadius: '50%', border: '2px solid #141614', lineHeight: 0 }}>
-                      <AgentAvatar seed={convo.channelIdA} size={24} />
+                    <div style={{ position: 'absolute', left: 0, top: 1, zIndex: 2, lineHeight: 0 }}>
+                      <AgentAvatar seed={convo.channelIdA} size={24} ring="var(--surface)" />
                     </div>
-                    <div style={{ position: 'absolute', left: '14px', top: 7, zIndex: 1, borderRadius: '50%', border: '2px solid #141614', lineHeight: 0 }}>
-                      <AgentAvatar seed={convo.channelIdB} size={24} />
+                    <div style={{ position: 'absolute', left: '14px', top: 7, zIndex: 1, lineHeight: 0 }}>
+                      <AgentAvatar seed={convo.channelIdB} size={24} ring="var(--surface)" />
                     </div>
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>

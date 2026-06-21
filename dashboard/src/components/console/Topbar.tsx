@@ -351,21 +351,19 @@ export function Topbar() {
             <button
               onClick={() => setDropdownOpen((v) => !v)}
               style={{
-                width: '32px',
-                height: '32px',
+                width: '30px',
+                height: '30px',
                 borderRadius: '50%',
-                border: '1.5px solid #242824',
+                border: 'none',
                 padding: 0,
                 background: 'transparent',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                display: 'block',
                 cursor: 'pointer',
-                overflow: 'hidden',
-                transition: 'border-color 0.15s',
+                lineHeight: 0,
+                transition: 'box-shadow 0.15s',
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.borderColor = '#01703b')}
-              onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#242824')}
+              onMouseEnter={(e) => (e.currentTarget.style.boxShadow = '0 0 0 2px var(--green)')}
+              onMouseLeave={(e) => (e.currentTarget.style.boxShadow = 'none')}
             >
               <UserAvatar seed={account.address} size={30} />
             </button>

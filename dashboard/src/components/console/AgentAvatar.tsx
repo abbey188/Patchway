@@ -4,7 +4,16 @@ import { avatarTraits } from '@/lib/avatar'
 
 // A deterministic blocky creature avatar (cat/fox-ish, with a little suit collar),
 // seeded by `seed` (channelId / wallet). Renders inline SVG — crisp at any size, no network.
-export function AgentAvatar({ seed, size = 36 }: { seed: string; size?: number }) {
+export function AgentAvatar({
+  seed,
+  size = 36,
+  ring,
+}: {
+  seed: string
+  size?: number
+  /** Optional ring color (e.g. the surface behind it) — a clean circular ring, no border bleed. */
+  ring?: string
+}) {
   const t = avatarTraits(seed)
   const eye = t.darkFur ? '#ECEFEC' : '#15171A'
   const uid = `pwclip-${Math.abs(hashLite(seed))}`
@@ -16,7 +25,12 @@ export function AgentAvatar({ seed, size = 36 }: { seed: string; size?: number }
       viewBox="0 0 80 80"
       role="img"
       aria-label="agent avatar"
-      style={{ display: 'block', flexShrink: 0 }}
+      style={{
+        display: 'block',
+        flexShrink: 0,
+        borderRadius: '50%',
+        boxShadow: ring ? `0 0 0 2px ${ring}` : undefined,
+      }}
     >
       <defs>
         <clipPath id={uid}>

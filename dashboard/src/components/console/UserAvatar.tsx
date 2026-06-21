@@ -17,11 +17,18 @@ function hash(s: string): number {
   return h >>> 0
 }
 
-export function UserAvatar({ seed, size = 30 }: { seed: string; size?: number }) {
+export function UserAvatar({ seed, size = 30, ring }: { seed: string; size?: number; ring?: string }) {
   const v = VARIANTS[hash(seed) % VARIANTS.length]
   const id = `uav-${Math.abs(hash(seed))}`
   return (
-    <svg width={size} height={size} viewBox="0 0 80 80" role="img" aria-label="user avatar" style={{ display: 'block', flexShrink: 0 }}>
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 80 80"
+      role="img"
+      aria-label="user avatar"
+      style={{ display: 'block', flexShrink: 0, borderRadius: '50%', boxShadow: ring ? `0 0 0 2px ${ring}` : undefined }}
+    >
       <defs><clipPath id={id}><circle cx="40" cy="40" r="40" /></clipPath></defs>
       <g clipPath={`url(#${id})`}>
         <rect width="80" height="80" fill={v.bg} />
