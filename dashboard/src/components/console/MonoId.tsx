@@ -34,7 +34,7 @@ export function MonoId({ id, truncate = true, showCopy = false, className = '' }
         gap: '4px',
         fontFamily: "'JetBrains Mono', monospace",
         fontSize: '11px',
-        color: '#4ade80',
+        color: '#3AD17B',
         letterSpacing: '0.01em',
       }}
     >
@@ -49,7 +49,7 @@ export function MonoId({ id, truncate = true, showCopy = false, className = '' }
             padding: '1px',
             display: 'inline-flex',
             alignItems: 'center',
-            color: copied ? '#4ade80' : '#555560',
+            color: copied ? '#3AD17B' : '#474D47',
             transition: 'color 0.15s',
           }}
           title="Copy"

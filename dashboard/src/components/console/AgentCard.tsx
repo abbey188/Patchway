@@ -17,8 +17,8 @@ export function AgentCard({ agent, onClick, relayCount = 0, memoryCount = 0 }: P
     <div
       onClick={onClick}
       style={{
-        background: '#1c1c1f',
-        border: `1px solid ${isInactive ? '#2a2020' : '#2a2a2e'}`,
+        background: '#1C201C',
+        border: `1px solid ${isInactive ? '#2a2020' : '#242824'}`,
         borderRadius: '10px',
         padding: '18px 20px',
         cursor: 'pointer',
@@ -26,7 +26,7 @@ export function AgentCard({ agent, onClick, relayCount = 0, memoryCount = 0 }: P
         opacity: isInactive ? 0.6 : 1,
       }}
       onMouseEnter={(e) => (e.currentTarget.style.borderColor = isInactive ? '#5c2020' : '#01703b')}
-      onMouseLeave={(e) => (e.currentTarget.style.borderColor = isInactive ? '#2a2020' : '#2a2a2e')}
+      onMouseLeave={(e) => (e.currentTarget.style.borderColor = isInactive ? '#2a2020' : '#242824')}
     >
       {/* Header row */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
@@ -43,14 +43,14 @@ export function AgentCard({ agent, onClick, relayCount = 0, memoryCount = 0 }: P
             flexShrink: 0,
           }}
         >
-          {(() => { const Icon = getAgentIcon(agent.name); return <Icon size={16} color={isInactive ? '#888' : '#4ade80'} /> })()}
+          {(() => { const Icon = getAgentIcon(agent.name); return <Icon size={16} color={isInactive ? '#888' : '#3AD17B'} /> })()}
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div
             style={{
               fontSize: '14px',
               fontWeight: 600,
-              color: '#f0f0f5',
+              color: '#ECEFEC',
               marginBottom: '3px',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
@@ -67,8 +67,8 @@ export function AgentCard({ agent, onClick, relayCount = 0, memoryCount = 0 }: P
             borderRadius: '999px',
             fontSize: '10px',
             fontWeight: 600,
-            background: 'rgba(96,165,250,0.10)',
-            color: '#60a5fa',
+            background: 'rgba(90,166,255,0.10)',
+            color: '#5AA6FF',
           }}
         >
           channel
@@ -87,7 +87,7 @@ export function AgentCard({ agent, onClick, relayCount = 0, memoryCount = 0 }: P
                 fontSize: '10px',
                 fontWeight: 500,
                 background: 'rgba(1,112,59,0.12)',
-                color: '#4ade80',
+                color: '#3AD17B',
                 border: '1px solid rgba(1,112,59,0.2)',
               }}
             >
@@ -103,7 +103,7 @@ export function AgentCard({ agent, onClick, relayCount = 0, memoryCount = 0 }: P
           display: 'flex',
           gap: '14px',
           paddingTop: '10px',
-          borderTop: '1px solid #1e1e22',
+          borderTop: '1px solid #1A1D1A',
         }}
       >
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
@@ -113,12 +113,12 @@ export function AgentCard({ agent, onClick, relayCount = 0, memoryCount = 0 }: P
               fontWeight: 700,
               textTransform: 'uppercase',
               letterSpacing: '0.06em',
-              color: '#555560',
+              color: '#474D47',
             }}
           >
             Memories
           </span>
-          <span style={{ fontSize: '14px', fontWeight: 700, color: '#f0f0f5' }}>{memoryCount}</span>
+          <span style={{ fontSize: '14px', fontWeight: 700, color: '#ECEFEC' }}>{memoryCount}</span>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
           <span
@@ -127,12 +127,12 @@ export function AgentCard({ agent, onClick, relayCount = 0, memoryCount = 0 }: P
               fontWeight: 700,
               textTransform: 'uppercase',
               letterSpacing: '0.06em',
-              color: '#555560',
+              color: '#474D47',
             }}
           >
             Relays
           </span>
-          <span style={{ fontSize: '14px', fontWeight: 700, color: '#f0f0f5' }}>{relayCount}</span>
+          <span style={{ fontSize: '14px', fontWeight: 700, color: '#ECEFEC' }}>{relayCount}</span>
         </div>
         <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '6px' }}>
           <span
@@ -141,8 +141,8 @@ export function AgentCard({ agent, onClick, relayCount = 0, memoryCount = 0 }: P
               borderRadius: '999px',
               fontSize: '10px',
               fontWeight: 600,
-              background: isInactive ? 'rgba(239,68,68,0.10)' : 'rgba(74,222,128,0.10)',
-              color: isInactive ? '#ef4444' : '#4ade80',
+              background: isInactive ? 'rgba(239,68,68,0.10)' : 'rgba(58,209,123,0.10)',
+              color: isInactive ? '#ef4444' : '#3AD17B',
             }}
           >
             {isInactive ? 'inactive' : 'active'}

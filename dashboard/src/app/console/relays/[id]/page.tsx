@@ -23,13 +23,13 @@ function formatRelTime(iso: string | null): string {
 function SectionCard({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div style={{
-      background: '#1c1c1f',
-      border: '1px solid #2a2a2e',
+      background: '#1C201C',
+      border: '1px solid #242824',
       borderRadius: '10px',
       padding: '18px 20px',
       marginBottom: '16px',
     }}>
-      <div style={{ fontSize: '15px', fontWeight: 600, color: '#f0f0f5', marginBottom: '14px' }}>
+      <div style={{ fontSize: '15px', fontWeight: 600, color: '#ECEFEC', marginBottom: '14px' }}>
         {title}
       </div>
       {children}
@@ -43,12 +43,12 @@ function InfoRow({ label, children }: { label: string; children: React.ReactNode
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      borderBottom: '1px solid #1e1e22',
+      borderBottom: '1px solid #1A1D1A',
       paddingBottom: '10px',
       marginBottom: '10px',
     }}>
-      <span style={{ fontSize: '12px', color: '#555560' }}>{label}</span>
-      <span style={{ fontSize: '12px', color: '#aaaabc' }}>{children}</span>
+      <span style={{ fontSize: '12px', color: '#474D47' }}>{label}</span>
+      <span style={{ fontSize: '12px', color: '#9BA39B' }}>{children}</span>
     </div>
   )
 }
@@ -61,14 +61,14 @@ function VerifyBadge({ pass, label }: { pass: boolean; label: string }) {
       gap: '6px',
       padding: '4px 10px',
       borderRadius: '6px',
-      background: pass ? 'rgba(74,222,128,0.10)' : 'rgba(248,113,113,0.10)',
+      background: pass ? 'rgba(58,209,123,0.10)' : 'rgba(242,112,107,0.10)',
       marginRight: '8px',
       marginBottom: '6px',
     }}>
-      <span style={{ fontSize: '11px', fontWeight: 600, color: pass ? '#4ade80' : '#f87171' }}>
+      <span style={{ fontSize: '11px', fontWeight: 600, color: pass ? '#3AD17B' : '#F2706B' }}>
         {pass ? 'PASS' : 'FAIL'}
       </span>
-      <span style={{ fontSize: '10px', color: pass ? '#4ade80' : '#f87171', opacity: 0.7 }}>
+      <span style={{ fontSize: '10px', color: pass ? '#3AD17B' : '#F2706B', opacity: 0.7 }}>
         {label}
       </span>
     </div>
@@ -107,15 +107,15 @@ function LifecycleBar({ status, createdAt, acceptedAt, completedAt, grantedAtEpo
               width: '14px',
               height: '14px',
               borderRadius: '50%',
-              background: stage.reached ? '#01703b' : '#2a2a2e',
-              border: stage.reached ? '2px solid #4ade80' : '2px solid #2a2a2e',
+              background: stage.reached ? '#01703b' : '#242824',
+              border: stage.reached ? '2px solid #3AD17B' : '2px solid #242824',
               flexShrink: 0,
             }} />
-            <span style={{ fontSize: '11px', fontWeight: 600, color: stage.reached ? '#4ade80' : '#555560', whiteSpace: 'nowrap' }}>
+            <span style={{ fontSize: '11px', fontWeight: 600, color: stage.reached ? '#3AD17B' : '#474D47', whiteSpace: 'nowrap' }}>
               {stage.label}
             </span>
             {stage.time && (
-              <span style={{ fontSize: '10px', color: '#555560', whiteSpace: 'nowrap' }}>
+              <span style={{ fontSize: '10px', color: '#474D47', whiteSpace: 'nowrap' }}>
                 epoch {stage.time}
               </span>
             )}
@@ -124,7 +124,7 @@ function LifecycleBar({ status, createdAt, acceptedAt, completedAt, grantedAtEpo
             <div style={{
               flex: 1,
               height: '2px',
-              background: stages[i + 1].reached ? '#01703b' : '#2a2a2e',
+              background: stages[i + 1].reached ? '#01703b' : '#242824',
               margin: '-14px 8px 20px',
             }} />
           )}
@@ -137,8 +137,8 @@ function LifecycleBar({ status, createdAt, acceptedAt, completedAt, grantedAtEpo
 function ParticipantCard({ label, channelId, agentName }: { label: string; channelId: string; agentName?: string }) {
   return (
     <div style={{
-      background: '#1c1c1f',
-      border: '1px solid #2a2a2e',
+      background: '#1C201C',
+      border: '1px solid #242824',
       borderRadius: '10px',
       padding: '18px 20px',
       flex: 1,
@@ -148,13 +148,13 @@ function ParticipantCard({ label, channelId, agentName }: { label: string; chann
         fontWeight: 700,
         textTransform: 'uppercase',
         letterSpacing: '0.08em',
-        color: '#555560',
+        color: '#474D47',
         marginBottom: '10px',
       }}>
         {label}
       </div>
       {agentName && (
-        <div style={{ fontSize: '14px', fontWeight: 600, color: '#f0f0f5', marginBottom: '6px' }}>
+        <div style={{ fontSize: '14px', fontWeight: 600, color: '#ECEFEC', marginBottom: '6px' }}>
           {agentName}
         </div>
       )}
@@ -198,7 +198,7 @@ export default function RelayDetailPage({ params }: Props) {
   })
 
   if (isPending) {
-    return <div style={{ padding: '20px', color: '#555560', fontSize: '13px' }}>Verifying relay across Sui, Walrus, and Messaging...</div>
+    return <div style={{ padding: '20px', color: '#474D47', fontSize: '13px' }}>Verifying relay across Sui, Walrus, and Messaging...</div>
   }
 
   if (!verification?.relay) {
@@ -206,11 +206,11 @@ export default function RelayDetailPage({ params }: Props) {
       <div>
         <button
           onClick={() => router.push('/console/relays')}
-          style={{ display: 'flex', alignItems: 'center', gap: '5px', background: 'none', border: 'none', color: '#555560', fontSize: '13px', cursor: 'pointer', marginBottom: '16px', padding: 0 }}
+          style={{ display: 'flex', alignItems: 'center', gap: '5px', background: 'none', border: 'none', color: '#474D47', fontSize: '13px', cursor: 'pointer', marginBottom: '16px', padding: 0 }}
         >
           <ArrowLeft size={14} /> Back to relays
         </button>
-        <div style={{ color: '#555560', fontSize: '14px' }}>Relay not found on-chain</div>
+        <div style={{ color: '#474D47', fontSize: '14px' }}>Relay not found on-chain</div>
       </div>
     )
   }
@@ -230,9 +230,9 @@ export default function RelayDetailPage({ params }: Props) {
       {/* Back */}
       <button
         onClick={() => router.push('/console/relays')}
-        style={{ display: 'flex', alignItems: 'center', gap: '5px', background: 'none', border: 'none', color: '#555560', fontSize: '13px', cursor: 'pointer', marginBottom: '18px', padding: 0 }}
-        onMouseEnter={(e) => (e.currentTarget.style.color = '#aaaabc')}
-        onMouseLeave={(e) => (e.currentTarget.style.color = '#555560')}
+        style={{ display: 'flex', alignItems: 'center', gap: '5px', background: 'none', border: 'none', color: '#474D47', fontSize: '13px', cursor: 'pointer', marginBottom: '18px', padding: 0 }}
+        onMouseEnter={(e) => (e.currentTarget.style.color = '#9BA39B')}
+        onMouseLeave={(e) => (e.currentTarget.style.color = '#474D47')}
       >
         <ArrowLeft size={14} /> Back to relays
       </button>
@@ -240,7 +240,7 @@ export default function RelayDetailPage({ params }: Props) {
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px', flexWrap: 'wrap' }}>
         <StatusBadge status={relay.statusLabel} />
-        <h1 style={{ fontSize: '19px', fontWeight: 700, color: '#f0f0f5', letterSpacing: '-0.02em' }}>
+        <h1 style={{ fontSize: '19px', fontWeight: 700, color: '#ECEFEC', letterSpacing: '-0.02em' }}>
           Relay
         </h1>
         <MonoId id={id} truncate showCopy />
@@ -248,7 +248,7 @@ export default function RelayDetailPage({ params }: Props) {
           href={`https://testnet.suivision.xyz/object/${id}`}
           target="_blank"
           rel="noopener noreferrer"
-          style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '11px', color: '#555560', textDecoration: 'none' }}
+          style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '11px', color: '#474D47', textDecoration: 'none' }}
         >
           Suivision <ExternalLink size={11} />
         </a>
@@ -269,14 +269,14 @@ export default function RelayDetailPage({ params }: Props) {
           gap: '8px',
           padding: '10px 14px',
           borderRadius: '8px',
-          background: passedChecks === totalChecks ? 'rgba(74,222,128,0.06)' : 'rgba(248,113,113,0.06)',
-          border: `1px solid ${passedChecks === totalChecks ? 'rgba(74,222,128,0.15)' : 'rgba(248,113,113,0.15)'}`,
+          background: passedChecks === totalChecks ? 'rgba(58,209,123,0.06)' : 'rgba(242,112,107,0.06)',
+          border: `1px solid ${passedChecks === totalChecks ? 'rgba(58,209,123,0.15)' : 'rgba(242,112,107,0.15)'}`,
         }}>
           <span style={{ fontSize: '18px' }}>{passedChecks === totalChecks ? '✓' : '✗'}</span>
-          <span style={{ fontSize: '12px', fontWeight: 600, color: passedChecks === totalChecks ? '#4ade80' : '#f87171' }}>
+          <span style={{ fontSize: '12px', fontWeight: 600, color: passedChecks === totalChecks ? '#3AD17B' : '#F2706B' }}>
             {passedChecks}/{totalChecks} checks passed
           </span>
-          <span style={{ fontSize: '11px', color: '#555560', marginLeft: '4px' }}>
+          <span style={{ fontSize: '11px', color: '#474D47', marginLeft: '4px' }}>
             Sui (on-chain) + Walrus (storage) + SHA-256 (integrity)
           </span>
         </div>
@@ -300,18 +300,18 @@ export default function RelayDetailPage({ params }: Props) {
             gap: '8px',
             padding: '10px 14px',
             borderRadius: '8px',
-            background: revocationProven === true ? 'rgba(74,222,128,0.06)' : revocationProven === false ? 'rgba(248,113,113,0.06)' : 'rgba(82,82,91,0.10)',
-            border: `1px solid ${revocationProven === true ? 'rgba(74,222,128,0.15)' : revocationProven === false ? 'rgba(248,113,113,0.15)' : '#2a2a2e'}`,
+            background: revocationProven === true ? 'rgba(58,209,123,0.06)' : revocationProven === false ? 'rgba(242,112,107,0.06)' : 'rgba(82,82,91,0.10)',
+            border: `1px solid ${revocationProven === true ? 'rgba(58,209,123,0.15)' : revocationProven === false ? 'rgba(242,112,107,0.15)' : '#242824'}`,
           }}>
             <span style={{ fontSize: '16px' }}>{revocationProven === true ? '✓' : revocationProven === false ? '✗' : '•'}</span>
-            <span style={{ fontSize: '12px', fontWeight: 600, color: revocationProven === true ? '#4ade80' : revocationProven === false ? '#f87171' : '#aaaabc' }}>
+            <span style={{ fontSize: '12px', fontWeight: 600, color: revocationProven === true ? '#3AD17B' : revocationProven === false ? '#F2706B' : '#9BA39B' }}>
               {revocationProven === true
                 ? 'Revocation proven on-chain'
                 : revocationProven === false
                   ? 'Granted key still present on-chain'
                   : 'Revocation proof unavailable'}
             </span>
-            <span style={{ fontSize: '11px', color: '#555560', marginLeft: '4px' }}>
+            <span style={{ fontSize: '11px', color: '#474D47', marginLeft: '4px' }}>
               the granted delegate key is verified absent from the sender&apos;s memory account
             </span>
           </div>
@@ -330,11 +330,11 @@ export default function RelayDetailPage({ params }: Props) {
           <InfoRow label="Summary">{digest.completed}</InfoRow>
           {digest.keyFindings?.length > 0 && (
             <div style={{ marginBottom: '10px' }}>
-              <span style={{ fontSize: '12px', color: '#555560', display: 'block', marginBottom: '6px' }}>Key Findings</span>
+              <span style={{ fontSize: '12px', color: '#474D47', display: 'block', marginBottom: '6px' }}>Key Findings</span>
               {digest.keyFindings.map((f: string, i: number) => (
                 <div key={i} style={{
                   fontSize: '11px',
-                  color: '#aaaabc',
+                  color: '#9BA39B',
                   padding: '6px 10px',
                   background: 'rgba(255,255,255,0.02)',
                   borderLeft: '2px solid #01703b',
@@ -349,13 +349,13 @@ export default function RelayDetailPage({ params }: Props) {
           {digest.nextStep && <InfoRow label="Next Step">{digest.nextStep}</InfoRow>}
           {digest.confidence != null && (
             <InfoRow label="Confidence">
-              <span style={{ fontFamily: "'JetBrains Mono', monospace", color: '#4ade80' }}>
+              <span style={{ fontFamily: "'JetBrains Mono', monospace", color: '#3AD17B' }}>
                 {(digest.confidence * 100).toFixed(0)}%
               </span>
             </InfoRow>
           )}
           <div style={{ borderBottom: 'none', marginBottom: 0, paddingBottom: 0 }}>
-            <span style={{ fontSize: '10px', color: '#555560' }}>Blob ID: </span>
+            <span style={{ fontSize: '10px', color: '#474D47' }}>Blob ID: </span>
             <MonoId id={relay.digest_blob_id} truncate showCopy />
           </div>
         </SectionCard>
@@ -370,17 +370,17 @@ export default function RelayDetailPage({ params }: Props) {
               alignItems: 'center',
               justifyContent: 'space-between',
               padding: '8px 0',
-              borderBottom: '1px solid #1e1e22',
+              borderBottom: '1px solid #1A1D1A',
             }}>
               <MonoId id={a.blobId} truncate showCopy />
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <span style={{
                   fontSize: '10px',
                   fontWeight: 600,
-                  color: a.available ? '#4ade80' : '#f87171',
+                  color: a.available ? '#3AD17B' : '#F2706B',
                   padding: '2px 6px',
                   borderRadius: '4px',
-                  background: a.available ? 'rgba(74,222,128,0.10)' : 'rgba(248,113,113,0.10)',
+                  background: a.available ? 'rgba(58,209,123,0.10)' : 'rgba(242,112,107,0.10)',
                 }}>
                   {a.available ? 'ON WALRUS' : 'MISSING'}
                 </span>
@@ -389,7 +389,7 @@ export default function RelayDetailPage({ params }: Props) {
                     href={`https://walruscan.com/testnet/blob/${a.blobId}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ color: '#555560' }}
+                    style={{ color: '#474D47' }}
                   >
                     <ExternalLink size={11} />
                   </a>
@@ -407,7 +407,7 @@ export default function RelayDetailPage({ params }: Props) {
           {grant.revokedAt && <InfoRow label="Revoked">{formatRelTime(grant.revokedAt)}</InfoRow>}
           {grant.timeoutMinutes && <InfoRow label="Timeout">{grant.timeoutMinutes} minutes</InfoRow>}
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <span style={{ fontSize: '12px', color: '#555560' }}>Status</span>
+            <span style={{ fontSize: '12px', color: '#474D47' }}>Status</span>
             <StatusBadge status={grant.status === 'revoked' ? 'completed' : 'accepted'} />
           </div>
         </SectionCard>
@@ -420,7 +420,7 @@ export default function RelayDetailPage({ params }: Props) {
             <div key={entry.id} style={{
               padding: '8px 10px',
               background: 'rgba(255,255,255,0.02)',
-              borderLeft: `2px solid ${entry.entry_type === 'analyze' ? '#4ade80' : '#333'}`,
+              borderLeft: `2px solid ${entry.entry_type === 'analyze' ? '#3AD17B' : '#2A2E2A'}`,
               borderRadius: '0 4px 4px 0',
               marginBottom: '6px',
             }}>
@@ -429,18 +429,18 @@ export default function RelayDetailPage({ params }: Props) {
                   fontSize: '10px',
                   fontWeight: 600,
                   textTransform: 'uppercase',
-                  color: entry.entry_type === 'analyze' ? '#4ade80' : '#52525b',
+                  color: entry.entry_type === 'analyze' ? '#3AD17B' : '#5A615A',
                   padding: '1px 5px',
                   borderRadius: '3px',
-                  background: entry.entry_type === 'analyze' ? 'rgba(74,222,128,0.08)' : 'rgba(82,82,91,0.12)',
+                  background: entry.entry_type === 'analyze' ? 'rgba(58,209,123,0.08)' : 'rgba(82,82,91,0.12)',
                 }}>
                   {entry.entry_type}
                 </span>
-                <span style={{ fontSize: '10px', color: '#555560' }}>
+                <span style={{ fontSize: '10px', color: '#474D47' }}>
                   {agentNames[entry.agent_channel_id] ?? entry.agent_channel_id.slice(0, 10)}
                 </span>
               </div>
-              <div style={{ fontSize: '11px', color: '#aaaabc', lineHeight: '1.5' }}>
+              <div style={{ fontSize: '11px', color: '#9BA39B', lineHeight: '1.5' }}>
                 {entry.content_preview}
               </div>
               {entry.blob_id && (
@@ -468,26 +468,26 @@ export default function RelayDetailPage({ params }: Props) {
                 background: 'rgba(255,255,255,0.02)',
                 borderRadius: '6px',
                 marginBottom: '8px',
-                borderLeft: '2px solid #f59e0b',
+                borderLeft: '2px solid #F2B23E',
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                  <span style={{ fontSize: '12px', fontWeight: 600, color: '#f0f0f5' }}>
+                  <span style={{ fontSize: '12px', fontWeight: 600, color: '#ECEFEC' }}>
                     {agentNames[entry.agent_channel_id] ?? 'Agent'}
                   </span>
                   {rating && (
                     <span style={{
                       fontSize: '11px',
                       fontWeight: 600,
-                      color: '#f59e0b',
+                      color: '#F2B23E',
                       padding: '2px 8px',
                       borderRadius: '4px',
-                      background: 'rgba(245,158,11,0.10)',
+                      background: 'rgba(242,178,62,0.10)',
                     }}>
                       {rating}/5
                     </span>
                   )}
                 </div>
-                <div style={{ fontSize: '11px', color: '#aaaabc', lineHeight: '1.5' }}>
+                <div style={{ fontSize: '11px', color: '#9BA39B', lineHeight: '1.5' }}>
                   {note}
                 </div>
               </div>
@@ -501,7 +501,7 @@ export default function RelayDetailPage({ params }: Props) {
         <InfoRow label="Sender"><MonoId id={relay.sender} truncate showCopy /></InfoRow>
         <InfoRow label="MemWal Account"><MonoId id={relay.from_memwal_account_id} truncate showCopy /></InfoRow>
         <InfoRow label="Namespace">
-          <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', color: '#4ade80' }}>
+          <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', color: '#3AD17B' }}>
             {relay.memwal_namespace}
           </span>
         </InfoRow>

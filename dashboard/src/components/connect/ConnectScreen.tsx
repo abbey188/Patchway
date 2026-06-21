@@ -36,7 +36,7 @@ export function ConnectScreen() {
     <div
       style={{
         minHeight: '100vh',
-        background: '#111113',
+        background: '#0C0D0C',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -46,22 +46,9 @@ export function ConnectScreen() {
     >
       <div
         style={{
-          position: 'absolute',
-          top: '40%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: '800px',
-          height: '800px',
-          background: 'radial-gradient(circle, rgba(1,112,59,0.10) 0%, transparent 65%)',
-          pointerEvents: 'none',
-        }}
-      />
-
-      <div
-        style={{
           width: '420px',
-          background: '#1c1c1f',
-          border: '1px solid #2a2a2e',
+          background: '#1C201C',
+          border: '1px solid #242824',
           borderRadius: '18px',
           padding: '48px 40px 36px',
           display: 'flex',
@@ -86,7 +73,7 @@ export function ConnectScreen() {
               style={{
                 fontSize: '21px',
                 fontWeight: 700,
-                color: '#f0f0f5',
+                color: '#ECEFEC',
                 letterSpacing: '-0.02em',
               }}
             >
@@ -96,7 +83,7 @@ export function ConnectScreen() {
           <p
             style={{
               fontSize: '13px',
-              color: '#666672',
+              color: '#6B726B',
               lineHeight: '1.4',
             }}
           >
@@ -111,7 +98,7 @@ export function ConnectScreen() {
               alignItems: 'center',
               justifyContent: 'center',
               gap: '10px',
-              color: '#4ade80',
+              color: '#3AD17B',
               fontSize: '14px',
               fontWeight: 500,
               padding: '12px 0',
@@ -126,7 +113,7 @@ export function ConnectScreen() {
               onClick={() => setShowWallets(!showWallets)}
               style={{
                 background: '#ffffff',
-                color: '#111113',
+                color: '#0C0D0C',
                 border: 'none',
                 borderRadius: '10px',
                 padding: '12px 32px',
@@ -152,8 +139,8 @@ export function ConnectScreen() {
                   top: 'calc(100% + 8px)',
                   left: '50%',
                   transform: 'translateX(-50%)',
-                  background: '#1a1a1e',
-                  border: '1px solid #2a2a2e',
+                  background: '#1C201C',
+                  border: '1px solid #242824',
                   borderRadius: '10px',
                   padding: '6px',
                   minWidth: '220px',
@@ -162,7 +149,7 @@ export function ConnectScreen() {
                 }}
               >
                 {wallets.length === 0 ? (
-                  <div style={{ padding: '12px 14px', color: '#555560', fontSize: '12px', textAlign: 'center' }}>
+                  <div style={{ padding: '12px 14px', color: '#474D47', fontSize: '12px', textAlign: 'center' }}>
                     No wallets detected
                   </div>
                 ) : (
@@ -195,7 +182,7 @@ export function ConnectScreen() {
                           style={{ borderRadius: '4px' }}
                         />
                       )}
-                      <span style={{ fontSize: '13px', fontWeight: 500, color: '#f0f0f5' }}>
+                      <span style={{ fontSize: '13px', fontWeight: 500, color: '#ECEFEC' }}>
                         {wallet.name}
                       </span>
                     </button>

@@ -80,14 +80,14 @@ export default function AgentsPage() {
           style={{
             fontSize: '19px',
             fontWeight: 700,
-            color: '#f0f0f5',
+            color: '#ECEFEC',
             letterSpacing: '-0.02em',
             marginBottom: '2px',
           }}
         >
           Agents
         </h1>
-        <p style={{ fontSize: '13px', color: '#666672' }}>
+        <p style={{ fontSize: '13px', color: '#6B726B' }}>
           Channels registered under your wallet
         </p>
       </div>
@@ -104,8 +104,8 @@ export default function AgentsPage() {
             <div
               key={i}
               style={{
-                background: '#1c1c1f',
-                border: '1px solid #2a2a2e',
+                background: '#1C201C',
+                border: '1px solid #242824',
                 borderRadius: '10px',
                 height: '140px',
               }}
@@ -115,12 +115,12 @@ export default function AgentsPage() {
       ) : agents.length === 0 ? (
         <div
           style={{
-            background: '#1c1c1f',
-            border: '1px solid #2a2a2e',
+            background: '#1C201C',
+            border: '1px solid #242824',
             borderRadius: '10px',
             padding: '40px',
             textAlign: 'center',
-            color: '#555560',
+            color: '#474D47',
             fontSize: '13px',
           }}
         >

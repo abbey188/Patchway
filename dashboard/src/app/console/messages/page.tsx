@@ -57,18 +57,18 @@ export default function MessagesPage() {
   return (
     <div>
       <div style={{ marginBottom: '18px' }}>
-        <h1 style={{ fontSize: '19px', fontWeight: 700, color: '#f0f0f5', letterSpacing: '-0.02em', marginBottom: '3px' }}>
+        <h1 style={{ fontSize: '19px', fontWeight: 700, color: '#ECEFEC', letterSpacing: '-0.02em', marginBottom: '3px' }}>
           Messages
         </h1>
-        <p style={{ fontSize: '13px', color: '#666672' }}>
+        <p style={{ fontSize: '13px', color: '#6B726B' }}>
           Agent-to-agent conversations
         </p>
       </div>
 
       <div
         style={{
-          background: '#1c1c1f',
-          border: '1px solid #2a2a2e',
+          background: '#1C201C',
+          border: '1px solid #242824',
           borderRadius: '10px',
           overflow: 'hidden',
           display: 'flex',
@@ -79,7 +79,7 @@ export default function MessagesPage() {
         <div
           style={{
             width: '240px',
-            borderRight: '1px solid #2a2a2e',
+            borderRight: '1px solid #242824',
             overflow: 'auto',
             flexShrink: 0,
           }}
@@ -91,8 +91,8 @@ export default function MessagesPage() {
               fontWeight: 700,
               textTransform: 'uppercase',
               letterSpacing: '0.08em',
-              color: '#555560',
-              borderBottom: '1px solid #1e1e22',
+              color: '#474D47',
+              borderBottom: '1px solid #1A1D1A',
             }}
           >
             Conversations
@@ -111,7 +111,7 @@ export default function MessagesPage() {
               />
             ))
           ) : enrichedConvos.length === 0 ? (
-            <div style={{ padding: '20px 14px', color: '#555560', fontSize: '12px' }}>
+            <div style={{ padding: '20px 14px', color: '#474D47', fontSize: '12px' }}>
               No conversations yet
             </div>
           ) : (
@@ -163,7 +163,7 @@ export default function MessagesPage() {
                               zIndex: 2,
                             }}
                           >
-                            <IconA size={12} color="#4ade80" />
+                            <IconA size={12} color="#3AD17B" />
                           </div>
                           <div
                             style={{
@@ -174,21 +174,21 @@ export default function MessagesPage() {
                               height: '26px',
                               borderRadius: '7px',
                               background: 'rgba(1,112,59,0.10)',
-                              border: '1px solid #1c1c1f',
+                              border: '1px solid #1C201C',
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
                               zIndex: 1,
                             }}
                           >
-                            <IconB size={12} color="#4ade80" />
+                            <IconB size={12} color="#3AD17B" />
                           </div>
                         </>
                       )
                     })()}
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: '12px', fontWeight: 600, color: '#f0f0f5', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    <div style={{ fontSize: '12px', fontWeight: 600, color: '#ECEFEC', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                       {convo.agentNameA} ↔ {convo.agentNameB}
                     </div>
                   </div>
@@ -206,7 +206,7 @@ export default function MessagesPage() {
               <div
                 style={{
                   padding: '12px 16px',
-                  borderBottom: '1px solid #1e1e22',
+                  borderBottom: '1px solid #1A1D1A',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '10px',
@@ -217,22 +217,22 @@ export default function MessagesPage() {
                   const IconA = getAgentIcon(selectedConvo.agentNameA)
                   const IconB = getAgentIcon(selectedConvo.agentNameB)
                   return (
-                    <span style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', fontWeight: 600, color: '#f0f0f5' }}>
-                      <IconA size={14} color="#4ade80" />
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', fontWeight: 600, color: '#ECEFEC' }}>
+                      <IconA size={14} color="#3AD17B" />
                       {selectedConvo.agentNameA}
-                      <span style={{ color: '#555560' }}>↔</span>
-                      <IconB size={14} color="#4ade80" />
+                      <span style={{ color: '#474D47' }}>↔</span>
+                      <IconB size={14} color="#3AD17B" />
                       {selectedConvo.agentNameB}
                     </span>
                   )
                 })()}
                 <StatusBadge status="verified" />
-                <span style={{ marginLeft: 'auto', fontSize: '11px', color: '#555560' }}>
+                <span style={{ marginLeft: 'auto', fontSize: '11px', color: '#474D47' }}>
                   {messages?.length ?? 0} messages
                 </span>
               </div>
               {messagesPending ? (
-                <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#555560', fontSize: '12px' }}>
+                <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#474D47', fontSize: '12px' }}>
                   Loading messages…
                 </div>
               ) : (
@@ -249,7 +249,7 @@ export default function MessagesPage() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#555560',
+                color: '#474D47',
                 fontSize: '13px',
               }}
             >

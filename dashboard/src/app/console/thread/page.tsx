@@ -19,8 +19,8 @@ function inferScope(entry: ThreadEntry): Exclude<Scope, 'all'> {
 }
 
 const SCOPE_STYLES: Record<Exclude<Scope, 'all'>, { color: string; bg: string }> = {
-  thread: { color: '#60a5fa', bg: 'rgba(96,165,250,0.08)' },
-  session: { color: '#4ade80', bg: 'rgba(74,222,128,0.08)' },
+  thread: { color: '#5AA6FF', bg: 'rgba(90,166,255,0.08)' },
+  session: { color: '#3AD17B', bg: 'rgba(58,209,123,0.08)' },
   feedback: { color: '#facc15', bg: 'rgba(250,204,21,0.08)' },
   result: { color: '#f97316', bg: 'rgba(249,115,22,0.08)' },
 }
@@ -66,9 +66,9 @@ function EntryTypeBadge({ type }: { type: EntryType }) {
         padding: '3px 8px',
         fontSize: '10px',
         fontWeight: 600,
-        background: isFact ? 'rgba(74,222,128,0.08)' : 'rgba(82,82,91,0.12)',
-        color: isFact ? '#4ade80' : '#888',
-        borderLeft: isFact ? '2px solid #4ade80' : '2px solid #444',
+        background: isFact ? 'rgba(58,209,123,0.08)' : 'rgba(82,82,91,0.12)',
+        color: isFact ? '#3AD17B' : '#888',
+        borderLeft: isFact ? '2px solid #3AD17B' : '2px solid #444',
         borderRadius: '0 4px 4px 0',
       }}
     >
@@ -131,7 +131,7 @@ function ThreadEntryRow({
   })
 
   return (
-    <div style={{ borderBottom: '1px solid #1e1e22', transition: 'background 0.1s' }}>
+    <div style={{ borderBottom: '1px solid #1A1D1A', transition: 'background 0.1s' }}>
       <div
         onClick={onToggle}
         style={{
@@ -147,7 +147,7 @@ function ThreadEntryRow({
       >
         <ChevronRight
           size={14}
-          color="#555560"
+          color="#474D47"
           style={{
             transition: 'transform 0.15s',
             transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)',
@@ -155,11 +155,11 @@ function ThreadEntryRow({
         />
         <EntryTypeBadge type={entry.entryType} />
         <ScopeBadge scope={scope} />
-        <span style={{ fontSize: '12px', color: '#aaaabc' }}>{agentName}</span>
+        <span style={{ fontSize: '12px', color: '#9BA39B' }}>{agentName}</span>
         <span
           style={{
             fontSize: '12px',
-            color: '#aaaabc',
+            color: '#9BA39B',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
@@ -168,7 +168,7 @@ function ThreadEntryRow({
           {entry.contentPreview ?? '—'}
         </span>
         <span style={{ fontSize: '12px' }}>
-          {entry.relayId ? <MonoId id={entry.relayId} truncate /> : <span style={{ color: '#555560' }}>{'—'}</span>}
+          {entry.relayId ? <MonoId id={entry.relayId} truncate /> : <span style={{ color: '#474D47' }}>{'—'}</span>}
         </span>
         {entry.blobId ? (
           <a
@@ -179,20 +179,20 @@ function ThreadEntryRow({
             style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', textDecoration: 'none' }}
           >
             <MonoId id={entry.blobId} truncate />
-            <ExternalLink size={10} color="#555560" />
+            <ExternalLink size={10} color="#474D47" />
           </a>
         ) : (
-          <span style={{ color: '#555560', fontSize: '11px' }}>{'—'}</span>
+          <span style={{ color: '#474D47', fontSize: '11px' }}>{'—'}</span>
         )}
-        <span style={{ fontSize: '11px', color: '#666672' }}>{formatRelTime(entry.createdAt)}</span>
+        <span style={{ fontSize: '11px', color: '#6B726B' }}>{formatRelTime(entry.createdAt)}</span>
       </div>
 
       {isExpanded && (
         <div style={{ padding: '0 14px 16px 46px', animation: 'fadeSlideIn 0.15s ease-out' }}>
           <div
             style={{
-              background: '#161618',
-              border: '1px solid #2a2a2e',
+              background: '#141614',
+              border: '1px solid #242824',
               borderRadius: '8px',
               padding: '16px',
               maxHeight: '400px',
@@ -200,7 +200,7 @@ function ThreadEntryRow({
             }}
           >
             {blobLoading && hasBlobId ? (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#555560', fontSize: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#474D47', fontSize: '12px' }}>
                 <Loader2 size={13} style={{ animation: 'spin 1s linear infinite' }} />
                 Fetching from Walrus...
               </div>
@@ -220,8 +220,8 @@ function ThreadEntryRow({
                   {fullContent ?? entry.contentPreview ?? 'No content available'}
                 </pre>
                 {blobError && !fullContent && hasBlobId && (
-                  <div style={{ marginTop: '10px', fontSize: '11px', color: '#555560', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                    <span style={{ color: '#f59e0b' }}>{'●'}</span>
+                  <div style={{ marginTop: '10px', fontSize: '11px', color: '#474D47', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                    <span style={{ color: '#F2B23E' }}>{'●'}</span>
                     Encrypted on Walrus — showing cached preview
                   </div>
                 )}
@@ -282,10 +282,10 @@ export default function ThreadPage() {
   return (
     <div>
       <div style={{ marginBottom: '20px' }}>
-        <h1 style={{ fontSize: '19px', fontWeight: 700, color: '#f0f0f5', letterSpacing: '-0.02em', marginBottom: '2px' }}>
+        <h1 style={{ fontSize: '19px', fontWeight: 700, color: '#ECEFEC', letterSpacing: '-0.02em', marginBottom: '2px' }}>
           Thread
         </h1>
-        <p style={{ fontSize: '13px', color: '#666672' }}>
+        <p style={{ fontSize: '13px', color: '#6B726B' }}>
           All memory entries stored on Walrus via MemWal
         </p>
       </div>
@@ -295,7 +295,7 @@ export default function ThreadPage() {
         {(['all', 'thread', 'session', 'feedback', 'result'] as Scope[]).map((s) => {
           const active = scopeFilter === s
           const count = scopeCounts[s]
-          const color = s === 'all' ? '#aaaabc' : SCOPE_STYLES[s].color
+          const color = s === 'all' ? '#9BA39B' : SCOPE_STYLES[s].color
           const bg = s === 'all' ? 'rgba(170,170,188,0.08)' : SCOPE_STYLES[s].bg
           return (
             <button
@@ -306,9 +306,9 @@ export default function ThreadPage() {
                 borderRadius: '999px',
                 fontSize: '11px',
                 fontWeight: 600,
-                border: `1px solid ${active ? color + '66' : '#2a2a2e'}`,
+                border: `1px solid ${active ? color + '66' : '#242824'}`,
                 background: active ? bg : 'transparent',
-                color: active ? color : '#555560',
+                color: active ? color : '#474D47',
                 cursor: 'pointer',
                 transition: 'all 0.15s',
                 display: 'flex',
@@ -329,10 +329,10 @@ export default function ThreadPage() {
           value={agentFilter}
           onChange={(e) => setAgentFilter(e.target.value)}
           style={{
-            background: '#1c1c1f',
-            border: '1px solid #2a2a2e',
+            background: '#1C201C',
+            border: '1px solid #242824',
             borderRadius: '6px',
-            color: '#aaaabc',
+            color: '#9BA39B',
             fontSize: '12px',
             padding: '4px 10px',
             cursor: 'pointer',
@@ -356,9 +356,9 @@ export default function ThreadPage() {
                 borderRadius: '999px',
                 fontSize: '11px',
                 fontWeight: 600,
-                border: `1px solid ${typeFilter === t ? '#01703b' : '#2a2a2e'}`,
+                border: `1px solid ${typeFilter === t ? '#01703b' : '#242824'}`,
                 background: typeFilter === t ? 'rgba(1,112,59,0.12)' : 'transparent',
-                color: typeFilter === t ? '#4ade80' : '#555560',
+                color: typeFilter === t ? '#3AD17B' : '#474D47',
                 cursor: 'pointer',
                 transition: 'all 0.15s',
               }}
@@ -368,7 +368,7 @@ export default function ThreadPage() {
           ))}
         </div>
 
-        <span style={{ marginLeft: 'auto', fontSize: '11px', color: '#555560' }}>
+        <span style={{ marginLeft: 'auto', fontSize: '11px', color: '#474D47' }}>
           {filtered.length} {filtered.length === 1 ? 'entry' : 'entries'}
         </span>
       </div>
@@ -376,8 +376,8 @@ export default function ThreadPage() {
       {/* Thread entries */}
       <div
         style={{
-          background: '#1c1c1f',
-          border: '1px solid #2a2a2e',
+          background: '#1C201C',
+          border: '1px solid #242824',
           borderRadius: '10px',
           overflow: 'hidden',
         }}
@@ -388,7 +388,7 @@ export default function ThreadPage() {
             display: 'grid',
             gridTemplateColumns: '28px 70px 60px 100px 1fr 120px 130px 80px',
             padding: '11px 14px',
-            borderBottom: '1px solid #2a2a2e',
+            borderBottom: '1px solid #242824',
             gap: '4px',
           }}
         >
@@ -401,7 +401,7 @@ export default function ThreadPage() {
                 fontWeight: 700,
                 textTransform: 'uppercase',
                 letterSpacing: '0.08em',
-                color: '#555560',
+                color: '#474D47',
               }}
             >
               {h}
@@ -418,7 +418,7 @@ export default function ThreadPage() {
                 display: 'grid',
                 gridTemplateColumns: '28px 70px 60px 100px 1fr 120px 130px 80px',
                 padding: '12px 14px',
-                borderBottom: '1px solid #1e1e22',
+                borderBottom: '1px solid #1A1D1A',
                 gap: '4px',
               }}
             >
@@ -436,7 +436,7 @@ export default function ThreadPage() {
             </div>
           ))
         ) : filtered.length === 0 ? (
-          <div style={{ padding: '40px 14px', textAlign: 'center', color: '#555560', fontSize: '13px' }}>
+          <div style={{ padding: '40px 14px', textAlign: 'center', color: '#474D47', fontSize: '13px' }}>
             No thread entries yet — your agents' memories will appear here
           </div>
         ) : (

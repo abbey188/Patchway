@@ -23,9 +23,9 @@ function parsePatchMessage(text: string): PatchMessage | null {
 }
 
 const TYPE_STYLES: Record<string, { bg: string; color: string; border: string; label: string }> = {
-  task: { bg: 'rgba(96,165,250,0.06)', color: '#60a5fa', border: '#60a5fa', label: 'TASK' },
-  status: { bg: 'rgba(168,162,158,0.04)', color: '#a8a29e', border: '#555560', label: 'STATUS' },
-  result: { bg: 'rgba(74,222,128,0.06)', color: '#4ade80', border: '#4ade80', label: 'RESULT' },
+  task: { bg: 'rgba(90,166,255,0.06)', color: '#5AA6FF', border: '#5AA6FF', label: 'TASK' },
+  status: { bg: 'rgba(168,162,158,0.04)', color: '#a8a29e', border: '#474D47', label: 'STATUS' },
+  result: { bg: 'rgba(58,209,123,0.06)', color: '#3AD17B', border: '#3AD17B', label: 'RESULT' },
   feedback: { bg: 'rgba(250,204,21,0.06)', color: '#facc15', border: '#facc15', label: 'FEEDBACK' },
 }
 
@@ -54,7 +54,7 @@ function RatingStars({ rating, max = 5 }: { rating: number; max?: number }) {
   return (
     <span style={{ letterSpacing: '1px', fontSize: '11px' }}>
       {Array.from({ length: max }, (_, i) => (
-        <span key={i} style={{ color: i < rating ? '#facc15' : '#333' }}>
+        <span key={i} style={{ color: i < rating ? '#facc15' : '#2A2E2A' }}>
           {i < rating ? '★' : '☆'}
         </span>
       ))}
@@ -64,27 +64,27 @@ function RatingStars({ rating, max = 5 }: { rating: number; max?: number }) {
 
 function MessageContent({ parsed, text }: { parsed: PatchMessage | null; text: string }) {
   if (!parsed) {
-    return <span style={{ fontSize: '12px', color: '#aaaabc' }}>{text}</span>
+    return <span style={{ fontSize: '12px', color: '#9BA39B' }}>{text}</span>
   }
 
   switch (parsed.type) {
     case 'task':
       return (
         <div>
-          <div style={{ fontSize: '12px', lineHeight: 1.5, color: '#f0f0f5' }}>{parsed.instruction}</div>
+          <div style={{ fontSize: '12px', lineHeight: 1.5, color: '#ECEFEC' }}>{parsed.instruction}</div>
           {parsed.context && (
-            <div style={{ fontSize: '11px', color: '#666672', marginTop: '3px' }}>{parsed.context}</div>
+            <div style={{ fontSize: '11px', color: '#6B726B', marginTop: '3px' }}>{parsed.context}</div>
           )}
         </div>
       )
     case 'status':
       return (
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <span style={{ fontSize: '12px', color: '#aaaabc' }}>
+          <span style={{ fontSize: '12px', color: '#9BA39B' }}>
             {parsed.phase.replace(/-/g, ' ')}
           </span>
           {parsed.relayId && (
-            <span style={{ fontSize: '10px', color: '#555560', fontFamily: "'JetBrains Mono', monospace" }}>
+            <span style={{ fontSize: '10px', color: '#474D47', fontFamily: "'JetBrains Mono', monospace" }}>
               {parsed.relayId.slice(0, 10)}...
             </span>
           )}
@@ -93,9 +93,9 @@ function MessageContent({ parsed, text }: { parsed: PatchMessage | null; text: s
     case 'result':
       return (
         <div>
-          <div style={{ fontSize: '12px', lineHeight: 1.5, color: '#f0f0f5' }}>{parsed.summary}</div>
+          <div style={{ fontSize: '12px', lineHeight: 1.5, color: '#ECEFEC' }}>{parsed.summary}</div>
           {parsed.blobIds && parsed.blobIds.length > 0 && (
-            <div style={{ fontSize: '10px', color: '#555560', marginTop: '3px' }}>
+            <div style={{ fontSize: '10px', color: '#474D47', marginTop: '3px' }}>
               {parsed.blobIds.length} blob{parsed.blobIds.length !== 1 ? 's' : ''} attached
             </div>
           )}
@@ -105,7 +105,7 @@ function MessageContent({ parsed, text }: { parsed: PatchMessage | null; text: s
       return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
           <RatingStars rating={parsed.rating} />
-          <div style={{ fontSize: '12px', lineHeight: 1.5, color: '#f0f0f5' }}>{parsed.note}</div>
+          <div style={{ fontSize: '12px', lineHeight: 1.5, color: '#ECEFEC' }}>{parsed.note}</div>
         </div>
       )
   }
@@ -144,12 +144,12 @@ function formatDayLabel(iso: string): string {
 function DateDivider({ label }: { label: string }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 16px 6px' }}>
-      <div style={{ flex: 1, height: '1px', background: '#1e1e22' }} />
+      <div style={{ flex: 1, height: '1px', background: '#1A1D1A' }} />
       <span
         style={{
           fontSize: '10px',
           fontWeight: 600,
-          color: '#666672',
+          color: '#6B726B',
           textTransform: 'uppercase',
           letterSpacing: '0.06em',
           whiteSpace: 'nowrap',
@@ -157,7 +157,7 @@ function DateDivider({ label }: { label: string }) {
       >
         {label}
       </span>
-      <div style={{ flex: 1, height: '1px', background: '#1e1e22' }} />
+      <div style={{ flex: 1, height: '1px', background: '#1A1D1A' }} />
     </div>
   )
 }
@@ -173,7 +173,7 @@ export function MessageThread({ messages, agentNames }: Props) {
           alignItems: 'center',
           justifyContent: 'center',
           gap: '8px',
-          color: '#555560',
+          color: '#474D47',
           fontSize: '12px',
           padding: '24px',
           textAlign: 'center',
@@ -208,7 +208,7 @@ export function MessageThread({ messages, agentNames }: Props) {
               gap: '10px',
               alignItems: 'flex-start',
               padding: '10px 16px',
-              borderBottom: '1px solid #1e1e22',
+              borderBottom: '1px solid #1A1D1A',
               borderLeft: typeStyle ? `2px solid ${typeStyle.border}` : '2px solid transparent',
               background: typeStyle ? typeStyle.bg : 'transparent',
               transition: 'background 0.1s',
@@ -219,7 +219,7 @@ export function MessageThread({ messages, agentNames }: Props) {
             {/* Time (hover for full date + time) */}
             <span
               title={msg.createdAt ? new Date(msg.createdAt).toLocaleString() : ''}
-              style={{ fontSize: '10px', color: '#555560', fontFamily: "'JetBrains Mono', monospace", paddingTop: '2px' }}
+              style={{ fontSize: '10px', color: '#474D47', fontFamily: "'JetBrains Mono', monospace", paddingTop: '2px' }}
             >
               {formatTime(msg.createdAt)}
             </span>
@@ -227,7 +227,7 @@ export function MessageThread({ messages, agentNames }: Props) {
             {/* Type badge */}
             <div style={{ paddingTop: '1px' }}>
               {parsed ? <TypeBadge type={parsed.type} /> : (
-                <span style={{ fontSize: '9px', fontWeight: 600, color: '#555560', letterSpacing: '0.04em' }}>TEXT</span>
+                <span style={{ fontSize: '9px', fontWeight: 600, color: '#474D47', letterSpacing: '0.04em' }}>TEXT</span>
               )}
             </div>
 
@@ -236,7 +236,7 @@ export function MessageThread({ messages, agentNames }: Props) {
               style={{
                 fontSize: '11px',
                 fontWeight: 600,
-                color: '#4ade80',
+                color: '#3AD17B',
                 paddingTop: '2px',
                 whiteSpace: 'nowrap',
               }}

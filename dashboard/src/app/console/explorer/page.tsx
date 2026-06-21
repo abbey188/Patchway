@@ -74,8 +74,8 @@ function VerifyBadge({ pass, label }: { pass: boolean; label: string }) {
         padding: '3px 8px',
         fontSize: '10px',
         fontWeight: 600,
-        background: pass ? 'rgba(74,222,128,0.08)' : 'rgba(239,68,68,0.08)',
-        color: pass ? '#4ade80' : '#ef4444',
+        background: pass ? 'rgba(58,209,123,0.08)' : 'rgba(239,68,68,0.08)',
+        color: pass ? '#3AD17B' : '#ef4444',
         borderRadius: '4px',
       }}
     >
@@ -106,7 +106,7 @@ function RelayVerification({ relayId }: { relayId: string }) {
 
   if (loading) {
     return (
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '20px 0', color: '#555560', fontSize: '12px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '20px 0', color: '#474D47', fontSize: '12px' }}>
         <Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} />
         Verifying on-chain state + Walrus integrity...
       </div>
@@ -141,27 +141,27 @@ function RelayVerification({ relayId }: { relayId: string }) {
           gridTemplateColumns: '1fr auto 1fr',
           gap: '10px',
           alignItems: 'center',
-          background: '#161618',
+          background: '#141614',
           borderRadius: '8px',
           padding: '12px 14px',
-          border: '1px solid #2a2a2e',
+          border: '1px solid #242824',
         }}
       >
         <div>
-          <div style={{ fontSize: '9px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#555560', marginBottom: '4px' }}>
+          <div style={{ fontSize: '9px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#474D47', marginBottom: '4px' }}>
             From
           </div>
-          <div style={{ fontSize: '12px', fontWeight: 600, color: '#f0f0f5' }}>
+          <div style={{ fontSize: '12px', fontWeight: 600, color: '#ECEFEC' }}>
             {agentNames[relay.from_channel] ?? 'Unknown'}
           </div>
           <MonoId id={relay.from_channel} truncate />
         </div>
-        <div style={{ color: '#4ade80', fontSize: '16px' }}>{'→'}</div>
+        <div style={{ color: '#3AD17B', fontSize: '16px' }}>{'→'}</div>
         <div>
-          <div style={{ fontSize: '9px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#555560', marginBottom: '4px' }}>
+          <div style={{ fontSize: '9px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#474D47', marginBottom: '4px' }}>
             To
           </div>
-          <div style={{ fontSize: '12px', fontWeight: 600, color: '#f0f0f5' }}>
+          <div style={{ fontSize: '12px', fontWeight: 600, color: '#ECEFEC' }}>
             {agentNames[relay.to_channel] ?? 'Unknown'}
           </div>
           <MonoId id={relay.to_channel} truncate />
@@ -172,13 +172,13 @@ function RelayVerification({ relayId }: { relayId: string }) {
       {digest && (
         <div
           style={{
-            background: '#161618',
+            background: '#141614',
             borderRadius: '8px',
             padding: '12px 14px',
-            border: '1px solid #2a2a2e',
+            border: '1px solid #242824',
           }}
         >
-          <div style={{ fontSize: '9px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#555560', marginBottom: '8px' }}>
+          <div style={{ fontSize: '9px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#474D47', marginBottom: '8px' }}>
             Digest
           </div>
           <div style={{ fontSize: '12px', color: '#ccc', marginBottom: '8px', lineHeight: 1.5 }}>
@@ -187,15 +187,15 @@ function RelayVerification({ relayId }: { relayId: string }) {
           {digest.keyFindings && digest.keyFindings.length > 0 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
               {digest.keyFindings.map((f, i) => (
-                <div key={i} style={{ fontSize: '11px', color: '#aaaabc', display: 'flex', gap: '6px' }}>
-                  <span style={{ color: '#4ade80', flexShrink: 0 }}>{'•'}</span>
+                <div key={i} style={{ fontSize: '11px', color: '#9BA39B', display: 'flex', gap: '6px' }}>
+                  <span style={{ color: '#3AD17B', flexShrink: 0 }}>{'•'}</span>
                   <span>{f}</span>
                 </div>
               ))}
             </div>
           )}
           {digest.confidence != null && (
-            <div style={{ marginTop: '8px', fontSize: '11px', color: '#555560' }}>
+            <div style={{ marginTop: '8px', fontSize: '11px', color: '#474D47' }}>
               Confidence: {(digest.confidence * 100).toFixed(0)}%
             </div>
           )}
@@ -206,19 +206,19 @@ function RelayVerification({ relayId }: { relayId: string }) {
       {artifactCount > 0 && (
         <div
           style={{
-            background: '#161618',
+            background: '#141614',
             borderRadius: '8px',
             padding: '12px 14px',
-            border: '1px solid #2a2a2e',
+            border: '1px solid #242824',
           }}
         >
-          <div style={{ fontSize: '9px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#555560', marginBottom: '8px' }}>
+          <div style={{ fontSize: '9px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#474D47', marginBottom: '8px' }}>
             Artifacts
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
             {verification.artifactChecks.map((a, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ color: a.available ? '#4ade80' : '#ef4444', fontSize: '10px' }}>
+                <span style={{ color: a.available ? '#3AD17B' : '#ef4444', fontSize: '10px' }}>
                   {a.available ? '●' : '○'}
                 </span>
                 <a
@@ -229,7 +229,7 @@ function RelayVerification({ relayId }: { relayId: string }) {
                 >
                   <MonoId id={a.blobId} truncate />
                 </a>
-                <span style={{ fontSize: '10px', color: a.available ? '#4ade80' : '#ef4444', fontWeight: 600 }}>
+                <span style={{ fontSize: '10px', color: a.available ? '#3AD17B' : '#ef4444', fontWeight: 600 }}>
                   {a.available ? 'ON WALRUS' : 'MISSING'}
                 </span>
               </div>
@@ -242,13 +242,13 @@ function RelayVerification({ relayId }: { relayId: string }) {
       {threadEntries.length > 0 && (
         <div
           style={{
-            background: '#161618',
+            background: '#141614',
             borderRadius: '8px',
             padding: '12px 14px',
-            border: '1px solid #2a2a2e',
+            border: '1px solid #242824',
           }}
         >
-          <div style={{ fontSize: '9px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#555560', marginBottom: '8px' }}>
+          <div style={{ fontSize: '9px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#474D47', marginBottom: '8px' }}>
             Session Memory ({threadEntries.length} entries)
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -260,21 +260,21 @@ function RelayVerification({ relayId }: { relayId: string }) {
                     fontWeight: 600,
                     padding: '2px 5px',
                     borderRadius: '3px',
-                    background: e.entry_type === 'analyze' ? 'rgba(74,222,128,0.08)' : 'rgba(82,82,91,0.08)',
-                    color: e.entry_type === 'analyze' ? '#4ade80' : '#888',
+                    background: e.entry_type === 'analyze' ? 'rgba(58,209,123,0.08)' : 'rgba(82,82,91,0.08)',
+                    color: e.entry_type === 'analyze' ? '#3AD17B' : '#888',
                     flexShrink: 0,
                     marginTop: '1px',
                   }}
                 >
                   {e.entry_type === 'analyze' ? 'fact' : 'write'}
                 </span>
-                <span style={{ fontSize: '11px', color: '#aaaabc', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                <span style={{ fontSize: '11px', color: '#9BA39B', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                   {e.content_preview}
                 </span>
               </div>
             ))}
             {threadEntries.length > 8 && (
-              <div style={{ fontSize: '10px', color: '#555560' }}>
+              <div style={{ fontSize: '10px', color: '#474D47' }}>
                 +{threadEntries.length - 8} more entries
               </div>
             )}
@@ -286,13 +286,13 @@ function RelayVerification({ relayId }: { relayId: string }) {
       {feedbackEntries.length > 0 && (
         <div
           style={{
-            background: '#161618',
+            background: '#141614',
             borderRadius: '8px',
             padding: '12px 14px',
-            border: '1px solid #2a2a2e',
+            border: '1px solid #242824',
           }}
         >
-          <div style={{ fontSize: '9px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#555560', marginBottom: '8px' }}>
+          <div style={{ fontSize: '9px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#474D47', marginBottom: '8px' }}>
             Feedback
           </div>
           {feedbackEntries.map((f) => {
@@ -302,13 +302,13 @@ function RelayVerification({ relayId }: { relayId: string }) {
                 {ratingMatch && (
                   <span style={{ letterSpacing: '1px', fontSize: '11px', marginRight: '8px' }}>
                     {Array.from({ length: 5 }, (_, i) => (
-                      <span key={i} style={{ color: i < Number(ratingMatch[1]) ? '#facc15' : '#333' }}>
+                      <span key={i} style={{ color: i < Number(ratingMatch[1]) ? '#facc15' : '#2A2E2A' }}>
                         {i < Number(ratingMatch[1]) ? '★' : '☆'}
                       </span>
                     ))}
                   </span>
                 )}
-                <span style={{ fontSize: '11px', color: '#aaaabc' }}>
+                <span style={{ fontSize: '11px', color: '#9BA39B' }}>
                   {f.content_preview.replace(/FEEDBACK RECEIVED:\s*/, '').slice(0, 100)}
                 </span>
               </div>
@@ -323,7 +323,7 @@ function RelayVerification({ relayId }: { relayId: string }) {
           href={`${SUIVISION_BASE}/object/${relayId}`}
           target="_blank"
           rel="noopener noreferrer"
-          style={{ color: '#4ade80', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '3px' }}
+          style={{ color: '#3AD17B', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '3px' }}
         >
           View on Sui Explorer <ExternalLink size={10} />
         </a>
@@ -332,7 +332,7 @@ function RelayVerification({ relayId }: { relayId: string }) {
             href={`${WALRUSCAN_BASE}/${relay.digest_blob_id}`}
             target="_blank"
             rel="noopener noreferrer"
-            style={{ color: '#60a5fa', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '3px' }}
+            style={{ color: '#5AA6FF', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '3px' }}
           >
             Digest on Walrus <ExternalLink size={10} />
           </a>
@@ -431,10 +431,10 @@ export default function ExplorerPage() {
   return (
     <div>
       <div style={{ marginBottom: '20px' }}>
-        <h1 style={{ fontSize: '19px', fontWeight: 700, color: '#f0f0f5', letterSpacing: '-0.02em', marginBottom: '2px' }}>
+        <h1 style={{ fontSize: '19px', fontWeight: 700, color: '#ECEFEC', letterSpacing: '-0.02em', marginBottom: '2px' }}>
           Explorer
         </h1>
-        <p style={{ fontSize: '13px', color: '#666672' }}>
+        <p style={{ fontSize: '13px', color: '#6B726B' }}>
           Public verification console — search any relay, channel, or wallet
         </p>
       </div>
@@ -455,7 +455,7 @@ export default function ExplorerPage() {
           color: '#999',
         }}
       >
-        <ShieldCheck size={14} style={{ flexShrink: 0, marginTop: '2px', color: '#4ade80' }} />
+        <ShieldCheck size={14} style={{ flexShrink: 0, marginTop: '2px', color: '#3AD17B' }} />
         <span>
           Paste a <strong style={{ color: '#ccc' }}>relay ID</strong> to verify its provenance across three layers:
           on-chain state (Sui), storage integrity (Walrus), and session memory (MemWal).
@@ -468,16 +468,16 @@ export default function ExplorerPage() {
         style={{
           display: 'flex',
           alignItems: 'center',
-          background: '#1c1c1f',
-          border: '1px solid #2a2a2e',
+          background: '#1C201C',
+          border: '1px solid #242824',
           borderRadius: '8px',
           marginBottom: '12px',
           transition: 'border-color 0.15s',
         }}
         onFocus={(e) => (e.currentTarget.style.borderColor = '#01703b')}
-        onBlur={(e) => (e.currentTarget.style.borderColor = '#2a2a2e')}
+        onBlur={(e) => (e.currentTarget.style.borderColor = '#242824')}
       >
-        <div style={{ padding: '0 0 0 12px', color: '#555560', display: 'flex', flexShrink: 0 }}>
+        <div style={{ padding: '0 0 0 12px', color: '#474D47', display: 'flex', flexShrink: 0 }}>
           <IconSearch size={14} />
         </div>
         <input
@@ -490,7 +490,7 @@ export default function ExplorerPage() {
             background: 'transparent',
             border: 'none',
             padding: '9px 12px',
-            color: '#f0f0f5',
+            color: '#ECEFEC',
             fontSize: '13px',
             outline: 'none',
           }}
@@ -527,9 +527,9 @@ export default function ExplorerPage() {
               padding: '4px 12px',
               borderRadius: '999px',
               fontSize: '11px',
-              border: `1px solid ${filter === key ? 'rgba(1,112,59,0.4)' : '#2a2a2e'}`,
+              border: `1px solid ${filter === key ? 'rgba(1,112,59,0.4)' : '#242824'}`,
               background: filter === key ? 'rgba(1,112,59,0.10)' : 'transparent',
-              color: filter === key ? '#4ade80' : '#555560',
+              color: filter === key ? '#3AD17B' : '#474D47',
               fontWeight: filter === key ? 600 : 500,
               cursor: 'pointer',
               transition: 'all 0.15s',
@@ -547,8 +547,8 @@ export default function ExplorerPage() {
             <div
               key={i}
               style={{
-                background: '#1c1c1f',
-                border: '1px solid #2a2a2e',
+                background: '#1C201C',
+                border: '1px solid #242824',
                 borderRadius: '10px',
                 height: '70px',
               }}
@@ -558,12 +558,12 @@ export default function ExplorerPage() {
       ) : searched && results.length === 0 ? (
         <div
           style={{
-            background: '#1c1c1f',
-            border: '1px solid #2a2a2e',
+            background: '#1C201C',
+            border: '1px solid #242824',
             borderRadius: '10px',
             padding: '32px',
             textAlign: 'center',
-            color: '#555560',
+            color: '#474D47',
             fontSize: '12px',
           }}
         >
@@ -578,8 +578,8 @@ export default function ExplorerPage() {
                 <div
                   key={i}
                   style={{
-                    background: '#1c1c1f',
-                    border: '1px solid #2a2a2e',
+                    background: '#1C201C',
+                    border: '1px solid #242824',
                     borderRadius: '10px',
                     padding: '12px 14px',
                     display: 'flex',
@@ -589,24 +589,24 @@ export default function ExplorerPage() {
                     cursor: 'default',
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.borderColor = '#01703b')}
-                  onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#2a2a2e')}
+                  onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#242824')}
                 >
                   <div
                     style={{
                       width: '32px',
                       height: '32px',
                       borderRadius: '8px',
-                      background: 'rgba(96,165,250,0.10)',
+                      background: 'rgba(90,166,255,0.10)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       flexShrink: 0,
                     }}
                   >
-                    <IconRobot size={16} color="#60a5fa" />
+                    <IconRobot size={16} color="#5AA6FF" />
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: '13px', fontWeight: 600, color: '#f0f0f5', marginBottom: '3px' }}>
+                    <div style={{ fontSize: '13px', fontWeight: 600, color: '#ECEFEC', marginBottom: '3px' }}>
                       {ch.name}
                     </div>
                     <MonoId id={ch.channelId} truncate={false} />
@@ -620,8 +620,8 @@ export default function ExplorerPage() {
                             padding: '2px 6px',
                             fontSize: '9px',
                             fontWeight: 600,
-                            background: 'rgba(96,165,250,0.08)',
-                            color: '#60a5fa',
+                            background: 'rgba(90,166,255,0.08)',
+                            color: '#5AA6FF',
                             borderRadius: '3px',
                           }}
                         >
@@ -635,7 +635,7 @@ export default function ExplorerPage() {
                     href={`${SUIVISION_BASE}/object/${ch.channelId}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ color: '#555560', display: 'flex' }}
+                    style={{ color: '#474D47', display: 'flex' }}
                     onClick={(e) => e.stopPropagation()}
                   >
                     <ExternalLink size={13} />
@@ -651,8 +651,8 @@ export default function ExplorerPage() {
               <div
                 key={i}
                 style={{
-                  background: '#1c1c1f',
-                  border: `1px solid ${isExpanded ? 'rgba(1,112,59,0.3)' : '#2a2a2e'}`,
+                  background: '#1C201C',
+                  border: `1px solid ${isExpanded ? 'rgba(1,112,59,0.3)' : '#242824'}`,
                   borderRadius: '10px',
                   overflow: 'hidden',
                   transition: 'border-color 0.15s',
@@ -669,7 +669,7 @@ export default function ExplorerPage() {
                   }}
                   onClick={() => setExpandedRelay(isExpanded ? null : r.relayId)}
                   onMouseEnter={(e) => { if (!isExpanded) e.currentTarget.parentElement!.style.borderColor = '#01703b' }}
-                  onMouseLeave={(e) => { if (!isExpanded) e.currentTarget.parentElement!.style.borderColor = '#2a2a2e' }}
+                  onMouseLeave={(e) => { if (!isExpanded) e.currentTarget.parentElement!.style.borderColor = '#242824' }}
                 >
                   <div
                     style={{
@@ -683,19 +683,19 @@ export default function ExplorerPage() {
                       flexShrink: 0,
                     }}
                   >
-                    <IconArrowsLeftRight size={16} color="#4ade80" />
+                    <IconArrowsLeftRight size={16} color="#3AD17B" />
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: '13px', fontWeight: 600, color: '#f0f0f5', marginBottom: '3px' }}>
+                    <div style={{ fontSize: '13px', fontWeight: 600, color: '#ECEFEC', marginBottom: '3px' }}>
                       Relay
                     </div>
                     <MonoId id={r.relayId} truncate={false} />
                   </div>
                   <StatusBadge status={r.status} />
                   {isExpanded ? (
-                    <ChevronDown size={14} color="#555560" />
+                    <ChevronDown size={14} color="#474D47" />
                   ) : (
-                    <ChevronRight size={14} color="#555560" />
+                    <ChevronRight size={14} color="#474D47" />
                   )}
                   <button
                     onClick={(e) => {
@@ -707,7 +707,7 @@ export default function ExplorerPage() {
                       fontSize: '10px',
                       fontWeight: 600,
                       background: 'rgba(1,112,59,0.10)',
-                      color: '#4ade80',
+                      color: '#3AD17B',
                       border: '1px solid rgba(1,112,59,0.3)',
                       borderRadius: '5px',
                       cursor: 'pointer',
@@ -723,7 +723,7 @@ export default function ExplorerPage() {
                   <div
                     style={{
                       padding: '0 14px 16px 14px',
-                      borderTop: '1px solid #2a2a2e',
+                      borderTop: '1px solid #242824',
                       paddingTop: '14px',
                     }}
                   >

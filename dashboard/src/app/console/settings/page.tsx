@@ -26,10 +26,10 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '14px 0',
-        borderBottom: '1px solid #1e1e22',
+        borderBottom: '1px solid #1A1D1A',
       }}
     >
-      <span style={{ fontSize: '13px', color: '#555560' }}>{label}</span>
+      <span style={{ fontSize: '13px', color: '#474D47' }}>{label}</span>
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>{children}</div>
     </div>
   )
@@ -50,7 +50,7 @@ function WalletSection() {
         <StatusBadge status="testnet" />
       </Row>
       <Row label="Wallet">
-        <span style={{ fontSize: '13px', color: '#aaaabc' }}>Sui Wallet</span>
+        <span style={{ fontSize: '13px', color: '#9BA39B' }}>Sui Wallet</span>
       </Row>
       <div style={{ paddingTop: '20px' }}>
         <button
@@ -61,15 +61,15 @@ function WalletSection() {
             gap: '8px',
             padding: '9px 16px',
             background: 'none',
-            border: '1px solid rgba(248,113,113,0.3)',
+            border: '1px solid rgba(242,112,107,0.3)',
             borderRadius: '8px',
-            color: '#f87171',
+            color: '#F2706B',
             fontSize: '13px',
             fontWeight: 500,
             cursor: 'pointer',
             transition: 'background 0.15s',
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(248,113,113,0.06)')}
+          onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(242,112,107,0.06)')}
           onMouseLeave={(e) => (e.currentTarget.style.background = '')}
         >
           <LogOut size={14} />
@@ -87,12 +87,12 @@ function NetworkSection() {
         <StatusBadge status="testnet" />
       </Row>
       <Row label="GraphQL endpoint">
-        <span style={{ fontSize: '12px', color: '#aaaabc', fontFamily: "'JetBrains Mono', monospace" }}>
+        <span style={{ fontSize: '12px', color: '#9BA39B', fontFamily: "'JetBrains Mono', monospace" }}>
           graphql.testnet.sui.io
         </span>
       </Row>
       <Row label="Walrus aggregator">
-        <span style={{ fontSize: '12px', color: '#aaaabc', fontFamily: "'JetBrains Mono', monospace" }}>
+        <span style={{ fontSize: '12px', color: '#9BA39B', fontFamily: "'JetBrains Mono', monospace" }}>
           aggregator.walrus-testnet.walrus.space
         </span>
       </Row>
@@ -107,10 +107,10 @@ function ProtocolSection() {
         <MonoId id={PATCHWAY_PACKAGE_ID} truncate showCopy />
       </Row>
       <Row label="Version">
-        <span style={{ fontSize: '13px', color: '#aaaabc' }}>v3 (testnet)</span>
+        <span style={{ fontSize: '13px', color: '#9BA39B' }}>v3 (testnet)</span>
       </Row>
       <Row label="MemWal relayer">
-        <span style={{ fontSize: '12px', color: '#4ade80', fontFamily: "'JetBrains Mono', monospace" }}>
+        <span style={{ fontSize: '12px', color: '#3AD17B', fontFamily: "'JetBrains Mono', monospace" }}>
           relayer.staging.memwal.ai
         </span>
       </Row>
@@ -122,17 +122,17 @@ function AboutSection() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <Row label="Version">
-        <span style={{ fontSize: '13px', color: '#aaaabc' }}>Patchway Console 0.1.0</span>
+        <span style={{ fontSize: '13px', color: '#9BA39B' }}>Patchway Console 0.1.0</span>
       </Row>
       <Row label="Network">
-        <span style={{ fontSize: '13px', color: '#aaaabc' }}>Sui Testnet</span>
+        <span style={{ fontSize: '13px', color: '#9BA39B' }}>Sui Testnet</span>
       </Row>
       <Row label="Documentation">
         <a
           href="https://docs.patchway.xyz"
           target="_blank"
           rel="noopener noreferrer"
-          style={{ fontSize: '13px', color: '#4ade80', textDecoration: 'none' }}
+          style={{ fontSize: '13px', color: '#3AD17B', textDecoration: 'none' }}
         >
           docs.patchway.xyz ↗
         </a>
@@ -155,10 +155,10 @@ export default function SettingsPage() {
   return (
     <div>
       <div style={{ marginBottom: '24px' }}>
-        <h1 style={{ fontSize: '19px', fontWeight: 700, color: '#f0f0f5', letterSpacing: '-0.02em', marginBottom: '3px' }}>
+        <h1 style={{ fontSize: '19px', fontWeight: 700, color: '#ECEFEC', letterSpacing: '-0.02em', marginBottom: '3px' }}>
           Settings
         </h1>
-        <p style={{ fontSize: '13px', color: '#666672' }}>
+        <p style={{ fontSize: '13px', color: '#6B726B' }}>
           Console and protocol configuration
         </p>
       </div>
@@ -185,7 +185,7 @@ export default function SettingsPage() {
                 borderRadius: '8px',
                 background: activeNav === key ? 'rgba(1,112,59,0.10)' : 'transparent',
                 border: 'none',
-                color: activeNav === key ? '#4ade80' : '#555560',
+                color: activeNav === key ? '#3AD17B' : '#474D47',
                 fontSize: '13px',
                 fontWeight: 500,
                 cursor: 'pointer',
@@ -193,10 +193,10 @@ export default function SettingsPage() {
                 transition: 'all 0.15s',
               }}
               onMouseEnter={(e) => {
-                if (activeNav !== key) e.currentTarget.style.color = '#aaaabc'
+                if (activeNav !== key) e.currentTarget.style.color = '#9BA39B'
               }}
               onMouseLeave={(e) => {
-                if (activeNav !== key) e.currentTarget.style.color = '#555560'
+                if (activeNav !== key) e.currentTarget.style.color = '#474D47'
               }}
             >
               {label}
@@ -208,8 +208,8 @@ export default function SettingsPage() {
         <div
           style={{
             flex: 1,
-            background: '#1c1c1f',
-            border: '1px solid #2a2a2e',
+            background: '#1C201C',
+            border: '1px solid #242824',
             borderRadius: '10px',
             padding: '22px 28px',
             minHeight: '300px',

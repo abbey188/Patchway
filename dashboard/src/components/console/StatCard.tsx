@@ -4,69 +4,48 @@ type Props = {
   label: string
   value: string | number
   sub?: string
-  barPercent?: number
+  /** Optional accent for the value (e.g. signal-green for "live" metrics). */
+  accent?: string
 }
 
-export function StatCard({ label, value, sub, barPercent }: Props) {
+// A metric tile. Depth comes from the raised surface (no border), the number is
+// tabular mono (instrument-grade), and there are NO decorative progress bars.
+export function StatCard({ label, value, sub, accent }: Props) {
   return (
     <div
       style={{
-        background: '#1c1c1f',
-        border: '1px solid #2a2a2e',
-        borderRadius: '10px',
+        background: 'var(--raised)',
+        borderRadius: '12px',
         padding: '18px 20px',
         display: 'flex',
         flexDirection: 'column',
+        gap: '6px',
       }}
     >
       <div
         style={{
           fontSize: '11px',
-          fontWeight: 700,
-          textTransform: 'uppercase',
-          letterSpacing: '0.08em',
-          color: '#555560',
-          marginBottom: '8px',
+          fontWeight: 500,
+          letterSpacing: '0.02em',
+          color: 'var(--text-3)',
         }}
       >
         {label}
       </div>
       <div
         style={{
+          fontFamily: "'Geist Mono', monospace",
+          fontVariantNumeric: 'tabular-nums',
           fontSize: '30px',
-          fontWeight: 700,
-          color: '#f0f0f5',
-          letterSpacing: '-0.03em',
+          fontWeight: 500,
+          color: accent ?? 'var(--text)',
+          letterSpacing: '-0.02em',
           lineHeight: 1,
-          marginBottom: '4px',
         }}
       >
         {value}
       </div>
-      {sub && (
-        <div style={{ fontSize: '12px', color: '#666672', marginBottom: '10px' }}>{sub}</div>
-      )}
-      {barPercent !== undefined && (
-        <div
-          style={{
-            height: '3px',
-            background: '#2a2a2e',
-            borderRadius: '2px',
-            marginTop: '4px',
-            overflow: 'hidden',
-          }}
-        >
-          <div
-            style={{
-              height: '100%',
-              width: `${Math.min(100, Math.max(0, barPercent))}%`,
-              background: '#01703b',
-              borderRadius: '2px',
-              transition: 'width 0.4s ease',
-            }}
-          />
-        </div>
-      )}
+      {sub && <div style={{ fontSize: '12px', color: 'var(--text-3)' }}>{sub}</div>}
     </div>
   )
 }

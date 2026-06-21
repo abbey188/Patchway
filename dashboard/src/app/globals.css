@@ -1,44 +1,86 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
-@theme {
-  --font-sans: Inter, system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+/* ── Patchway brand tokens (see .suiperpower/brand.md) ──────────────────────
+   Apple-grade dark console. Green (#01703b) = brand + live; a bright derivative
+   for legibility on near-black; complementary accents are purposeful, not wallpaper.
+   Tokens are the single source of truth — components should reference these, not hex. */
 
-  --color-bg-nav: #111113;
-  --color-bg-page: #161618;
-  --color-bg-card: #1c1c1f;
-  --color-border-default: #2a2a2e;
-  --color-border-inner: #1e1e22;
-  --color-text-primary: #f0f0f5;
-  --color-text-secondary: #aaaabc;
-  --color-text-muted: #666672;
-  --color-text-dim: #555560;
+@theme {
+  --font-sans: Geist, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', monospace;
+
+  /* neutrals (layered; depth via elevation) */
+  --color-bg: #0C0D0C;
+  --color-surface: #141614;
+  --color-raised: #1C201C;
+  --color-hairline: rgba(255,255,255,0.07);
+  --color-text: #ECEFEC;
+  --color-text-2: #9BA39B;
+  --color-text-3: #6B726B;
+  --color-text-4: #474D47;
+  /* green — brand + live */
   --color-green: #01703b;
-  --color-green-bright: #4ade80;
-  --color-yellow-status: #f59e0b;
-  --color-blue-status: #60a5fa;
-  --color-red-status: #f87171;
-  --color-gray-status: #52525b;
+  --color-green-live: #3AD17B;
+  --color-green-deep: #014E29;
+  /* complementary accents */
+  --color-blue: #5AA6FF;
+  --color-teal: #3AD6C6;
+  --color-amber: #F2B23E;
+  --color-red: #F2706B;
+  --color-indigo: #8E90F0;
+
+  /* legacy aliases (old names → new values) so var()-using code recolors */
+  --color-bg-nav: #0C0D0C;
+  --color-bg-page: #141614;
+  --color-bg-card: #1C201C;
+  --color-border-default: #242824;
+  --color-border-inner: #1A1D1A;
+  --color-text-primary: #ECEFEC;
+  --color-text-secondary: #9BA39B;
+  --color-text-muted: #6B726B;
+  --color-text-dim: #474D47;
+  --color-green-bright: #3AD17B;
+  --color-yellow-status: #F2B23E;
+  --color-blue-status: #5AA6FF;
+  --color-red-status: #F2706B;
+  --color-gray-status: #5A615A;
 }
 
 :root {
-  --bg-nav: #111113;
-  --bg-page: #161618;
-  --bg-card: #1c1c1f;
-  --border: #2a2a2e;
-  --border-inner: #1e1e22;
-  --text-primary: #f0f0f5;
-  --text-secondary: #aaaabc;
-  --text-muted: #666672;
-  --text-dim: #555560;
+  /* canonical */
+  --bg: #0C0D0C;
+  --surface: #141614;
+  --raised: #1C201C;
+  --hairline: rgba(255,255,255,0.07);
+  --text: #ECEFEC;
+  --text-2: #9BA39B;
+  --text-3: #6B726B;
+  --text-4: #474D47;
   --green: #01703b;
-  --green-bright: #4ade80;
-  --green-subtle: rgba(1, 112, 59, 0.10);
-  --yellow: #f59e0b;
-  --blue: #60a5fa;
-  --red: #f87171;
-  --gray: #52525b;
+  --green-live: #3AD17B;
+  --green-deep: #014E29;
+  --green-bg: rgba(1,112,59,0.16);
+  --blue: #5AA6FF;
+  --teal: #3AD6C6;
+  --amber: #F2B23E;
+  --red: #F2706B;
+  --indigo: #8E90F0;
+
+  /* legacy aliases → new values (so existing var() usage recolors) */
+  --bg-nav: #0C0D0C;
+  --bg-page: #141614;
+  --bg-card: #1C201C;
+  --border: #242824;
+  --border-inner: #1A1D1A;
+  --text-primary: #ECEFEC;
+  --text-secondary: #9BA39B;
+  --text-muted: #6B726B;
+  --text-dim: #474D47;
+  --green-bright: #3AD17B;
+  --green-subtle: rgba(1,112,59,0.16);
+  --yellow: #F2B23E;
+  --gray: #5A615A;
 }
 
 * {
@@ -50,9 +92,9 @@
 html,
 body {
   height: 100%;
-  background: var(--bg-nav);
-  color: var(--text-primary);
-  font-family: Inter, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Geist, system-ui, sans-serif;
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -72,11 +114,11 @@ a {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a2a2e;
+  background: #242824;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3a3a3e;
+  background: #313631;
 }
 
 /* Hide stray dapp-kit wallet widgets that appear outside our custom UI.

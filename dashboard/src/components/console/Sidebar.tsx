@@ -57,7 +57,7 @@ export function Sidebar() {
         left: 0,
         bottom: 0,
         width: '240px',
-        background: '#111113',
+        background: '#0C0D0C',
         display: 'flex',
         flexDirection: 'column',
         paddingTop: '20px',
@@ -79,7 +79,7 @@ export function Sidebar() {
               padding: '9px 18px',
               fontSize: '13px',
               fontWeight: 500,
-              color: active ? '#4ade80' : '#555560',
+              color: active ? '#3AD17B' : '#474D47',
               background: active ? 'rgba(1,112,59,0.10)' : 'transparent',
               borderLeft: active ? '2px solid #01703b' : '2px solid transparent',
               textDecoration: 'none',
@@ -89,13 +89,13 @@ export function Sidebar() {
             onMouseEnter={(e) => {
               prefetch(queryKey)
               if (!active) {
-                e.currentTarget.style.color = '#aaaabc'
+                e.currentTarget.style.color = '#9BA39B'
                 e.currentTarget.style.background = 'rgba(255,255,255,0.03)'
               }
             }}
             onMouseLeave={(e) => {
               if (!active) {
-                e.currentTarget.style.color = '#555560'
+                e.currentTarget.style.color = '#474D47'
                 e.currentTarget.style.background = 'transparent'
               }
             }}

@@ -19,14 +19,14 @@ async function fetchVerification(relayId: string) {
 function Card({ title, children }: { title?: string; children: React.ReactNode }) {
   return (
     <div style={{
-      background: '#1c1c1f',
-      border: '1px solid #2a2a2e',
+      background: '#1C201C',
+      border: '1px solid #242824',
       borderRadius: '10px',
       padding: '18px 20px',
       marginBottom: '16px',
     }}>
       {title && (
-        <div style={{ fontSize: '15px', fontWeight: 600, color: '#f0f0f5', marginBottom: '14px' }}>{title}</div>
+        <div style={{ fontSize: '15px', fontWeight: 600, color: '#ECEFEC', marginBottom: '14px' }}>{title}</div>
       )}
       {children}
     </div>
@@ -39,12 +39,12 @@ function InfoRow({ label, children }: { label: string; children: React.ReactNode
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      borderBottom: '1px solid #1e1e22',
+      borderBottom: '1px solid #1A1D1A',
       paddingBottom: '10px',
       marginBottom: '10px',
     }}>
-      <span style={{ fontSize: '12px', color: '#555560' }}>{label}</span>
-      <span style={{ fontSize: '12px', color: '#aaaabc' }}>{children}</span>
+      <span style={{ fontSize: '12px', color: '#474D47' }}>{label}</span>
+      <span style={{ fontSize: '12px', color: '#9BA39B' }}>{children}</span>
     </div>
   )
 }
@@ -57,14 +57,14 @@ function VerifyBadge({ pass, label }: { pass: boolean; label: string }) {
       gap: '6px',
       padding: '4px 10px',
       borderRadius: '6px',
-      background: pass ? 'rgba(74,222,128,0.10)' : 'rgba(248,113,113,0.10)',
+      background: pass ? 'rgba(58,209,123,0.10)' : 'rgba(242,112,107,0.10)',
       marginRight: '8px',
       marginBottom: '6px',
     }}>
-      <span style={{ fontSize: '11px', fontWeight: 600, color: pass ? '#4ade80' : '#f87171' }}>
+      <span style={{ fontSize: '11px', fontWeight: 600, color: pass ? '#3AD17B' : '#F2706B' }}>
         {pass ? 'PASS' : 'FAIL'}
       </span>
-      <span style={{ fontSize: '10px', color: pass ? '#4ade80' : '#f87171', opacity: 0.7 }}>{label}</span>
+      <span style={{ fontSize: '10px', color: pass ? '#3AD17B' : '#F2706B', opacity: 0.7 }}>{label}</span>
     </div>
   )
 }
@@ -90,22 +90,22 @@ function AccessTimeline({ status, createdAt, grantedAt, revokedAt }: {
               width: '14px',
               height: '14px',
               borderRadius: '50%',
-              background: stage.reached ? '#01703b' : '#2a2a2e',
-              border: stage.reached ? '2px solid #4ade80' : '2px solid #2a2a2e',
+              background: stage.reached ? '#01703b' : '#242824',
+              border: stage.reached ? '2px solid #3AD17B' : '2px solid #242824',
               flexShrink: 0,
             }} />
-            <span style={{ fontSize: '11px', fontWeight: 600, color: stage.reached ? '#4ade80' : '#555560', whiteSpace: 'nowrap' }}>
+            <span style={{ fontSize: '11px', fontWeight: 600, color: stage.reached ? '#3AD17B' : '#474D47', whiteSpace: 'nowrap' }}>
               {stage.label}
             </span>
             {stage.time != null && (
-              <span style={{ fontSize: '10px', color: '#555560', whiteSpace: 'nowrap' }}>epoch {stage.time}</span>
+              <span style={{ fontSize: '10px', color: '#474D47', whiteSpace: 'nowrap' }}>epoch {stage.time}</span>
             )}
           </div>
           {i < stages.length - 1 && (
             <div style={{
               flex: 1,
               height: '2px',
-              background: stages[i + 1].reached ? '#01703b' : '#2a2a2e',
+              background: stages[i + 1].reached ? '#01703b' : '#242824',
               margin: '-14px 8px 20px',
             }} />
           )}
@@ -132,7 +132,7 @@ function CopyProofButton({ url }: { url: string }) {
         borderRadius: '8px',
         background: '#01703b',
         border: 'none',
-        color: '#f0f0f5',
+        color: '#ECEFEC',
         fontSize: '12px',
         fontWeight: 600,
         cursor: 'pointer',
@@ -156,23 +156,23 @@ export default function PublicVerifyPage({ params }: Props) {
   })
 
   const shell = (children: React.ReactNode) => (
-    <div style={{ minHeight: '100vh', background: '#161618' }}>
+    <div style={{ minHeight: '100vh', background: '#141614' }}>
       {/* Minimal topbar (no wallet, no nav — public) */}
-      <div style={{ background: '#111113', padding: '12px 22px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+      <div style={{ background: '#0C0D0C', padding: '12px 22px', display: 'flex', alignItems: 'center', gap: '10px' }}>
         <div style={{ width: '22px', height: '22px', background: '#01703b', borderRadius: '6px' }} />
-        <span style={{ fontSize: '13px', fontWeight: 700, color: '#f0f0f5', letterSpacing: '-0.02em' }}>patchway</span>
-        <span style={{ fontSize: '11px', color: '#555560', marginLeft: '6px' }}>verifiable handoff</span>
+        <span style={{ fontSize: '13px', fontWeight: 700, color: '#ECEFEC', letterSpacing: '-0.02em' }}>patchway</span>
+        <span style={{ fontSize: '11px', color: '#474D47', marginLeft: '6px' }}>verifiable handoff</span>
       </div>
       <div style={{ maxWidth: '760px', margin: '0 auto', padding: '28px 22px' }}>{children}</div>
     </div>
   )
 
   if (isPending) {
-    return shell(<div style={{ color: '#555560', fontSize: '13px' }}>Verifying handoff across Sui and Walrus…</div>)
+    return shell(<div style={{ color: '#474D47', fontSize: '13px' }}>Verifying handoff across Sui and Walrus…</div>)
   }
 
   if (!verification?.relay) {
-    return shell(<div style={{ color: '#555560', fontSize: '14px' }}>Relay not found on-chain.</div>)
+    return shell(<div style={{ color: '#474D47', fontSize: '14px' }}>Relay not found on-chain.</div>)
   }
 
   const { relay, digest, agentNames } = verification
@@ -194,7 +194,7 @@ export default function PublicVerifyPage({ params }: Props) {
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px', flexWrap: 'wrap' }}>
         <StatusBadge status={relay.statusLabel} />
-        <h1 style={{ fontSize: '19px', fontWeight: 700, color: '#f0f0f5', letterSpacing: '-0.02em' }}>
+        <h1 style={{ fontSize: '19px', fontWeight: 700, color: '#ECEFEC', letterSpacing: '-0.02em' }}>
           Verifiable handoff
         </h1>
         <MonoId id={relayId} truncate showCopy />
@@ -202,12 +202,12 @@ export default function PublicVerifyPage({ params }: Props) {
           href={`https://testnet.suivision.xyz/object/${relayId}`}
           target="_blank"
           rel="noopener noreferrer"
-          style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '11px', color: '#555560', textDecoration: 'none' }}
+          style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '11px', color: '#474D47', textDecoration: 'none' }}
         >
           Suivision <ExternalLink size={11} />
         </a>
       </div>
-      <div style={{ fontSize: '12px', color: '#666672', marginBottom: '20px' }}>
+      <div style={{ fontSize: '12px', color: '#6B726B', marginBottom: '20px' }}>
         Reconstructed directly from Sui (on-chain state) and Walrus (storage). Anyone can reproduce this — no trust in Patchway required.
       </div>
 
@@ -226,14 +226,14 @@ export default function PublicVerifyPage({ params }: Props) {
           gap: '8px',
           padding: '10px 14px',
           borderRadius: '8px',
-          background: passedChecks === totalChecks ? 'rgba(74,222,128,0.06)' : 'rgba(248,113,113,0.06)',
-          border: `1px solid ${passedChecks === totalChecks ? 'rgba(74,222,128,0.15)' : 'rgba(248,113,113,0.15)'}`,
+          background: passedChecks === totalChecks ? 'rgba(58,209,123,0.06)' : 'rgba(242,112,107,0.06)',
+          border: `1px solid ${passedChecks === totalChecks ? 'rgba(58,209,123,0.15)' : 'rgba(242,112,107,0.15)'}`,
         }}>
           <span style={{ fontSize: '18px' }}>{passedChecks === totalChecks ? '✓' : '✗'}</span>
-          <span style={{ fontSize: '12px', fontWeight: 600, color: passedChecks === totalChecks ? '#4ade80' : '#f87171' }}>
+          <span style={{ fontSize: '12px', fontWeight: 600, color: passedChecks === totalChecks ? '#3AD17B' : '#F2706B' }}>
             {passedChecks}/{totalChecks} checks passed
           </span>
-          <span style={{ fontSize: '11px', color: '#555560', marginLeft: '4px' }}>
+          <span style={{ fontSize: '11px', color: '#474D47', marginLeft: '4px' }}>
             Sui (on-chain) + Walrus (storage) + SHA-256 (integrity)
           </span>
         </div>
@@ -255,18 +255,18 @@ export default function PublicVerifyPage({ params }: Props) {
             gap: '8px',
             padding: '10px 14px',
             borderRadius: '8px',
-            background: revocationProven === true ? 'rgba(74,222,128,0.06)' : revocationProven === false ? 'rgba(248,113,113,0.06)' : 'rgba(82,82,91,0.10)',
-            border: `1px solid ${revocationProven === true ? 'rgba(74,222,128,0.15)' : revocationProven === false ? 'rgba(248,113,113,0.15)' : '#2a2a2e'}`,
+            background: revocationProven === true ? 'rgba(58,209,123,0.06)' : revocationProven === false ? 'rgba(242,112,107,0.06)' : 'rgba(82,82,91,0.10)',
+            border: `1px solid ${revocationProven === true ? 'rgba(58,209,123,0.15)' : revocationProven === false ? 'rgba(242,112,107,0.15)' : '#242824'}`,
           }}>
             <span style={{ fontSize: '16px' }}>{revocationProven === true ? '✓' : revocationProven === false ? '✗' : '•'}</span>
-            <span style={{ fontSize: '12px', fontWeight: 600, color: revocationProven === true ? '#4ade80' : revocationProven === false ? '#f87171' : '#aaaabc' }}>
+            <span style={{ fontSize: '12px', fontWeight: 600, color: revocationProven === true ? '#3AD17B' : revocationProven === false ? '#F2706B' : '#9BA39B' }}>
               {revocationProven === true
                 ? 'Revocation proven on-chain'
                 : revocationProven === false
                   ? 'Granted key still present on-chain'
                   : 'Revocation proof unavailable'}
             </span>
-            <span style={{ fontSize: '11px', color: '#555560', marginLeft: '4px' }}>
+            <span style={{ fontSize: '11px', color: '#474D47', marginLeft: '4px' }}>
               the granted delegate key is verified absent from the sender&apos;s memory account
             </span>
           </div>
@@ -279,7 +279,7 @@ export default function PublicVerifyPage({ params }: Props) {
           <MonoId id={relay.from_channel} truncate showCopy />
         </InfoRow>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontSize: '12px', color: '#555560' }}>
+          <span style={{ fontSize: '12px', color: '#474D47' }}>
             {`To${agentNames?.[relay.to_channel] ? ` · ${agentNames[relay.to_channel]}` : ''}`}
           </span>
           <MonoId id={relay.to_channel} truncate showCopy />
@@ -292,11 +292,11 @@ export default function PublicVerifyPage({ params }: Props) {
           <InfoRow label="Summary">{digest.completed}</InfoRow>
           {digest.keyFindings?.length > 0 && (
             <div style={{ marginBottom: '6px' }}>
-              <span style={{ fontSize: '12px', color: '#555560', display: 'block', marginBottom: '6px' }}>Key findings</span>
+              <span style={{ fontSize: '12px', color: '#474D47', display: 'block', marginBottom: '6px' }}>Key findings</span>
               {digest.keyFindings.map((f: string, i: number) => (
                 <div key={i} style={{
                   fontSize: '11px',
-                  color: '#aaaabc',
+                  color: '#9BA39B',
                   padding: '6px 10px',
                   background: 'rgba(255,255,255,0.02)',
                   borderLeft: '2px solid #01703b',
@@ -309,7 +309,7 @@ export default function PublicVerifyPage({ params }: Props) {
             </div>
           )}
           <div style={{ borderBottom: 'none', marginBottom: 0, paddingBottom: 0 }}>
-            <span style={{ fontSize: '10px', color: '#555560' }}>Blob ID: </span>
+            <span style={{ fontSize: '10px', color: '#474D47' }}>Blob ID: </span>
             <MonoId id={relay.digest_blob_id} truncate showCopy />
           </div>
         </Card>
@@ -327,7 +327,7 @@ export default function PublicVerifyPage({ params }: Props) {
       {/* Share */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '8px' }}>
         <CopyProofButton url={proofUrl} />
-        <span style={{ fontSize: '11px', color: '#555560' }}>Share this proof — it&apos;s public and self-verifying.</span>
+        <span style={{ fontSize: '11px', color: '#474D47' }}>Share this proof — it&apos;s public and self-verifying.</span>
       </div>
     </>,
   )

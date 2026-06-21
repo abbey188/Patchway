@@ -67,13 +67,13 @@ const COLUMNS: Column<RelayGrant>[] = [
     key: 'created',
     header: 'Created',
     width: '90px',
-    render: (r) => <span style={{ fontSize: '11px', color: '#aaaabc' }}>{formatRelTime(r.createdAt)}</span>,
+    render: (r) => <span style={{ fontSize: '11px', color: '#9BA39B' }}>{formatRelTime(r.createdAt)}</span>,
   },
   {
     key: 'duration',
     header: 'Duration',
     width: '80px',
-    render: (r) => <span style={{ color: '#666672' }}>{formatDuration(r)}</span>,
+    render: (r) => <span style={{ color: '#6B726B' }}>{formatDuration(r)}</span>,
   },
   {
     key: 'memories',
@@ -81,7 +81,7 @@ const COLUMNS: Column<RelayGrant>[] = [
     width: '70px',
     render: (r) =>
       r.status === undefined ? (
-        <span style={{ color: '#555560', fontSize: '11px' }}>—</span>
+        <span style={{ color: '#474D47', fontSize: '11px' }}>—</span>
       ) : (
         <span
           style={{
@@ -89,8 +89,8 @@ const COLUMNS: Column<RelayGrant>[] = [
             borderRadius: '999px',
             fontSize: '10px',
             fontWeight: 600,
-            background: r.status === 'active' ? 'rgba(74,222,128,0.10)' : 'rgba(82,82,91,0.20)',
-            color: r.status === 'active' ? '#4ade80' : '#52525b',
+            background: r.status === 'active' ? 'rgba(58,209,123,0.10)' : 'rgba(82,82,91,0.20)',
+            color: r.status === 'active' ? '#3AD17B' : '#5A615A',
           }}
         >
           {r.status === 'active' ? 'granted' : 'revoked'}
@@ -152,10 +152,10 @@ export default function RelaysPage() {
   return (
     <div>
       <div style={{ marginBottom: '20px' }}>
-        <h1 style={{ fontSize: '19px', fontWeight: 700, color: '#f0f0f5', letterSpacing: '-0.02em', marginBottom: '2px' }}>
+        <h1 style={{ fontSize: '19px', fontWeight: 700, color: '#ECEFEC', letterSpacing: '-0.02em', marginBottom: '2px' }}>
           Relays
         </h1>
-        <p style={{ fontSize: '13px', color: '#666672' }}>
+        <p style={{ fontSize: '13px', color: '#6B726B' }}>
           On-chain work handoffs between your agents
         </p>
       </div>
@@ -171,9 +171,9 @@ export default function RelaysPage() {
               borderRadius: '999px',
               fontSize: '11px',
               fontWeight: 600,
-              border: `1px solid ${filter === key ? '#01703b' : '#2a2a2e'}`,
+              border: `1px solid ${filter === key ? '#01703b' : '#242824'}`,
               background: filter === key ? 'rgba(1,112,59,0.12)' : 'transparent',
-              color: filter === key ? '#4ade80' : '#555560',
+              color: filter === key ? '#3AD17B' : '#474D47',
               cursor: 'pointer',
               transition: 'all 0.15s',
             }}

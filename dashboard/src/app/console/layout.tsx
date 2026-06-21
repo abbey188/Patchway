@@ -28,15 +28,15 @@ export default function ConsoleLayout({ children }: { children: React.ReactNode 
           justifyContent: 'center',
           height: '100vh',
           gap: '12px',
-          background: '#111113',
+          background: '#0C0D0C',
         }}
       >
         <Loader2
           size={20}
-          color="#4ade80"
+          color="#3AD17B"
           style={{ animation: 'spin 1s linear infinite' }}
         />
-        <span style={{ color: '#555560', fontSize: '12px' }}>
+        <span style={{ color: '#474D47', fontSize: '12px' }}>
           Reconnecting to wallet...
         </span>
         <style>{`@keyframes spin { to { transform: rotate(360deg) } }`}</style>
@@ -47,7 +47,7 @@ export default function ConsoleLayout({ children }: { children: React.ReactNode 
   if (!account) return null
 
   return (
-    <div data-console-layout style={{ height: '100vh', display: 'flex', flexDirection: 'column', background: '#111113' }}>
+    <div data-console-layout style={{ height: '100vh', display: 'flex', flexDirection: 'column', background: '#0C0D0C' }}>
       <Topbar />
 
       {/* Below topbar */}
@@ -55,12 +55,12 @@ export default function ConsoleLayout({ children }: { children: React.ReactNode 
         <Sidebar />
 
         {/* Content wrap — same bg as sidebar so the curve looks correct */}
-        <div style={{ flex: 1, background: '#111113', display: 'flex', overflow: 'hidden', marginLeft: '240px' }}>
+        <div style={{ flex: 1, background: '#0C0D0C', display: 'flex', overflow: 'hidden', marginLeft: '240px' }}>
           {/* Main — the curve is created ONLY by border-radius + color contrast */}
           <main
             style={{
               flex: 1,
-              background: '#161618',
+              background: '#141614',
               borderTopLeftRadius: '16px',
               padding: '28px 32px',
               overflow: 'auto',

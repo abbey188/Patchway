@@ -27,25 +27,12 @@ function Logo() {
         textDecoration: 'none',
       }}
     >
-      <div
-        style={{
-          width: '24px',
-          height: '24px',
-          background: '#01703b',
-          borderRadius: '6px',
-          flexShrink: 0,
-        }}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/patchway-logo.png"
+        alt="Patchway"
+        style={{ height: '22px', width: 'auto', display: 'block' }}
       />
-      <span
-        style={{
-          fontSize: '14px',
-          fontWeight: 700,
-          color: '#f0f0f5',
-          letterSpacing: '-0.02em',
-        }}
-      >
-        patchway
-      </span>
     </Link>
   )
 }
@@ -88,7 +75,7 @@ function NavLinks() {
               borderRadius: '6px',
               fontSize: '13px',
               fontWeight: 500,
-              color: active ? '#f0f0f5' : '#555560',
+              color: active ? '#ECEFEC' : '#474D47',
               background: active ? 'rgba(255,255,255,0.07)' : 'transparent',
               textDecoration: 'none',
               transition: 'color 0.15s, background 0.15s',
@@ -109,7 +96,7 @@ function NavLinks() {
 function DropdownItem({
   icon,
   label,
-  color = '#aaaabc',
+  color = '#9BA39B',
   hoverBg,
   onClick,
   href,
@@ -217,8 +204,8 @@ function WalletDropdown({
         position: 'absolute',
         top: 'calc(100% + 8px)',
         right: 0,
-        background: '#1c1c1f',
-        border: '1px solid #2a2a2e',
+        background: '#1C201C',
+        border: '1px solid #242824',
         borderRadius: '12px',
         boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
         minWidth: '240px',
@@ -227,10 +214,10 @@ function WalletDropdown({
       }}
     >
       {/* Wallet info header */}
-      <div style={{ padding: '14px', borderBottom: '1px solid #2a2a2e' }}>
+      <div style={{ padding: '14px', borderBottom: '1px solid #242824' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '6px' }}>
-          <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#4ade80' }} />
-          <span style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#4ade80' }}>
+          <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#3AD17B' }} />
+          <span style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#3AD17B' }}>
             Connected
           </span>
           <span
@@ -240,8 +227,8 @@ function WalletDropdown({
               borderRadius: '999px',
               fontSize: '10px',
               fontWeight: 600,
-              background: 'rgba(96,165,250,0.10)',
-              color: '#60a5fa',
+              background: 'rgba(90,166,255,0.10)',
+              color: '#5AA6FF',
             }}
           >
             testnet
@@ -251,7 +238,7 @@ function WalletDropdown({
           style={{
             fontFamily: "'JetBrains Mono', monospace",
             fontSize: '11px',
-            color: '#f0f0f5',
+            color: '#ECEFEC',
             wordBreak: 'break-all',
           }}
         >
@@ -262,7 +249,7 @@ function WalletDropdown({
       {/* Actions */}
       <div style={{ padding: '4px 0' }}>
         <DropdownItem
-          icon={copied ? <Check size={14} color="#4ade80" /> : <Copy size={14} />}
+          icon={copied ? <Check size={14} color="#3AD17B" /> : <Copy size={14} />}
           label={copied ? 'Copied!' : 'Copy address'}
           onClick={handleCopy}
         />
@@ -272,7 +259,7 @@ function WalletDropdown({
           href={`${SUIVISION_BASE}/address/${address}`}
         />
 
-        <div style={{ height: '1px', background: '#2a2a2e', margin: '4px 0' }} />
+        <div style={{ height: '1px', background: '#242824', margin: '4px 0' }} />
 
         <DropdownItem
           icon={<RefreshCw size={14} />}
@@ -282,8 +269,8 @@ function WalletDropdown({
         <DropdownItem
           icon={<LogOut size={14} />}
           label="Disconnect"
-          color="#f87171"
-          hoverBg="rgba(248,113,113,0.06)"
+          color="#F2706B"
+          hoverBg="rgba(242,112,107,0.06)"
           onClick={handleDisconnect}
         />
       </div>
@@ -319,7 +306,7 @@ export function Topbar() {
         left: 0,
         right: 0,
         height: '50px',
-        background: '#111113',
+        background: '#0C0D0C',
         display: 'flex',
         alignItems: 'center',
         padding: '0 16px',
@@ -343,15 +330,15 @@ export function Topbar() {
             width: '28px',
             height: '28px',
             borderRadius: '6px',
-            color: '#555560',
+            color: '#474D47',
             transition: 'color 0.15s, background 0.15s',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.color = '#aaaabc'
+            e.currentTarget.style.color = '#9BA39B'
             e.currentTarget.style.background = 'rgba(255,255,255,0.05)'
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.color = '#555560'
+            e.currentTarget.style.color = '#474D47'
             e.currentTarget.style.background = ''
           }}
         >
@@ -372,7 +359,7 @@ export function Topbar() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
-                color: '#4ade80',
+                color: '#3AD17B',
                 transition: 'border-color 0.15s',
               }}
             >
@@ -393,14 +380,14 @@ export function Topbar() {
               width: '30px',
               height: '30px',
               borderRadius: '50%',
-              border: '1.5px solid #2a2a2e',
+              border: '1.5px solid #242824',
               background: 'rgba(255,255,255,0.05)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
             }}
           >
-            <User size={14} color="#555560" />
+            <User size={14} color="#474D47" />
           </div>
         )}
       </div>

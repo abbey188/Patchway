@@ -21,9 +21,9 @@ function EntryTypeBadge({ type }: { type: EntryType }) {
         padding: '2px 8px',
         fontSize: '10px',
         fontWeight: 600,
-        background: isFact ? 'rgba(74,222,128,0.08)' : 'rgba(82,82,91,0.12)',
-        color: isFact ? '#4ade80' : '#52525b',
-        borderLeft: isFact ? '2px solid #4ade80' : '2px solid #333',
+        background: isFact ? 'rgba(58,209,123,0.08)' : 'rgba(82,82,91,0.12)',
+        color: isFact ? '#3AD17B' : '#5A615A',
+        borderLeft: isFact ? '2px solid #3AD17B' : '2px solid #2A2E2A',
         borderRadius: '0 4px 4px 0',
       }}
     >
@@ -57,7 +57,7 @@ const THREAD_COLUMNS: Column<ThreadEntry>[] = [
       <span
         style={{
           fontSize: '12px',
-          color: '#aaaabc',
+          color: '#9BA39B',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
           whiteSpace: 'nowrap',
@@ -73,7 +73,7 @@ const THREAD_COLUMNS: Column<ThreadEntry>[] = [
     key: 'relay',
     header: 'Relay',
     width: '130px',
-    render: (r) => r.relayId ? <MonoId id={r.relayId} truncate /> : <span style={{ color: '#555560' }}>—</span>,
+    render: (r) => r.relayId ? <MonoId id={r.relayId} truncate /> : <span style={{ color: '#474D47' }}>—</span>,
   },
   {
     key: 'blob',
@@ -83,13 +83,13 @@ const THREAD_COLUMNS: Column<ThreadEntry>[] = [
       <a href={walruscanUrl(r.blobId)} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
         <MonoId id={r.blobId} truncate />
       </a>
-    ) : <span style={{ color: '#555560' }}>—</span>,
+    ) : <span style={{ color: '#474D47' }}>—</span>,
   },
   {
     key: 'created',
     header: 'When',
     width: '90px',
-    render: (r) => <span style={{ color: '#666672', fontSize: '12px' }}>{formatRelTime(r.createdAt)}</span>,
+    render: (r) => <span style={{ color: '#6B726B', fontSize: '12px' }}>{formatRelTime(r.createdAt)}</span>,
   },
 ]
 
@@ -114,7 +114,7 @@ const RELAY_COLUMNS: Column<RelayGrant>[] = [
     key: 'created',
     header: 'Created',
     width: '90px',
-    render: (r) => <span style={{ color: '#666672', fontSize: '12px' }}>{formatRelTime(r.createdAt)}</span>,
+    render: (r) => <span style={{ color: '#6B726B', fontSize: '12px' }}>{formatRelTime(r.createdAt)}</span>,
   },
 ]
 
@@ -175,15 +175,15 @@ export default function AgentDetailPage({ params }: Props) {
           gap: '5px',
           background: 'none',
           border: 'none',
-          color: '#555560',
+          color: '#474D47',
           fontSize: '13px',
           cursor: 'pointer',
           marginBottom: '18px',
           padding: 0,
           transition: 'color 0.15s',
         }}
-        onMouseEnter={(e) => (e.currentTarget.style.color = '#aaaabc')}
-        onMouseLeave={(e) => (e.currentTarget.style.color = '#555560')}
+        onMouseEnter={(e) => (e.currentTarget.style.color = '#9BA39B')}
+        onMouseLeave={(e) => (e.currentTarget.style.color = '#474D47')}
       >
         <ArrowLeft size={14} /> Back to agents
       </button>
@@ -203,14 +203,14 @@ export default function AgentDetailPage({ params }: Props) {
             flexShrink: 0,
           }}
         >
-          <AgentIcon size={20} color="#4ade80" />
+          <AgentIcon size={20} color="#3AD17B" />
         </div>
         <div style={{ flex: 1 }}>
           <h1
             style={{
               fontSize: '19px',
               fontWeight: 700,
-              color: '#f0f0f5',
+              color: '#ECEFEC',
               letterSpacing: '-0.02em',
               marginBottom: '3px',
             }}
@@ -226,8 +226,8 @@ export default function AgentDetailPage({ params }: Props) {
               borderRadius: '999px',
               fontSize: '11px',
               fontWeight: 600,
-              background: isActive ? 'rgba(74,222,128,0.10)' : 'rgba(239,68,68,0.10)',
-              color: isActive ? '#4ade80' : '#ef4444',
+              background: isActive ? 'rgba(58,209,123,0.10)' : 'rgba(239,68,68,0.10)',
+              color: isActive ? '#3AD17B' : '#ef4444',
             }}
           >
             {isActive ? 'active' : 'inactive'}
@@ -247,7 +247,7 @@ export default function AgentDetailPage({ params }: Props) {
                 fontSize: '11px',
                 fontWeight: 500,
                 background: 'rgba(1,112,59,0.12)',
-                color: '#4ade80',
+                color: '#3AD17B',
                 border: '1px solid rgba(1,112,59,0.2)',
               }}
             >
@@ -259,15 +259,11 @@ export default function AgentDetailPage({ params }: Props) {
 
       {/* Stats */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '24px' }}>
-        <StatCard label="Memories" value={memoryCount} sub="thread entries" barPercent={Math.min(100, memoryCount * 8)} />
-        <StatCard label="Relays sent" value={relaysSent} sub="handoffs created" barPercent={Math.min(100, relaysSent * 20)} />
-        <StatCard label="Relays received" value={relaysReceived} sub="handoffs accepted" barPercent={Math.min(100, relaysReceived * 20)} />
-        <StatCard label="Artifacts" value={serverData?.artifactCount ?? 0} sub="stored blobs" barPercent={Math.min(100, (serverData?.artifactCount ?? 0) * 20)} />
       </div>
 
       {/* Thread entries */}
       <div style={{ marginBottom: '24px' }}>
-        <div style={{ fontSize: '15px', fontWeight: 600, color: '#f0f0f5', marginBottom: '12px' }}>
+        <div style={{ fontSize: '15px', fontWeight: 600, color: '#ECEFEC', marginBottom: '12px' }}>
           Thread entries
         </div>
         <DataTable
@@ -280,7 +276,7 @@ export default function AgentDetailPage({ params }: Props) {
 
       {/* Relay history */}
       <div>
-        <div style={{ fontSize: '15px', fontWeight: 600, color: '#f0f0f5', marginBottom: '12px' }}>
+        <div style={{ fontSize: '15px', fontWeight: 600, color: '#ECEFEC', marginBottom: '12px' }}>
           Relay history
         </div>
         <DataTable

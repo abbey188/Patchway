@@ -5,14 +5,14 @@ import type { RelayStatus } from '@/lib/types'
 type BadgeVariant = RelayStatus | 'verified' | 'channel' | 'testnet'
 
 const STYLES: Record<BadgeVariant, { bg: string; color: string }> = {
-  completed: { bg: 'rgba(74,222,128,0.10)', color: '#4ade80' },
-  pending:   { bg: 'rgba(245,158,11,0.10)', color: '#f59e0b' },
-  accepted:  { bg: 'rgba(96,165,250,0.10)', color: '#60a5fa' },
-  expired:   { bg: 'rgba(82,82,91,0.20)',   color: '#52525b' },
-  revoked:   { bg: 'rgba(248,113,113,0.10)', color: '#f87171' },
-  verified:  { bg: 'rgba(74,222,128,0.10)', color: '#4ade80' },
-  channel:   { bg: 'rgba(96,165,250,0.10)', color: '#60a5fa' },
-  testnet:   { bg: 'rgba(96,165,250,0.10)', color: '#60a5fa' },
+  completed: { bg: 'rgba(58,209,123,0.10)', color: '#3AD17B' },
+  pending:   { bg: 'rgba(242,178,62,0.10)', color: '#F2B23E' },
+  accepted:  { bg: 'rgba(90,166,255,0.10)', color: '#5AA6FF' },
+  expired:   { bg: 'rgba(82,82,91,0.20)',   color: '#5A615A' },
+  revoked:   { bg: 'rgba(242,112,107,0.10)', color: '#F2706B' },
+  verified:  { bg: 'rgba(58,209,123,0.10)', color: '#3AD17B' },
+  channel:   { bg: 'rgba(90,166,255,0.10)', color: '#5AA6FF' },
+  testnet:   { bg: 'rgba(90,166,255,0.10)', color: '#5AA6FF' },
 }
 
 type Props = {

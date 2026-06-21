@@ -53,8 +53,8 @@ function ActivityChart({ data }: { data: DayData[] }) {
   return (
     <div
       style={{
-        background: '#1c1c1f',
-        border: '1px solid #2a2a2e',
+        background: '#1C201C',
+        border: '1px solid #242824',
         borderRadius: '10px',
         padding: '20px 24px',
         minHeight: '280px',
@@ -68,7 +68,7 @@ function ActivityChart({ data }: { data: DayData[] }) {
             fontWeight: 700,
             textTransform: 'uppercase',
             letterSpacing: '0.08em',
-            color: '#555560',
+            color: '#474D47',
           }}
         >
           Activity — last 7 days
@@ -104,8 +104,8 @@ function ActivityChart({ data }: { data: DayData[] }) {
                     bottom: `${barHeight + 14}px`,
                     left: '50%',
                     transform: 'translateX(-50%)',
-                    background: '#1a1a1e',
-                    border: '1px solid #333',
+                    background: '#1C201C',
+                    border: '1px solid #2A2E2A',
                     borderRadius: '8px',
                     padding: '12px 16px',
                     minWidth: '160px',
@@ -114,21 +114,21 @@ function ActivityChart({ data }: { data: DayData[] }) {
                     pointerEvents: 'none',
                   }}
                 >
-                  <div style={{ fontSize: '12px', fontWeight: 600, color: '#f0f0f5', marginBottom: '10px' }}>
+                  <div style={{ fontSize: '12px', fontWeight: 600, color: '#ECEFEC', marginBottom: '10px' }}>
                     {formatTooltipDate(day.date)}
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '20px' }}>
-                      <span style={{ fontSize: '11px', color: '#aaaabc' }}>Relays</span>
-                      <span style={{ fontSize: '12px', fontWeight: 600, color: '#f0f0f5', fontFamily: "'JetBrains Mono', monospace" }}>{day.relays}</span>
+                      <span style={{ fontSize: '11px', color: '#9BA39B' }}>Relays</span>
+                      <span style={{ fontSize: '12px', fontWeight: 600, color: '#ECEFEC', fontFamily: "'JetBrains Mono', monospace" }}>{day.relays}</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '20px' }}>
-                      <span style={{ fontSize: '11px', color: '#aaaabc' }}>Memories</span>
-                      <span style={{ fontSize: '12px', fontWeight: 600, color: '#f0f0f5', fontFamily: "'JetBrains Mono', monospace" }}>{day.memories}</span>
+                      <span style={{ fontSize: '11px', color: '#9BA39B' }}>Memories</span>
+                      <span style={{ fontSize: '12px', fontWeight: 600, color: '#ECEFEC', fontFamily: "'JetBrains Mono', monospace" }}>{day.memories}</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '20px' }}>
-                      <span style={{ fontSize: '11px', color: '#aaaabc' }}>Feedback</span>
-                      <span style={{ fontSize: '12px', fontWeight: 600, color: '#f0f0f5', fontFamily: "'JetBrains Mono', monospace" }}>{day.feedback}</span>
+                      <span style={{ fontSize: '11px', color: '#9BA39B' }}>Feedback</span>
+                      <span style={{ fontSize: '12px', fontWeight: 600, color: '#ECEFEC', fontFamily: "'JetBrains Mono', monospace" }}>{day.feedback}</span>
                     </div>
                   </div>
                 </div>
@@ -137,7 +137,7 @@ function ActivityChart({ data }: { data: DayData[] }) {
               <div
                 style={{
                   width: '100%',
-                  background: total > 0 ? '#01703b' : '#2a2a2e',
+                  background: total > 0 ? '#01703b' : '#242824',
                   borderRadius: '4px 4px 0 0',
                   height: `${barHeight}px`,
                   transition: 'height 0.3s ease, opacity 0.15s',
@@ -151,14 +151,14 @@ function ActivityChart({ data }: { data: DayData[] }) {
 
       <div style={{ display: 'flex', gap: '10px', marginTop: '8px' }}>
         {data.map((day, i) => (
-          <div key={i} style={{ flex: 1, textAlign: 'center', fontSize: '10px', color: hoveredIdx === i ? '#aaaabc' : '#555560', transition: 'color 0.15s' }}>
+          <div key={i} style={{ flex: 1, textAlign: 'center', fontSize: '10px', color: hoveredIdx === i ? '#9BA39B' : '#474D47', transition: 'color 0.15s' }}>
             {formatDateLabel(day.date)}
           </div>
         ))}
       </div>
 
       {!hasData && (
-        <div style={{ textAlign: 'center', fontSize: '11px', color: '#555560', marginTop: '8px' }}>
+        <div style={{ textAlign: 'center', fontSize: '11px', color: '#474D47', marginTop: '8px' }}>
           No activity yet
         </div>
       )}
@@ -184,7 +184,7 @@ const RELAY_COLUMNS: Column<RelayGrant>[] = [
     render: (r) => (
       <span style={{ display: 'flex', alignItems: 'center', gap: '4px', flexWrap: 'wrap' }}>
         <MonoId id={r.fromChannelId} truncate />
-        <span style={{ color: '#555560' }}>→</span>
+        <span style={{ color: '#474D47' }}>→</span>
         <MonoId id={r.toChannelId} truncate />
       </span>
     ),
@@ -194,14 +194,14 @@ const RELAY_COLUMNS: Column<RelayGrant>[] = [
     header: 'Created',
     width: '80px',
     render: (r) => (
-      <span style={{ fontSize: '11px', color: '#aaaabc' }}>{formatRelTime(r.createdAt)}</span>
+      <span style={{ fontSize: '11px', color: '#9BA39B' }}>{formatRelTime(r.createdAt)}</span>
     ),
   },
   {
     key: 'duration',
     header: 'Duration',
     width: '70px',
-    render: (r) => <span style={{ color: '#666672' }}>{formatDuration(r)}</span>,
+    render: (r) => <span style={{ color: '#6B726B' }}>{formatDuration(r)}</span>,
   },
 ]
 
@@ -250,14 +250,14 @@ export default function OverviewPage() {
           style={{
             fontSize: '20px',
             fontWeight: 700,
-            color: '#f0f0f5',
+            color: '#ECEFEC',
             letterSpacing: '-0.02em',
             marginBottom: '3px',
           }}
         >
           Overview
         </h1>
-        <p style={{ fontSize: '13px', color: '#666672' }}>
+        <p style={{ fontSize: '13px', color: '#6B726B' }}>
           Your agents at a glance
         </p>
       </div>
@@ -269,8 +269,8 @@ export default function OverviewPage() {
             <div
               key={i}
               style={{
-                background: '#1c1c1f',
-                border: '1px solid #2a2a2e',
+                background: '#1C201C',
+                border: '1px solid #242824',
                 borderRadius: '10px',
                 padding: '14px 16px',
                 height: '90px',
@@ -283,31 +283,26 @@ export default function OverviewPage() {
               label="Agents"
               value={agentCount}
               sub="registered channels"
-              barPercent={Math.min(100, agentCount * 20)}
             />
             <StatCard
               label="Relays"
               value={relayCount}
               sub="total handoffs"
-              barPercent={Math.min(100, relayCount * 5)}
             />
             <StatCard
               label="Memories"
               value={memoryCount}
               sub="thread entries on Walrus"
-              barPercent={Math.min(100, memoryCount * 2)}
             />
             <StatCard
               label="Artifacts"
               value={serverData?.stats?.artifactCount ?? 0}
               sub="blob references"
-              barPercent={Math.min(100, (serverData?.stats?.artifactCount ?? 0) * 10)}
             />
             <StatCard
               label="Feedback"
               value={serverData?.stats?.feedbackCount ?? 0}
               sub="learning entries"
-              barPercent={Math.min(100, (serverData?.stats?.feedbackCount ?? 0) * 10)}
             />
           </>
         )}
@@ -324,7 +319,7 @@ export default function OverviewPage() {
           style={{
             fontSize: '14px',
             fontWeight: 600,
-            color: '#f0f0f5',
+            color: '#ECEFEC',
             marginBottom: '10px',
           }}
         >

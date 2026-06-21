@@ -21,7 +21,7 @@ function SkeletonRow({ cols }: { cols: number }) {
   return (
     <tr>
       {Array.from({ length: cols }).map((_, i) => (
-        <td key={i} style={{ padding: '12px 14px', borderBottom: '1px solid #1e1e22' }}>
+        <td key={i} style={{ padding: '12px 14px', borderBottom: '1px solid #1A1D1A' }}>
           <div
             style={{
               height: '12px',
@@ -40,15 +40,15 @@ export function DataTable<T>({ columns, rows, onRowClick, emptyMessage = 'No dat
   return (
     <div
       style={{
-        background: '#1c1c1f',
-        border: '1px solid #2a2a2e',
+        background: '#1C201C',
+        border: '1px solid #242824',
         borderRadius: '10px',
         overflow: 'hidden',
       }}
     >
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
-          <tr style={{ borderBottom: '1px solid #2a2a2e' }}>
+          <tr style={{ borderBottom: '1px solid #242824' }}>
             {columns.map((col) => (
               <th
                 key={col.key}
@@ -59,7 +59,7 @@ export function DataTable<T>({ columns, rows, onRowClick, emptyMessage = 'No dat
                   fontWeight: 700,
                   textTransform: 'uppercase',
                   letterSpacing: '0.08em',
-                  color: '#555560',
+                  color: '#474D47',
                   width: col.width,
                 }}
               >
@@ -78,7 +78,7 @@ export function DataTable<T>({ columns, rows, onRowClick, emptyMessage = 'No dat
                 style={{
                   padding: '40px 14px',
                   textAlign: 'center',
-                  color: '#555560',
+                  color: '#474D47',
                   fontSize: '13px',
                 }}
               >
@@ -91,7 +91,7 @@ export function DataTable<T>({ columns, rows, onRowClick, emptyMessage = 'No dat
                 key={idx}
                 onClick={onRowClick ? () => onRowClick(row) : undefined}
                 style={{
-                  borderBottom: idx < rows.length - 1 ? '1px solid #1e1e22' : undefined,
+                  borderBottom: idx < rows.length - 1 ? '1px solid #1A1D1A' : undefined,
                   cursor: onRowClick ? 'pointer' : 'default',
                   transition: 'background 0.1s',
                 }}
@@ -110,7 +110,7 @@ export function DataTable<T>({ columns, rows, onRowClick, emptyMessage = 'No dat
                     style={{
                       padding: '12px 14px',
                       fontSize: '12px',
-                      color: '#aaaabc',
+                      color: '#9BA39B',
                     }}
                   >
                     {col.render(row)}
