@@ -18,7 +18,7 @@ export function middleware(req: NextRequest) {
     host.startsWith('console.') || host.includes('localhost') || host.startsWith('127.0.0.1')
 
   if (!uiAllowed) {
-    return new NextResponse('patchway gateway — dashboard coming soon', {
+    return new NextResponse('patchway gateway — API only. Dashboard: https://console.patchway.xyz', {
       status: 404,
       headers: { 'content-type': 'text/plain' },
     })
