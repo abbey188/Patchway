@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: Inter, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --color-bg-nav: #111113;
+  --color-bg-page: #161618;
+  --color-bg-card: #1c1c1f;
+  --color-border-default: #2a2a2e;
+  --color-border-inner: #1e1e22;
+  --color-text-primary: #f0f0f5;
+  --color-text-secondary: #aaaabc;
+  --color-text-muted: #666672;
+  --color-text-dim: #555560;
+  --color-green: #01703b;
+  --color-green-bright: #4ade80;
+  --color-yellow-status: #f59e0b;
+  --color-blue-status: #60a5fa;
+  --color-red-status: #f87171;
+  --color-gray-status: #52525b;
+}
+
+:root {
+  --bg-nav: #111113;
+  --bg-page: #161618;
+  --bg-card: #1c1c1f;
+  --border: #2a2a2e;
+  --border-inner: #1e1e22;
+  --text-primary: #f0f0f5;
+  --text-secondary: #aaaabc;
+  --text-muted: #666672;
+  --text-dim: #555560;
+  --green: #01703b;
+  --green-bright: #4ade80;
+  --green-subtle: rgba(1, 112, 59, 0.10);
+  --yellow: #f59e0b;
+  --blue: #60a5fa;
+  --red: #f87171;
+  --gray: #52525b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  background: var(--bg-nav);
+  color: var(--text-primary);
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2a2e;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3a3e;
+}
+
+/* Hide stray dapp-kit wallet widgets that appear outside our custom UI.
+   Only hide them when they appear as direct children of body (injected by extensions).
+   Our own ConnectButton/ConnectModal inside the app tree must remain visible. */
+body > mysten-dapp-kit-connect-button,
+body > mysten-dapp-kit-connect-modal {
+  display: none !important;
+}
+
+/* Nightly / Slush floating wallet widget */
+[data-testid="slush-wallet"],
+.slush-wallet-widget,
+div[style*="position: fixed"][style*="bottom"]:has(> svg),
+body > div:last-child:not([id]):not([class]):not([data-console-layout]) > div[style*="border-radius: 50%"] {
+  display: none !important;
+}

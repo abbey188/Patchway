@@ -1,0 +1,33 @@
+{
+  "name": "patchway-mcp",
+  "version": "0.1.0",
+  "description": "Patchway MCP server — AI agent coordination on Sui",
+  "type": "module",
+  "bin": {
+    "patchway-mcp": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "@patchway/sdk": "^0.1.0",
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.0.0"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/patchway/patchway"
+  }
+}

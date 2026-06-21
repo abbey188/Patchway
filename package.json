@@ -1,0 +1,42 @@
+{
+  "name": "patchway",
+  "version": "0.1.0",
+  "type": "module",
+  "workspaces": [
+    "sdk",
+    "cli",
+    "mcp",
+    "dashboard"
+  ],
+  "scripts": {
+    "cli": "node --import tsx/esm cli/src/index.ts",
+    "mcp": "node --import tsx/esm mcp/src/index.ts",
+    "researcher": "tsx demo/researcher.ts",
+    "analyst": "tsx demo/analyst.ts",
+    "planner": "tsx demo/planner.ts",
+    "workflow": "tsx demo/workflow.ts",
+    "ai-agent": "tsx demo/ai-agent.ts"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.14.4",
+    "@mysten-incubation/memwal": "^0.0.6",
+    "@mysten/sui": "^2.17.0",
+    "@mysten/sui-groups": "^0.0.1",
+    "@mysten/sui-stack-messaging": "^0.0.2",
+    "@mysten/walrus": "^1.1.7",
+    "@protobuf-ts/grpc-transport": "^2.11.1",
+    "@supabase/supabase-js": "^2.0.0",
+    "@vercel/sdk": "^1.28.1",
+    "dotenv": "^16.0.0",
+    "pg": "^8.0.0",
+    "zod": "^3.0.0"
+  },
+  "devDependencies": {
+    "@ai-sdk/groq": "^3.0.41",
+    "@types/node": "^22.0.0",
+    "@types/pg": "^8.0.0",
+    "ai": "^6.0.205",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}

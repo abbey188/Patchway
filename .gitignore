@@ -1,0 +1,57 @@
+# ── Secrets — NEVER commit ───────────────────────────────────────────────
+.env
+.env*
+*.pem
+*.key
+
+# ── Dependencies & build artifacts ───────────────────────────────────────
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+.next/
+**/.next/
+out/
+*.tsbuildinfo
+**/*.tsbuildinfo
+.vercel/
+**/.vercel/
+
+# ── Internal working docs (kept local, not in the public repo) ───────────
+CLAUDE.md
+HANDOVER.md
+MESSAGING.md
+CHANGES.md
+SUI_STACK_MESSAGING.md
+CONSOLE-REDESIGN-BRIEF.md
+V4.2_IMPLEMENTATION_BRIEF.md
+**/CONTEXT.md
+dashboard/DASHBOARD_BUILD.md
+contract/UPGRADE_*_RUNBOOK.md
+
+# ── Internal scripts, specs & tooling ────────────────────────────────────
+scripts/
+specs/
+.agents/
+.suiperpower/
+.claude/
+skills-lock.json
+
+# ── Move build output (compiled bytecode + copied framework deps) ────────
+contract/build/
+
+# ── Extra lockfiles / stray artifacts (npm is the canonical package mgr) ──
+pnpm-lock.yaml
+pnpm-workspace.yaml
+sdk/package-lock.json
+.demo-relay-id
+
+# ── Demo run artifacts ───────────────────────────────────────────────────
+demo/.traces/
+
+# ── OS / editor ──────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/
