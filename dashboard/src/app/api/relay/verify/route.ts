@@ -144,21 +144,40 @@ export async function GET(req: NextRequest) {
 
   const statusLabels = ['pending', 'accepted', 'completed', 'expired']
 
-  // Layer 2: Walrus — digest integrity
+  // Layer 2: Walrus — digest integrity, with a durable-cache fallback (C4) so the
+  // public proof never rots when a testnet blob expires. Integrity is anchored to the
+  // on-chain digest_hash either way (a cache hit is still trustless); digestSource
+  // records whether availability needed the cache.
   let digest: DigestJson | null = null
   let digestIntegrity = false
+  let digestSource: 'walrus' | 'cache' | null = null
+  const onChainHash = typeof relay.digest_hash === 'string'
+    ? Buffer.from(relay.digest_hash, 'base64')
+    : Buffer.from(relay.digest_hash)
   const digestResult = await fetchWalrusBlob(relay.digest_blob_id)
 
   if (digestResult.ok && digestResult.bytes) {
     try {
-      digest = JSON.parse(new TextDecoder().decode(digestResult.bytes))
-      const hash = createHash('sha256').update(digestResult.bytes).digest()
-      const onChainHash = typeof relay.digest_hash === 'string'
-        ? Buffer.from(relay.digest_hash, 'base64')
-        : Buffer.from(relay.digest_hash)
-      digestIntegrity = hash.equals(onChainHash)
+      const bytes = digestResult.bytes
+      digestIntegrity = createHash('sha256').update(bytes).digest().equals(onChainHash)
+      if (digestIntegrity) {
+        digest = JSON.parse(new TextDecoder().decode(bytes))
+        digestSource = 'walrus'
+      }
     } catch {
       // malformed digest
+    }
+  }
+  if (!digestIntegrity) {
+    const { data: cached } = await supabase
+      .from('relay_digests').select('digest_json').eq('relay_id', relayId).maybeSingle()
+    if (cached?.digest_json) {
+      const cachedBytes = Buffer.from(cached.digest_json as string, 'utf8')
+      if (createHash('sha256').update(cachedBytes).digest().equals(onChainHash)) {
+        digest = JSON.parse(cached.digest_json as string)
+        digestIntegrity = true
+        digestSource = 'cache'
+      }
     }
   }
 
@@ -204,12 +223,21 @@ export async function GET(req: NextRequest) {
   const grantedAtEpoch = access.grantedAt ?? (relay.accepted_at != null ? Number(relay.accepted_at) : null)
   const revokedAtEpoch = access.revokedAt ?? (relay.completed_at != null ? Number(relay.completed_at) : null)
 
-  let revocationProven: boolean | null = null
+  // A1: never fail open. Distinguish "still open" from "couldn't verify" — a chain-read
+  // failure is 'unverifiable', not a clean blank.
   const isClosed = relay.status === 2 || relay.status === 3 // completed | expired
-  if (isClosed && access.grantedPubkey && relay.from_memwal_account_id) {
+  let revocationStatus: 'proven' | 'not_revoked' | 'pending' | 'unverifiable'
+  if (!isClosed) {
+    revocationStatus = 'pending'
+  } else if (!access.grantedPubkey || !relay.from_memwal_account_id) {
+    revocationStatus = 'unverifiable'
+  } else {
     const currentKeys = await fetchMemwalDelegatePubkeys(relay.from_memwal_account_id)
-    if (currentKeys) revocationProven = !currentKeys.has(access.grantedPubkey)
+    if (!currentKeys) revocationStatus = 'unverifiable'
+    else revocationStatus = currentKeys.has(access.grantedPubkey) ? 'not_revoked' : 'proven'
   }
+  const revocationProven: boolean | null =
+    revocationStatus === 'proven' ? true : revocationStatus === 'not_revoked' ? false : null
 
   return NextResponse.json({
     relay: {
@@ -219,6 +247,7 @@ export async function GET(req: NextRequest) {
     verification: {
       digestIntegrity,
       digestAvailable: digestResult.ok,
+      digestSource,
       artifactChecks,
     },
     accessWindow: {
@@ -227,6 +256,7 @@ export async function GET(req: NextRequest) {
       grantedPubkey: access.grantedPubkey,
     },
     revocationProven,
+    revocationStatus,
     digest,
     threadEntries: threadEntries ?? [],
     feedbackEntries: feedbackEntries ?? [],
