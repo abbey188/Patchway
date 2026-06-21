@@ -60,25 +60,9 @@ export function ConnectScreen() {
         }}
       >
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div
-              style={{
-                width: '38px',
-                height: '38px',
-                background: '#01703b',
-                borderRadius: '10px',
-              }}
-            />
-            <span
-              style={{
-                fontSize: '21px',
-                fontWeight: 700,
-                color: '#ECEFEC',
-                letterSpacing: '-0.02em',
-              }}
-            >
-              patchway
-            </span>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/patchway-logo.png" alt="Patchway" style={{ height: '40px', width: 'auto', display: 'block' }} />
           </div>
           <p
             style={{
@@ -203,7 +187,7 @@ export function ConnectScreen() {
           }}
         >
           <Lock size={10} />
-          Read-only · Keys never leave your device
+          Your wallet is your identity · keys never leave your device
         </div>
       </div>
 

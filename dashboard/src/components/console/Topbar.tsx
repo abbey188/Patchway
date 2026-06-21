@@ -31,7 +31,7 @@ function Logo() {
       <img
         src="/patchway-logo.png"
         alt="Patchway"
-        style={{ height: '22px', width: 'auto', display: 'block' }}
+        style={{ height: '30px', width: 'auto', display: 'block' }}
       />
     </Link>
   )

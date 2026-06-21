@@ -219,13 +219,15 @@ export default function OverviewPage() {
     queryKey: ['channels-chain', account?.address],
     queryFn: () => fetchChannelsByWallet(account!.address),
     enabled: !!account,
+    staleTime: 30_000, // cached → instant on revisit (matches sidebar prefetch)
   })
 
-  const { data: serverData, isPending: serverPending } = useQuery({
+  const { data: serverData } = useQuery({
     queryKey: ['stats', account?.address],
     queryFn: () => fetchServerStats(account!.address),
     enabled: !!account,
     placeholderData: keepPreviousData,
+    staleTime: 30_000,
   })
 
   const agentCount = Math.max(chainChannels?.length ?? 0, serverData?.stats?.agentCount ?? 0)
@@ -233,7 +235,9 @@ export default function OverviewPage() {
   const memoryCount = serverData?.stats?.memoryCount ?? 0
   const recentRelays: RelayGrant[] = serverData?.recentRelays ?? []
 
-  const statsPending = !chainChannels && serverPending
+  // Unified loading: hold the WHOLE view on skeletons until BOTH sources resolve,
+  // then paint everything at once — no partial pop where some tiles fill before others.
+  const ready = chainChannels !== undefined && serverData !== undefined
 
   const dailyActivity: DayData[] = serverData?.dailyActivity ?? []
   const fallbackDaily: DayData[] = dailyActivity.length > 0
@@ -264,16 +268,15 @@ export default function OverviewPage() {
 
       {/* Stat cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '12px', marginBottom: '18px' }}>
-        {statsPending ? (
+        {!ready ? (
           Array.from({ length: 5 }).map((_, i) => (
             <div
               key={i}
               style={{
-                background: '#1C201C',
-                border: '1px solid #242824',
-                borderRadius: '10px',
-                padding: '14px 16px',
-                height: '90px',
+                background: 'var(--raised)',
+                borderRadius: '12px',
+                height: '96px',
+                opacity: 0.6,
               }}
             />
           ))
@@ -310,7 +313,11 @@ export default function OverviewPage() {
 
       {/* Chart */}
       <div style={{ marginBottom: '18px' }}>
-        <ActivityChart data={fallbackDaily} />
+        {!ready ? (
+          <div style={{ background: 'var(--raised)', borderRadius: '12px', height: '280px', opacity: 0.6 }} />
+        ) : (
+          <ActivityChart data={fallbackDaily} />
+        )}
       </div>
 
       {/* Recent relays */}
@@ -328,7 +335,7 @@ export default function OverviewPage() {
         <DataTable
           columns={RELAY_COLUMNS}
           rows={recentRelays}
-          loading={serverPending}
+          loading={!ready}
           onRowClick={(r) => router.push(`/console/relays/${r.relayId}`)}
           emptyMessage="No relays yet — run the demo to get started"
         />
