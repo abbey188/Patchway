@@ -351,8 +351,8 @@ export function Topbar() {
             <button
               onClick={() => setDropdownOpen((v) => !v)}
               style={{
-                width: '30px',
-                height: '30px',
+                width: '36px',
+                height: '36px',
                 borderRadius: '50%',
                 border: 'none',
                 padding: 0,
@@ -365,7 +365,7 @@ export function Topbar() {
               onMouseEnter={(e) => (e.currentTarget.style.boxShadow = '0 0 0 2px var(--green)')}
               onMouseLeave={(e) => (e.currentTarget.style.boxShadow = 'none')}
             >
-              <UserAvatar seed={account.address} size={30} />
+              <UserAvatar seed={account.address} size={36} />
             </button>
 
             {dropdownOpen && (
