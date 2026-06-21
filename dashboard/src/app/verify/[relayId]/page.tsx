@@ -180,6 +180,7 @@ export default function PublicVerifyPage({ params }: Props) {
   const v = verification.verification
   const accessWindow = verification.accessWindow as { grantedAtEpoch: number | null; revokedAtEpoch: number | null } | undefined
   const revocationProven = verification.revocationProven as boolean | null | undefined
+  const revocationStatus = verification.revocationStatus as 'proven' | 'not_revoked' | 'pending' | 'unverifiable' | undefined
 
   const totalChecks = 2 + v.artifactChecks.length
   const passedChecks =
@@ -275,15 +276,17 @@ export default function PublicVerifyPage({ params }: Props) {
           }}>
             <span style={{ fontSize: '16px' }}>{revocationProven === true ? '✓' : revocationProven === false ? '✗' : '•'}</span>
             <span style={{ fontSize: '12px', fontWeight: 600, color: revocationProven === true ? '#3AD17B' : revocationProven === false ? '#F2706B' : '#9BA39B' }}>
-              {revocationProven === true
+              {revocationStatus === 'proven'
                 ? 'Revocation proven on-chain'
-                : revocationProven === false
+                : revocationStatus === 'not_revoked'
                   ? 'Granted key still present on-chain'
-                  : 'Revocation proof unavailable'}
+                  : 'Could not verify on-chain — not assumed'}
             </span>
-            <span style={{ fontSize: '11px', color: '#474D47', marginLeft: '4px' }}>
-              the granted delegate key is verified absent from the sender&apos;s memory account
-            </span>
+            {revocationStatus === 'proven' && (
+              <span style={{ fontSize: '11px', color: '#474D47', marginLeft: '4px' }}>
+                the granted delegate key is verified absent from the sender&apos;s memory account
+              </span>
+            )}
           </div>
         )}
       </Card>

@@ -87,12 +87,12 @@ function NetworkSection() {
         <StatusBadge status="testnet" />
       </Row>
       <Row label="GraphQL endpoint">
-        <span style={{ fontSize: '12px', color: '#9BA39B', fontFamily: "'JetBrains Mono', monospace" }}>
+        <span style={{ fontSize: '12px', color: '#9BA39B', fontFamily: "'Geist Mono', monospace" }}>
           graphql.testnet.sui.io
         </span>
       </Row>
       <Row label="Walrus aggregator">
-        <span style={{ fontSize: '12px', color: '#9BA39B', fontFamily: "'JetBrains Mono', monospace" }}>
+        <span style={{ fontSize: '12px', color: '#9BA39B', fontFamily: "'Geist Mono', monospace" }}>
           aggregator.walrus-testnet.walrus.space
         </span>
       </Row>
@@ -110,7 +110,7 @@ function ProtocolSection() {
         <span style={{ fontSize: '13px', color: '#9BA39B' }}>v3 (testnet)</span>
       </Row>
       <Row label="MemWal relayer">
-        <span style={{ fontSize: '12px', color: '#3AD17B', fontFamily: "'JetBrains Mono', monospace" }}>
+        <span style={{ fontSize: '12px', color: '#3AD17B', fontFamily: "'Geist Mono', monospace" }}>
           relayer.staging.memwal.ai
         </span>
       </Row>

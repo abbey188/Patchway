@@ -237,7 +237,7 @@ function WalletDropdown({
         </div>
         <div
           style={{
-            fontFamily: "'JetBrains Mono', monospace",
+            fontFamily: "'Geist Mono', monospace",
             fontSize: '11px',
             color: '#ECEFEC',
             wordBreak: 'break-all',

@@ -132,7 +132,7 @@ export function KeysPanel() {
                   <div style={{ fontSize: '13px', fontWeight: 600, color: '#ECEFEC' }}>Gas tank</div>
                   {tank?.ownerAddress ? (
                     <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                      <code style={{ fontSize: '11px', color: '#888', fontFamily: "'JetBrains Mono', monospace" }}>
+                      <code style={{ fontSize: '11px', color: '#888', fontFamily: "'Geist Mono', monospace" }}>
                         {tank.ownerAddress.slice(0, 12)}…{tank.ownerAddress.slice(-6)}
                       </code>
                       <CopyBtn value={tank.ownerAddress} />
@@ -143,7 +143,7 @@ export function KeysPanel() {
                 </div>
               </div>
               <div style={{ textAlign: 'right' }}>
-                <div style={{ fontSize: '16px', fontWeight: 700, color: low ? '#F2B23E' : '#ECEFEC', fontFamily: "'JetBrains Mono', monospace" }}>
+                <div style={{ fontSize: '16px', fontWeight: 700, color: low ? '#F2B23E' : '#ECEFEC', fontFamily: "'Geist Mono', monospace" }}>
                   {sui.toFixed(3)} <span style={{ fontSize: '11px', color: '#474D47' }}>SUI</span>
                 </div>
                 <div style={{ fontSize: '10px', color: low ? '#F2B23E' : '#474D47' }}>
@@ -154,7 +154,7 @@ export function KeysPanel() {
             <div style={{ fontSize: '10px', color: '#474D47', marginTop: '8px', lineHeight: 1.5 }}>
               Dev-owned & reclaimable — auto-tops-up from your wallet at relay.create.
               {' '}Reclaim or export the key via CLI:
-              <span style={{ fontFamily: "'JetBrains Mono', monospace", color: '#777' }}>
+              <span style={{ fontFamily: "'Geist Mono', monospace", color: '#777' }}>
                 {' '}patchway agents tank reclaim {agentName || '<agent>'}
               </span>
             </div>
@@ -190,7 +190,7 @@ export function KeysPanel() {
                 <div key={k.publicKey} style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr 90px 90px', alignItems: 'center', padding: '11px 14px', borderBottom: '1px solid #1A1D1A', gap: '8px' }}>
                   <span style={{ fontSize: '12px', fontWeight: 600, color: kind.color }}>{k.label || '—'}</span>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '4px', minWidth: 0 }}>
-                    <code style={{ fontSize: '11px', color: '#888', fontFamily: "'JetBrains Mono', monospace", overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    <code style={{ fontSize: '11px', color: '#888', fontFamily: "'Geist Mono', monospace", overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                       {k.publicKey.slice(0, 20)}…
                     </code>
                     <CopyBtn value={k.publicKey} />
@@ -208,10 +208,10 @@ export function KeysPanel() {
           <Terminal size={13} color="#474D47" style={{ marginTop: '1px', flexShrink: 0 }} />
           <div style={{ fontSize: '11px', color: '#777', lineHeight: 1.6 }}>
             This view is read-only. Add or revoke keys from the SDK or CLI, where your keypair signs directly:
-            <div style={{ marginTop: '6px', fontFamily: "'JetBrains Mono', monospace", color: '#9BA39B' }}>
+            <div style={{ marginTop: '6px', fontFamily: "'Geist Mono', monospace", color: '#9BA39B' }}>
               {`patchway agents key add ${agentName || '<agent>'} --label web-app`}
             </div>
-            <div style={{ fontFamily: "'JetBrains Mono', monospace", color: '#9BA39B' }}>
+            <div style={{ fontFamily: "'Geist Mono', monospace", color: '#9BA39B' }}>
               {`patchway agents key revoke ${agentName || '<agent>'} <publicKey>`}
             </div>
           </div>
@@ -235,9 +235,9 @@ export function KeysPanel() {
           ) : (
             grants.map((g) => (
               <div key={g.id} style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 100px', alignItems: 'center', padding: '11px 14px', borderBottom: '1px solid #1A1D1A', gap: '8px' }}>
-                <code style={{ fontSize: '11px', color: '#888', fontFamily: "'JetBrains Mono', monospace", overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{g.relayId.slice(0, 14)}…</code>
-                <code style={{ fontSize: '11px', color: '#6B726B', fontFamily: "'JetBrains Mono', monospace" }}>{g.fromChannelId.slice(0, 10)}…</code>
-                <code style={{ fontSize: '11px', color: '#6B726B', fontFamily: "'JetBrains Mono', monospace" }}>{g.toChannelId.slice(0, 10)}…</code>
+                <code style={{ fontSize: '11px', color: '#888', fontFamily: "'Geist Mono', monospace", overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{g.relayId.slice(0, 14)}…</code>
+                <code style={{ fontSize: '11px', color: '#6B726B', fontFamily: "'Geist Mono', monospace" }}>{g.fromChannelId.slice(0, 10)}…</code>
+                <code style={{ fontSize: '11px', color: '#6B726B', fontFamily: "'Geist Mono', monospace" }}>{g.toChannelId.slice(0, 10)}…</code>
                 <StatusBadge status={effectiveRelayStatus(g)} />
               </div>
             ))

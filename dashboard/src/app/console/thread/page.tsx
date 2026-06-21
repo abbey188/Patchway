@@ -213,7 +213,7 @@ function ThreadEntryRow({
                     color: '#ccc',
                     whiteSpace: 'pre-wrap',
                     wordBreak: 'break-word',
-                    fontFamily: "'JetBrains Mono', monospace",
+                    fontFamily: "'Geist Mono', monospace",
                     margin: 0,
                   }}
                 >

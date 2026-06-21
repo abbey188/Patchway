@@ -364,7 +364,7 @@ export default function RelayDetailPage({ params }: Props) {
           {digest.nextStep && <InfoRow label="Next Step">{digest.nextStep}</InfoRow>}
           {digest.confidence != null && (
             <InfoRow label="Confidence">
-              <span style={{ fontFamily: "'JetBrains Mono', monospace", color: '#3AD17B' }}>
+              <span style={{ fontFamily: "'Geist Mono', monospace", color: '#3AD17B' }}>
                 {(digest.confidence * 100).toFixed(0)}%
               </span>
             </InfoRow>
@@ -516,7 +516,7 @@ export default function RelayDetailPage({ params }: Props) {
         <InfoRow label="Sender"><MonoId id={relay.sender} truncate showCopy /></InfoRow>
         <InfoRow label="MemWal Account"><MonoId id={relay.from_memwal_account_id} truncate showCopy /></InfoRow>
         <InfoRow label="Namespace">
-          <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', color: '#3AD17B' }}>
+          <span style={{ fontFamily: "'Geist Mono', monospace", fontSize: '11px', color: '#3AD17B' }}>
             {relay.memwal_namespace}
           </span>
         </InfoRow>

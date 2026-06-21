@@ -32,10 +32,11 @@ export function MonoId({ id, truncate = true, showCopy = false, className = '' }
         display: 'inline-flex',
         alignItems: 'center',
         gap: '4px',
-        fontFamily: "'JetBrains Mono', monospace",
+        fontFamily: "'Geist Mono', monospace",
+        fontVariantNumeric: 'tabular-nums',
         fontSize: '11px',
-        color: '#3AD17B',
-        letterSpacing: '0.01em',
+        color: 'var(--text-2)',
+        letterSpacing: '0',
       }}
     >
       <span title={id}>{truncate ? truncateId(id) : id}</span>
@@ -49,7 +50,7 @@ export function MonoId({ id, truncate = true, showCopy = false, className = '' }
             padding: '1px',
             display: 'inline-flex',
             alignItems: 'center',
-            color: copied ? '#3AD17B' : '#474D47',
+            color: copied ? 'var(--green-live)' : 'var(--text-4)',
             transition: 'color 0.15s',
           }}
           title="Copy"

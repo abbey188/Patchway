@@ -121,15 +121,15 @@ function ActivityChart({ data }: { data: DayData[] }) {
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '20px' }}>
                       <span style={{ fontSize: '11px', color: '#9BA39B' }}>Relays</span>
-                      <span style={{ fontSize: '12px', fontWeight: 600, color: '#ECEFEC', fontFamily: "'JetBrains Mono', monospace" }}>{day.relays}</span>
+                      <span style={{ fontSize: '12px', fontWeight: 600, color: '#ECEFEC', fontFamily: "'Geist Mono', monospace" }}>{day.relays}</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '20px' }}>
                       <span style={{ fontSize: '11px', color: '#9BA39B' }}>Memories</span>
-                      <span style={{ fontSize: '12px', fontWeight: 600, color: '#ECEFEC', fontFamily: "'JetBrains Mono', monospace" }}>{day.memories}</span>
+                      <span style={{ fontSize: '12px', fontWeight: 600, color: '#ECEFEC', fontFamily: "'Geist Mono', monospace" }}>{day.memories}</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '20px' }}>
                       <span style={{ fontSize: '11px', color: '#9BA39B' }}>Feedback</span>
-                      <span style={{ fontSize: '12px', fontWeight: 600, color: '#ECEFEC', fontFamily: "'JetBrains Mono', monospace" }}>{day.feedback}</span>
+                      <span style={{ fontSize: '12px', fontWeight: 600, color: '#ECEFEC', fontFamily: "'Geist Mono', monospace" }}>{day.feedback}</span>
                     </div>
                   </div>
                 </div>

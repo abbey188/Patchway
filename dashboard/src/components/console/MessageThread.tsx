@@ -84,7 +84,7 @@ function MessageContent({ parsed, text }: { parsed: PatchMessage | null; text: s
             {parsed.phase.replace(/-/g, ' ')}
           </span>
           {parsed.relayId && (
-            <span style={{ fontSize: '10px', color: '#474D47', fontFamily: "'JetBrains Mono', monospace" }}>
+            <span style={{ fontSize: '10px', color: '#474D47', fontFamily: "'Geist Mono', monospace" }}>
               {parsed.relayId.slice(0, 10)}...
             </span>
           )}
@@ -219,7 +219,7 @@ export function MessageThread({ messages, agentNames }: Props) {
             {/* Time (hover for full date + time) */}
             <span
               title={msg.createdAt ? new Date(msg.createdAt).toLocaleString() : ''}
-              style={{ fontSize: '10px', color: '#474D47', fontFamily: "'JetBrains Mono', monospace", paddingTop: '2px' }}
+              style={{ fontSize: '10px', color: '#474D47', fontFamily: "'Geist Mono', monospace", paddingTop: '2px' }}
             >
               {formatTime(msg.createdAt)}
             </span>
