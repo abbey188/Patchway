@@ -215,14 +215,14 @@ export default function OverviewPage() {
   const account = useCurrentAccount()
   const router = useRouter()
 
-  const { data: chainChannels } = useQuery({
+  const { data: chainChannels, error: chainError, refetch: refetchChain } = useQuery({
     queryKey: ['channels-chain', account?.address],
     queryFn: () => fetchChannelsByWallet(account!.address),
     enabled: !!account,
     staleTime: 30_000, // cached → instant on revisit (matches sidebar prefetch)
   })
 
-  const { data: serverData } = useQuery({
+  const { data: serverData, error: statsError, refetch: refetchStats } = useQuery({
     queryKey: ['stats', account?.address],
     queryFn: () => fetchServerStats(account!.address),
     enabled: !!account,
@@ -238,6 +238,9 @@ export default function OverviewPage() {
   // Unified loading: hold the WHOLE view on skeletons until BOTH sources resolve,
   // then paint everything at once — no partial pop where some tiles fill before others.
   const ready = chainChannels !== undefined && serverData !== undefined
+  const error = chainError || statsError
+  // A brand-new developer (no agents registered yet) — guide them, don't show empty counters.
+  const isEmpty = ready && !error && agentCount === 0
 
   const dailyActivity: DayData[] = serverData?.dailyActivity ?? []
   const fallbackDaily: DayData[] = dailyActivity.length > 0
@@ -266,6 +269,39 @@ export default function OverviewPage() {
         </p>
       </div>
 
+      {error ? (
+        <div style={{ background: 'var(--raised)', borderRadius: '14px', padding: '36px', textAlign: 'center' }}>
+          <div style={{ color: 'var(--text)', fontWeight: 600, marginBottom: '6px' }}>Couldn’t load your console</div>
+          <div style={{ color: 'var(--text-3)', fontSize: '13px', marginBottom: '18px' }}>
+            {((error as Error).message || 'Network error').slice(0, 140)}
+          </div>
+          <button
+            onClick={() => { refetchChain(); refetchStats() }}
+            style={{ background: 'var(--green)', color: '#fff', border: 'none', borderRadius: '8px', padding: '9px 18px', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}
+          >
+            Retry
+          </button>
+        </div>
+      ) : isEmpty ? (
+        <div style={{ background: 'var(--raised)', borderRadius: '16px', padding: '44px 36px', textAlign: 'center' }}>
+          <div style={{ fontSize: '17px', fontWeight: 600, color: 'var(--text)', marginBottom: '8px' }}>No agents yet</div>
+          <div style={{ color: 'var(--text-2)', fontSize: '13px', lineHeight: 1.6, maxWidth: '460px', margin: '0 auto 22px' }}>
+            Register your first agent with{' '}
+            <span style={{ fontFamily: "'Geist Mono', monospace", color: 'var(--green-live)' }}>@patchway/sdk</span>, then
+            hand off work between agents — each relay shows up here as a verifiable, auto-revoking handoff you can prove on-chain.
+          </div>
+          <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <a href="https://docs.patchway.xyz" target="_blank" rel="noreferrer"
+               style={{ background: 'var(--green)', color: '#fff', borderRadius: '8px', padding: '9px 18px', fontSize: '13px', fontWeight: 600 }}>
+              Get started ↗
+            </a>
+            <span style={{ background: 'var(--surface)', boxShadow: 'inset 0 0 0 1px var(--hairline)', color: 'var(--text-2)', borderRadius: '8px', padding: '9px 18px', fontSize: '12px', fontFamily: "'Geist Mono', monospace" }}>
+              npm install @patchway/sdk
+            </span>
+          </div>
+        </div>
+      ) : (
+      <>
       {/* Stat cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '12px', marginBottom: '18px' }}>
         {!ready ? (
@@ -340,6 +376,8 @@ export default function OverviewPage() {
           emptyMessage="No relays yet — run the demo to get started"
         />
       </div>
+      </>
+      )}
     </div>
   )
 }

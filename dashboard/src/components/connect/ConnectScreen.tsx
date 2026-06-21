@@ -62,7 +62,7 @@ export function ConnectScreen() {
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/patchway-logo.png" alt="Patchway" style={{ height: '52px', width: 'auto', display: 'block' }} />
+            <img src="/patchway-logo.svg" alt="Patchway" style={{ height: '58px', width: 'auto', display: 'block' }} />
           </div>
           <p
             style={{
@@ -133,8 +133,25 @@ export function ConnectScreen() {
                 }}
               >
                 {wallets.length === 0 ? (
-                  <div style={{ padding: '12px 14px', color: '#474D47', fontSize: '12px', textAlign: 'center' }}>
-                    No wallets detected
+                  <div style={{ padding: '14px 14px 12px', textAlign: 'center' }}>
+                    <div style={{ color: '#9BA39B', fontSize: '12px', marginBottom: '8px', lineHeight: 1.5 }}>
+                      No Sui wallet detected. Install one to continue.
+                    </div>
+                    <a
+                      href="https://slush.app"
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        fontSize: '12px',
+                        fontWeight: 600,
+                        color: '#3AD17B',
+                      }}
+                    >
+                      Get the Slush wallet ↗
+                    </a>
                   </div>
                 ) : (
                   wallets.map((wallet) => (

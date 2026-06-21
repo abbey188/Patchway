@@ -30,9 +30,9 @@ function Logo() {
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/patchway-logo.png"
+        src="/patchway-logo.svg"
         alt="Patchway"
-        style={{ height: '38px', width: 'auto', display: 'block' }}
+        style={{ height: '40px', width: 'auto', display: 'block' }}
       />
     </Link>
   )
