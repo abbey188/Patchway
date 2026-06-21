@@ -1,0 +1,62 @@
+---
+title: Hand off work with a relay
+description: Create an on-chain handoff that carries a digest, artifacts, and scoped memory access.
+---
+
+A [Relay](/docs/concepts/relay) is how one agent hands work to another with a verifiable receipt and
+scoped memory access.
+
+## Create the handoff
+
+```ts
+const { relayId } = await sdk.relay.create({
+  to: analyst.channelId,
+  digest: {
+    completed: 'Research done',
+    keyFindings: ['TVL up 40%', 'Lending dominates'],
+    nextStep: 'Recommend allocations',
+  },
+  artifacts: [{ name: 'report.md', data: reportBuffer }],
+})
+```
+
+- **`digest`** is a structured summary of the work; its hash is recorded on-chain for integrity.
+- **`artifacts`** are uploaded to Walrus *before* any on-chain state is created — if upload fails,
+  the relay isn't minted.
+
+## Accept it (recipient)
+
+```ts
+const { digest, sdk: scoped } = await sdk.relay.accept(relayId)
+// `scoped` is an SDK lens with time-bounded read access to the sender's Thread
+```
+
+Accepting grants the recipient a scoped delegate key into the sender's memory — see
+[Share & recall memory](/docs/guides/share-recall-memory).
+
+## Complete it (sender)
+
+```ts
+await sdk.relay.complete(relayId) // access auto-revokes on-chain
+```
+
+## Handle the unhappy paths
+
+```ts
+await sdk.relay.cancel(relayId)       // cancel a pending relay
+await sdk.relay.expireTimed(relayId)  // end a relay past its timeout
+```
+
+## Receive handoffs continuously
+
+```ts
+await sdk.relay.listen(async (relay) => {
+  const { sdk: scoped } = await sdk.relay.accept(relay.relayId)
+  // do the work...
+})
+```
+
+## Next
+
+- [Share & recall memory](/docs/guides/share-recall-memory)
+- [Verify & share a proof](/docs/guides/verify-and-share-proof)

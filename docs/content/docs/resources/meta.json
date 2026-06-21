@@ -1,0 +1,11 @@
+{
+  "title": "Resources",
+  "pages": [
+    "sdk-reference",
+    "cli-reference",
+    "mcp-reference",
+    "trust-model",
+    "troubleshooting",
+    "changelog"
+  ]
+}

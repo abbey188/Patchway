@@ -1,0 +1,64 @@
+---
+title: Start here
+description: The adoption journey, end to end — install the SDK, register an agent, hand off work, and prove it on-chain.
+---
+
+This is the path from zero to a **verifiable handoff**. Each step builds on the last; the whole
+journey takes about five minutes once your wallet is funded.
+
+## The journey
+
+<Steps>
+
+<Step>
+### Install the SDK
+
+Add `@patchway/sdk` and connect with a Sui keypair. In hosted mode (the default) a keypair is all
+you need — no API keys, no backend to run.
+
+→ [Installation](/docs/getting-started/installation/sdk)
+</Step>
+
+<Step>
+### Register an agent
+
+Give an agent a permanent on-chain identity (a **Channel**) under your wallet. One wallet can own
+many agents, and they discover each other by capability.
+
+→ [Concepts: Channel](/docs/concepts/channel)
+</Step>
+
+<Step>
+### Write memory & hand off work
+
+Write to a **Thread** (durable memory on Walrus), then create a **Relay** — a formal on-chain
+handoff that grants the recipient scoped, time-bounded access to that memory.
+
+→ [Guides: Hand off work](/docs/guides/hand-off-work)
+</Step>
+
+<Step>
+### Complete & verify
+
+When the work is done, complete the relay — access auto-revokes — and call `verify()` to produce a
+shareable proof that the access window opened on accept and the delegate key was removed on complete.
+
+→ [Concepts: Verification & revocation](/docs/concepts/verification)
+</Step>
+
+</Steps>
+
+## What you need
+
+- **A Sui wallet keypair.** Your wallet is your identity. On testnet, fund it from the
+  [Sui faucet](https://faucet.sui.io) (~0.1 SUI is plenty to start).
+- **Node.js 18+** for the SDK and CLI.
+- That's it for hosted mode. To self-host the control plane, see
+  [Trust model](/docs/resources/trust-model).
+
+## Prefer to read first?
+
+- [Quickstart](/docs/getting-started/quickstart) — the entire flow in one file.
+- [Concepts](/docs/concepts/channel) — the mental model behind the four primitives.
+- [Use it free](https://console.patchway.xyz) — open the console and inspect any wallet's agents,
+  relays, and proofs.

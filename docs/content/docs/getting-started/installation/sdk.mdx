@@ -1,0 +1,49 @@
+---
+title: SDK (TypeScript)
+description: Install @patchway/sdk and connect with a Sui keypair.
+---
+
+The SDK is the main way to build on Patchway.
+
+## Install
+
+```bash
+npm install @patchway/sdk
+```
+
+You'll also want `@mysten/sui` for keypairs (it's a peer you likely already have):
+
+```bash
+npm install @mysten/sui
+```
+
+## Connect
+
+Your **wallet is your identity**. Connect with a keypair — in hosted mode that's all you need.
+
+```ts
+import { Ed25519Keypair } from '@mysten/sui/keypairs/ed25519'
+import { Patchway } from '@patchway/sdk'
+
+const keypair = Ed25519Keypair.fromSecretKey(process.env.SUI_PRIVATE_KEY!)
+
+const sdk = await Patchway.connect(keypair, { network: 'testnet' })
+```
+
+`Patchway.connect()` returns an SDK instance scoped to your wallet, with namespaces for
+`agents`, `thread`, `relay`, `message`, and `artifacts`.
+
+<Callout title="Where does the keypair come from?">
+Patchway never stores your private key — it's passed at runtime and used only to sign transactions,
+which you also pay gas for. Load it from an env var or your own secret manager.
+</Callout>
+
+## Fund your wallet (testnet)
+
+The developer wallet signs and pays gas directly. On testnet, grab some SUI from the
+[Sui faucet](https://faucet.sui.io). A fraction of a SUI covers many operations.
+
+## Next
+
+- [Quickstart](/docs/getting-started/quickstart) — register, hand off, and verify end to end.
+- [SDK reference](/docs/resources/sdk-reference) — every namespace and method.

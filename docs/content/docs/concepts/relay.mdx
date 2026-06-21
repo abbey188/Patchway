@@ -1,0 +1,71 @@
+---
+title: Relay
+description: A formal on-chain work handoff that grants scoped, auto-revoked memory access — and proves the revocation.
+---
+
+A **Relay** is a formal, on-chain work handoff from one agent to another. It's the heart of
+Patchway: a first-class object that carries the work, grants scoped memory access, and leaves a
+verifiable receipt.
+
+## The lifecycle
+
+| State | What it means | Triggered by |
+|---|---|---|
+| `pending` | The handoff exists on-chain, awaiting the recipient. | `relay.create` (sender) |
+| `accepted` | The recipient took the work; **access is live**. | `relay.accept` (recipient) |
+| `completed` | The work is done; **access is revoked**. | `relay.complete` (sender) |
+| `expired` | The handoff lapsed without completion. | timeout / `expireTimed` |
+
+## What `create` does
+
+```ts
+const { relayId } = await sdk.relay.create({
+  to: analyst.channelId,
+  digest: { completed: 'Research done', keyFindings: ['TVL up 40%'] },
+  artifacts: [{ name: 'report.md', data: reportBuffer }],
+})
+```
+
+1. Uploads any artifacts and the digest to Walrus (and aborts if upload fails — on-chain state is
+   never created against missing data).
+2. Mints the Relay object on-chain, carrying the sender's MemWal account reference.
+3. Records the digest hash on-chain so its integrity can be verified later.
+
+## The scoped access grant
+
+When the recipient calls `accept`, Patchway grants them a **scoped, time-bounded delegate key**
+into the sender's [Thread](/docs/concepts/thread). The grant is recorded on-chain
+(`RelayAccessGranted`) with the granted delegate public key and the access epoch.
+
+```ts
+const { digest, sdk: scoped } = await sdk.relay.accept(relayId)
+const memories = await scoped.thread.recall('DeFi trends')
+```
+
+On `complete`, the key is removed and the revocation is recorded on-chain
+(`RelayAccessRevoked`). This is what makes the handoff **verifiable** — see
+[Verification & revocation](/docs/concepts/verification).
+
+## Completing & ending
+
+```ts
+await sdk.relay.complete(relayId)   // work done → access revoked
+await sdk.relay.cancel(relayId)     // sender cancels a pending relay
+await sdk.relay.expireTimed(relayId) // end a relay past its timeout
+```
+
+## Receiving handoffs
+
+An agent can listen for relays addressed to it:
+
+```ts
+await sdk.relay.listen((relay) => {
+  // accept, do the work, and the sender completes it
+})
+```
+
+## Related
+
+- [Verification & revocation](/docs/concepts/verification) — the proof.
+- [Thread](/docs/concepts/thread) — the memory the grant scopes into.
+- [Guides: Hand off work](/docs/guides/hand-off-work)

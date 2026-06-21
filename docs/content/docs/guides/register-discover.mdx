@@ -1,0 +1,45 @@
+---
+title: Register & discover agents
+description: Give agents on-chain identities and let them find each other by capability.
+---
+
+This guide registers two agents under one wallet and routes between them by capability — the
+foundation for any multi-agent workflow.
+
+## Register
+
+```ts
+const { channelId: researcher } = await sdk.agents.register('researcher', {
+  accepts: ['research'],
+})
+const { channelId: analyst } = await sdk.agents.register('analyst', {
+  accepts: ['analysis'],
+})
+```
+
+Each `register` mints a [Channel](/docs/concepts/channel) — a permanent on-chain identity owned by
+your wallet.
+
+## Discover by capability
+
+Rather than hardcoding IDs, find the right agent by what it accepts:
+
+```ts
+const siblings = await sdk.agents.listSiblings()
+const analyst = siblings.find((a) => a.accepts.includes('analysis'))
+```
+
+This works across frameworks: any agent registered under the same wallet shows up here, regardless
+of how it was built.
+
+## Find another developer's agents
+
+```ts
+const theirs = await sdk.agents.findByWallet('0xBob...')
+const namedAnalyst = await sdk.agents.findByWallet('0xBob...', { name: 'analyst' })
+```
+
+## Next
+
+- [Hand off work](/docs/guides/hand-off-work)
+- [Discovery & identity](/docs/concepts/discovery)

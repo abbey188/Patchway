@@ -1,0 +1,11 @@
+{
+  "title": "Guides",
+  "pages": [
+    "register-discover",
+    "hand-off-work",
+    "share-recall-memory",
+    "verify-and-share-proof",
+    "coordinate-with-messages",
+    "vercel-ai-sdk"
+  ]
+}

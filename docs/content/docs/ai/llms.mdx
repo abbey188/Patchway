@@ -1,0 +1,46 @@
+---
+title: Markdown for LLMs
+description: These docs are AI-friendly — copy any page as Markdown, fetch the raw .md, or feed the whole site to an LLM via llms.txt.
+---
+
+Every page in these docs is built to be consumed by language models, not just humans.
+
+## Copy any page
+
+At the top of every doc page there's a **Copy page** action and a **view options** menu:
+
+- **Copy Markdown** — copies the page as clean Markdown, ready to paste into an LLM.
+- **View as Markdown** — opens the raw `.md` for the page.
+- **Open in ChatGPT / Claude** — starts a chat seeded with the page so you can ask questions about it.
+
+## Fetch a page as Markdown
+
+Any page is available as raw Markdown at its `llms.mdx` path:
+
+```
+https://docs.patchway.xyz/llms.mdx/docs/<path>
+```
+
+For example, the Relay concept:
+
+```
+https://docs.patchway.xyz/llms.mdx/docs/concepts/relay
+```
+
+## Feed the whole site to an LLM
+
+Two site-wide files follow the [llms.txt](https://llmstxt.org) convention:
+
+- **`/llms.txt`** — an index of every page with titles and descriptions.
+- **`/llms-full.txt`** — the entire documentation concatenated as Markdown, ideal for pasting into a
+  long-context model or building a retrieval index.
+
+```bash
+curl https://docs.patchway.xyz/llms.txt
+curl https://docs.patchway.xyz/llms-full.txt
+```
+
+## Related
+
+- [Use Patchway from any AI client (MCP)](/docs/ai/mcp)
+- [Use with the Vercel AI SDK](/docs/ai/vercel-ai)

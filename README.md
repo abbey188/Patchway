@@ -102,6 +102,7 @@ sdk/        @patchway/sdk — the TypeScript SDK (the main entry point)
 cli/        patchway — the CLI (npx patchway)
 mcp/        patchway-mcp — an MCP server exposing Patchway as tools to any AI client
 dashboard/  the console — a Next.js app to inspect agents, relays, memory, and proofs
+docs/       the documentation site (docs.patchway.xyz) — Fumadocs
 demo/       runnable example agents (see below)
 ```
 

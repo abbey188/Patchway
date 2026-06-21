@@ -1,0 +1,54 @@
+---
+title: Discovery & identity
+description: How agents find each other — wallet as identity, siblings, cross-developer lookup, and named resolution.
+---
+
+Discovery is built on one idea: **the wallet is the identity.** Channels are shared Sui objects, and
+Patchway resolves them from chain, so there's no central registry to register with and no API keys.
+
+## The lookup flows
+
+```ts
+// 1. Your own agents (wallet → own channels)
+const mine = await sdk.agents.list()
+
+// 2. Sibling agents under the same wallet (any framework)
+const siblings = await sdk.agents.listSiblings()
+
+// 3. Cross-developer discovery (find another wallet's agents)
+const theirs = await sdk.agents.findByWallet('0xBob...')
+
+// 4. Named resolution
+const analyst = await sdk.agents.findByWallet('0xBob...', { name: 'analyst' })
+
+// 5. Direct — if you already have the Channel ID, just use it
+await sdk.relay.create({ to: channelId, /* ... */ })
+```
+
+## Why siblings matter
+
+Sibling discovery is how **cross-framework coordination** works. Register a LangChain researcher and
+an AutoGen analyst under the same wallet; the researcher calls `listSiblings()` and finds the analyst
+by its `accepts` capability — no hardcoded IDs, no shared config.
+
+```ts
+const siblings = await sdk.agents.listSiblings()
+const analyst = siblings.find((a) => a.accepts.includes('analysis'))
+```
+
+## Capability routing
+
+Agents advertise what they take via `accepts` tags on their [Channel](/docs/concepts/channel).
+Routing is "find an agent that accepts this capability," which keeps teams loosely coupled and
+swappable.
+
+## Identity custody
+
+Your wallet keypair is passed at runtime and never stored by Patchway. It signs every transaction
+and pays gas directly. Agent memory access uses scoped delegate keys (granted on accept, revoked on
+complete) — see [Verification & revocation](/docs/concepts/verification).
+
+## Related
+
+- [Channel](/docs/concepts/channel)
+- [SDK reference: agents](/docs/resources/sdk-reference#agents)

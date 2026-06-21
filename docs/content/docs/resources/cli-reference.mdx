@@ -1,0 +1,72 @@
+---
+title: CLI reference
+description: Every patchway command.
+---
+
+Run `npx patchway` with no arguments for the live command list. The CLI signs with
+`SUI_PRIVATE_KEY` and reads `PATCHWAY_NETWORK` from the environment.
+
+## status
+
+```bash
+patchway status [agent]
+```
+Your wallet, agents, and recent activity (optionally scoped to one agent).
+
+## agents
+
+```bash
+patchway agents register <name>          # register an agent (Channel)
+patchway agents list                     # list your agents
+patchway agents status [agent]           # an agent's detail
+patchway agents deactivate <channelId>   # deactivate
+patchway agents reactivate <channelId>   # reactivate
+patchway agents remove <channelId>       # remove
+
+# delegate keys
+patchway agents key add <agent>          # add a delegate key
+patchway agents key revoke <agent> <publicKey>
+patchway agents key export <agent>
+
+# gas tank (dev-owned, reclaimable)
+patchway agents tank reclaim [agent]
+patchway agents tank export [agent]
+
+# owner key
+patchway agents owner ...
+```
+
+## relay
+
+```bash
+patchway relay inspect <relayId>    # inspect a handoff
+patchway relay verify <relayId>     # prove a handoff on-chain
+patchway relay feedback <relayId>   # attach feedback
+patchway relay forget <relayId>     # revoke + purge
+```
+Relays are created from the SDK (`relay.create`); the CLI focuses on inspection and verification.
+
+## thread
+
+```bash
+patchway thread write <text>            # write a memory entry
+patchway thread write-bulk <facts...>   # write many facts
+patchway thread recall <query>          # semantic recall
+patchway thread analyze <content>       # extract structured facts
+patchway thread forget <relayId>        # forget by relay
+```
+
+## artifact
+
+```bash
+patchway artifact store <filepath>          # upload to Walrus
+patchway artifact get <blobId>              # retrieve
+patchway artifact store-bundle <filepaths...>
+```
+
+## message
+
+```bash
+patchway message send <text>     # send a message
+patchway message history         # message history
+```

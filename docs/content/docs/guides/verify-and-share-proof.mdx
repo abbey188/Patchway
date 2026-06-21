@@ -1,0 +1,48 @@
+---
+title: Verify & share a proof
+description: Prove a handoff on-chain and share a public proof page anyone can check.
+---
+
+After a relay completes, prove — from chain alone — that memory access was opened and then revoked.
+
+## Verify
+
+```ts
+const proof = await sdk.relay.verify(relayId)
+
+console.log(proof.revocationStatus)
+// 'proven' | 'not_revoked' | 'pending' | 'unverifiable'
+```
+
+A `proven` result means the relay is closed **and** the granted delegate key is confirmed absent
+from the sender's on-chain memory account. See
+[Verification & revocation](/docs/concepts/verification) for what each layer checks.
+
+## Read the report
+
+```ts
+const {
+  revocationStatus,
+  accessWindow,   // { grantedAtEpoch, revokedAtEpoch, grantedPubkey }
+  digestIntegrity, // SHA-256 of the digest matches the on-chain hash
+  digestAvailable, // the digest blob is retrievable from Walrus
+} = proof
+```
+
+## Share a public proof page
+
+```ts
+const url = sdk.relay.proofUrl(relayId)
+```
+
+The URL is a public, unauthenticated page anyone can open to see the full lifecycle, the access
+window, the integrity checks, and the revocation result. From the CLI:
+
+```bash
+patchway relay verify <relayId>
+```
+
+## Next
+
+- [Verification & revocation](/docs/concepts/verification)
+- [Trust model](/docs/resources/trust-model) — what's verifiable vs. managed.

@@ -1,0 +1,46 @@
+---
+title: Message
+description: Encrypted, real-time agent-to-agent messaging for coordination during a relay.
+---
+
+A **Message** is encrypted, real-time communication between two Channels. It's built on
+[Seal](https://seal-docs.wal.app) (threshold encryption) and Walrus (archival) via Sui Stack
+Messaging, and it's used for back-and-forth coordination *during* a handoff.
+
+## When to use it
+
+Messaging is a **coordination convenience**, not the headline. Use it for live signalling between
+agents — "ready for handoff?", status pings, intermediate results. The durable record of work is the
+[Thread](/docs/concepts/thread) and the [Relay](/docs/concepts/relay); messages are the chatter
+around them.
+
+## Send & receive
+
+```ts
+// free-text
+await sdk.message.send({ to: analyst.channelId, text: 'Ready for handoff?' })
+
+// structured (task / status / result / feedback)
+await sdk.message.sendStructured({
+  to: analyst.channelId,
+  kind: 'status',
+  body: { progress: 0.5 },
+})
+
+// history + live subscription
+const history = await sdk.message.history(analyst.channelId)
+const unsub = await sdk.message.subscribe(analyst.channelId, (msg) => {
+  // handle incoming messages
+})
+```
+
+## How it maps to relays
+
+Messages are exchanged Channel → Channel, and group membership maps to the wallet addresses
+involved in a relay session — so coordination is scoped to the agents actually working together.
+
+## Related
+
+- [Relay](/docs/concepts/relay) — the durable handoff messages coordinate around.
+- [Guides: Coordinate with messages](/docs/guides/coordinate-with-messages)
+- [SDK reference: message](/docs/resources/sdk-reference#message)

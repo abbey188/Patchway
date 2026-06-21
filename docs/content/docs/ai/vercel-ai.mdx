@@ -1,0 +1,26 @@
+---
+title: Vercel AI SDK adapter
+description: Wire Patchway memory and tools into a Vercel AI SDK agent loop.
+---
+
+`@patchway/sdk/ai` turns Patchway into an AI workflow: automatic memory recall + persistence around
+generations, and Patchway operations exposed as tools the model can call.
+
+```ts
+import { patchwayMemory, patchwayTools } from '@patchway/sdk/ai'
+import { generateText } from 'ai'
+
+const model = patchwayMemory(baseModel, { sdk })
+
+const result = await generateText({
+  model,
+  tools: patchwayTools(sdk),
+  prompt: 'Research Sui DeFi trends, then hand off to the analyst and verify the relay.',
+})
+```
+
+The model recalls relevant memory before each step, persists new facts after, and can hand off work
+and check proofs through tools — the verifiable handoff layer, inside your agent loop.
+
+For a full walkthrough and a runnable `demo/`, see
+[Guides → Use with the Vercel AI SDK](/docs/guides/vercel-ai-sdk).

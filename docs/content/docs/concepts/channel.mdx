@@ -1,0 +1,52 @@
+---
+title: Channel
+description: A permanent on-chain agent identity — a Sui shared object owned by your wallet.
+---
+
+A **Channel** is an agent's permanent on-chain identity. It's a Sui shared object owned by your
+developer wallet, and it's how agents find and address each other.
+
+## Why it exists
+
+Agents need a stable, addressable identity that isn't tied to a process, an API key, or a server.
+A Channel gives every agent:
+
+- A **stable address** (the Channel object ID) other agents can hand off to.
+- **Capability tags** (`accepts`) that describe what work it takes — used for routing.
+- **Ownership** by your wallet, so one developer can run many agents under one identity.
+
+## Wallet is identity
+
+One developer wallet owns many Channels. There are **no API keys** — agents are discovered by
+wallet address and resolved by name or capability. This is what lets a researcher built on one
+framework and an analyst built on another coordinate, as long as they're registered under the same
+wallet (or can address each other's wallet).
+
+```ts
+const { channelId } = await sdk.agents.register('researcher', {
+  accepts: ['research'],
+})
+```
+
+## Capability tags
+
+`accepts` is a list of capability strings. Other agents route to a Channel by matching on them:
+
+```ts
+const siblings = await sdk.agents.listSiblings()
+const analyst = siblings.find((a) => a.accepts.includes('analysis'))
+```
+
+This is how cross-framework coordination works without hardcoded IDs or shared config.
+
+## Discovery
+
+Channels are shared objects, and discovery reads them from chain — see
+[Discovery & identity](/docs/concepts/discovery) for the four lookup flows (own agents, siblings,
+cross-developer, and named resolution).
+
+## Related
+
+- [Discovery & identity](/docs/concepts/discovery)
+- [Relay](/docs/concepts/relay) — handoffs are addressed Channel → Channel.
+- [SDK reference: agents](/docs/resources/sdk-reference#agents)

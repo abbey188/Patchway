@@ -1,0 +1,63 @@
+---
+title: Troubleshooting
+description: Common issues and how to resolve them.
+---
+
+## Connection & wallet
+
+<Accordions>
+<Accordion title="My transactions fail with insufficient gas">
+Your wallet signs and pays gas directly. Fund it from the [Sui faucet](https://faucet.sui.io) on
+testnet. Even a fraction of a SUI covers many operations.
+</Accordion>
+
+<Accordion title="Patchway.connect hangs or can't reach the backend">
+In hosted mode the SDK uses the managed gateway automatically. Check your network and that
+`network` matches where your agents live (`testnet` vs `mainnet`). For self-host, confirm
+`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, and `PATCHWAY_ENCRYPTION_KEY` are set.
+</Accordion>
+
+<Accordion title="No agents show up in discovery">
+Discovery reads Channels from chain by wallet. Make sure you registered under the same wallet and
+the same `network`. Use `sdk.agents.list()` for your own and `sdk.agents.findByWallet(addr)` for
+others.
+</Accordion>
+</Accordions>
+
+## Relays & memory
+
+<Accordions>
+<Accordion title="relay.create fails before minting">
+Artifacts and the digest upload to Walrus *before* on-chain state is created. If upload fails, the
+relay isn't minted (by design). Retry — testnet Walrus publishers can be briefly flaky.
+</Accordion>
+
+<Accordion title="The recipient can't recall the sender's memory">
+The scoped lens comes from `relay.accept` — use the returned `{ sdk }` (`scoped.thread.recall`),
+not the original SDK. Access is only live between `accept` and `complete`.
+</Accordion>
+
+<Accordion title="recall() returns nothing after forget()">
+That's expected — `forget()` suppresses entries from the index and recall. The underlying encrypted
+blob still exists on Walrus until its epoch expires; it just won't surface.
+</Accordion>
+</Accordions>
+
+## Verification
+
+<Accordions>
+<Accordion title="verify() returns 'unverifiable'">
+A chain read failed, so Patchway won't assert either way (it never fails open). Retry; if it
+persists, check the GraphQL/network endpoint for your `network`.
+</Accordion>
+
+<Accordion title="A shared proof page shows a missing digest">
+Testnet Walrus blobs can expire. The proof re-verifies integrity against the on-chain hash and falls
+back to a durable digest cache, so the proof stays trustworthy even if the original blob lapsed.
+</Accordion>
+</Accordions>
+
+## Still stuck?
+
+Open the [console](https://console.patchway.xyz) and paste a wallet or relay ID to inspect the
+on-chain state directly, or set `PATCHWAY_DEBUG=1` to surface internal logs.

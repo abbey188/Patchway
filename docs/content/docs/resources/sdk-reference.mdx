@@ -1,0 +1,92 @@
+---
+title: SDK reference
+description: Every namespace and method on @patchway/sdk.
+---
+
+The SDK entry point is `Patchway.connect(keypair, options)`, which returns an instance with five
+namespaces. This is the **frozen v0.1.0 public surface** — additive changes only.
+
+## connect
+
+```ts
+const sdk = await Patchway.connect(keypair, {
+  network: 'testnet', // 'testnet' | 'mainnet'
+  // gatewayUrl?  — override the hosted gateway (advanced)
+  // self-host:   set SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, PATCHWAY_ENCRYPTION_KEY in env
+})
+```
+
+Your wallet keypair signs all transactions and pays gas. It is never stored.
+
+## agents
+
+Identity, discovery, and key/custody management.
+
+| Method | Description |
+|---|---|
+| `register(name, { accepts })` | Register an agent (mint a Channel). Returns `{ channelId }`. |
+| `list()` | Your own agents (wallet → own channels). |
+| `listSiblings()` | Other agents under the same wallet. |
+| `findByWallet(wallet, { name? })` | Cross-developer discovery / named resolution. |
+| `key.add / key.revoke / key.export` | Manage delegate keys for an agent's memory account. |
+| `owner.*` | Owner-key operations for custody. |
+| `tank.*` | Inspect / reclaim the agent's gas tank (dev-owned, reclaimable). |
+
+## thread
+
+Durable, semantically-recallable memory.
+
+| Method | Description |
+|---|---|
+| `write(text)` | Write a single memory entry. |
+| `writeBulk(facts[])` | Write many atomic facts at once. |
+| `analyze(text)` | Extract structured facts from a longer body. |
+| `recall(query, { namespace?, limit? })` | Semantic recall. |
+| `restore()` | Re-index / restore memory from chain. |
+| `forget({ blobId? , query? })` | Drop entries from recall/index (not erasure). |
+
+## relay
+
+The on-chain handoff lifecycle.
+
+| Method | Description |
+|---|---|
+| `create({ to, digest, artifacts? })` | Create a handoff. Returns `{ relayId }`. |
+| `accept(relayId)` | Accept; returns `{ digest, sdk }` (scoped memory lens). |
+| `complete(relayId, opts?)` | Complete; auto-revokes access. |
+| `cancel(relayId)` | Cancel a pending relay. |
+| `expireTimed(relayId)` | End a relay past its timeout. |
+| `forget(relayId)` | Revoke + purge a relay. |
+| `verify(relayId)` | Produce the on-chain trust report (`VerifyResult`). |
+| `proofUrl(relayId)` | Shareable public proof page URL. |
+| `listen(handler)` | Subscribe to incoming relays. |
+
+## message
+
+Encrypted real-time coordination.
+
+| Method | Description |
+|---|---|
+| `send({ to, text })` | Send a free-text message. |
+| `sendStructured({ to, kind, body })` | Send a structured message (`task`/`status`/`result`/`feedback`). |
+| `history(channelId)` | Fetch message history. |
+| `subscribe(channelId, handler)` | Live message subscription. |
+
+## artifacts
+
+Blob storage on Walrus.
+
+| Method | Description |
+|---|---|
+| `store(...)` | Upload an artifact to Walrus. |
+| `get(...)` | Retrieve an artifact. |
+| `storeBundle(...)` / `getFromBundle(...)` | Group multiple artifacts. |
+
+## Types & errors
+
+Exported types include `VerifyResult` (with `revocationStatus`, `digestSource`),
+`RevocationStatus`, `AcceptRelayResult`, `RelayDigest`, `ChannelInfo`, and more. Errors are
+`PatchwaySdkError` with codes on `ErrorCodes`. The `@patchway/sdk/ai` subpath exports the
+[Vercel AI SDK adapter](/docs/ai/vercel-ai).
+
+Set `PATCHWAY_DEBUG=1` to surface internal debug logs (silent by default).

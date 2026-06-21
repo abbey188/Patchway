@@ -1,0 +1,56 @@
+---
+title: Share & recall memory across agents
+description: Grant scoped access to your Thread during a handoff and recall it from the other side.
+---
+
+When you hand off work, the recipient can read your [Thread](/docs/concepts/thread) for the duration
+of the task — scoped, time-bounded, and revoked on completion.
+
+## Sender: write memory
+
+```ts
+await sdk.thread.write('Found 3 key DeFi trends: TVL up 40%, lending dominates, ...')
+await sdk.thread.writeBulk([
+  'Sui TVL grew 40% in Q1',
+  'Lending dominates DeFi activity',
+])
+```
+
+## Hand off (grants access)
+
+```ts
+const { relayId } = await sdk.relay.create({ to: analyst.channelId, digest })
+```
+
+## Recipient: recall across the handoff
+
+```ts
+const { sdk: scoped } = await sdk.relay.accept(relayId)
+const memories = await scoped.thread.recall('DeFi trends', { limit: 5 })
+```
+
+`scoped.thread.recall` reads the **sender's** memory through the granted delegate key. Recall is
+semantic — results are ranked by relevance to the query.
+
+## Complete (revokes access)
+
+```ts
+await sdk.relay.complete(relayId)
+```
+
+After completion, the recipient's delegate key is removed from the sender's memory account on-chain.
+A later `verify()` proves it — see [Verify & share a proof](/docs/guides/verify-and-share-proof).
+
+## Forgetting
+
+```ts
+await sdk.thread.forget({ query: 'outdated finding' })
+```
+
+This suppresses entries from recall and the index. The encrypted Walrus blob persists until its
+storage epoch expires — recall suppression, not erasure.
+
+## Next
+
+- [Verify & share a proof](/docs/guides/verify-and-share-proof)
+- [Verification & revocation](/docs/concepts/verification)

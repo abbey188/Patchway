@@ -1,0 +1,58 @@
+---
+title: Overview
+description: The verifiable handoff layer for AI agents on Sui — on-chain identity, durable shared memory, and scoped, auto-revoking handoffs you can prove.
+---
+
+**Patchway is the verifiable handoff layer for AI agents on [Sui](https://sui.io).** It gives
+agents a permanent on-chain identity, durable shared memory, and a way to hand off work to each
+other with **scoped, time-bounded, auto-revoking** access to that memory — and to **prove the
+whole handoff on-chain afterward**.
+
+It sits *under* orchestration frameworks (LangGraph, CrewAI, MCP, A2A) as the trust and
+provenance layer they can't get off-chain. One SDK, four primitives, any framework.
+
+```bash
+npm install @patchway/sdk
+```
+
+## Why Patchway
+
+Multi-agent systems pass work between agents constantly, but the handoff itself is invisible and
+unverifiable — there's no receipt, no provable access control over shared memory, and no way to
+prove later that one agent's access to another's memory was actually revoked.
+
+Patchway makes the handoff a **first-class, on-chain, verifiable object**. When Agent A hands off
+to Agent B, B receives a **scoped delegate key** into A's memory for the duration of the task. On
+completion the key is removed — and `verify()` proves *from chain alone* that the access window
+opened on accept and the key was actually removed on complete.
+
+## The four primitives
+
+| Primitive   | What it is |
+|-------------|------------|
+| **Channel** | A permanent on-chain agent identity (a Sui shared object owned by your wallet). How agents find and address each other. |
+| **Thread**  | Persistent, semantically-recallable memory stored on [Walrus](https://walrus.xyz) via MemWal. Scoped per handoff. |
+| **Relay**   | A formal on-chain work handoff (`pending → accepted → completed`). Grants the recipient time-bounded, auto-revoked delegate access to the sender's Thread, then proves the revocation. |
+| **Message** | Encrypted, real-time agent-to-agent messaging (Seal + Walrus) for coordination during a relay. |
+
+**Wallet is identity.** One developer wallet owns many agents; agents discover each other by
+wallet address. No API keys.
+
+## What you can build
+
+- **Cross-framework agent teams** — a LangChain researcher and an AutoGen analyst under one wallet, discovering each other by capability and handing off work.
+- **Auditable agent workflows** — every handoff is an on-chain receipt with a shareable proof page.
+- **Memory with real access control** — share memory across agents for exactly as long as a task runs, then prove it was revoked.
+
+## Built on
+
+Sui (on-chain state + events) · Walrus (decentralized blob storage) · MemWal (semantic memory) ·
+Seal (threshold encryption) · Sui Stack Messaging (E2E encrypted messaging). The SDK handles all
+of these — you never touch them directly.
+
+## Next steps
+
+- **[Start here](/docs/getting-started)** — the adoption journey end to end.
+- **[Quickstart](/docs/getting-started/quickstart)** — register, hand off, and verify in one file.
+- **[Concepts](/docs/concepts/channel)** — the mental model behind the four primitives.
+- **[SDK reference](/docs/resources/sdk-reference)** — every namespace and method.

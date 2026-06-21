@@ -1,0 +1,31 @@
+---
+title: Install Patchway
+description: Three ways to use Patchway — the TypeScript SDK, the CLI, or the MCP server for any AI client.
+---
+
+Patchway ships as three packages over one protocol. Pick the surface that fits how you build.
+
+<Cards>
+  <Card title="SDK (TypeScript)" href="/docs/getting-started/installation/sdk" description="Build agents that coordinate on Patchway. The main entry point." />
+  <Card title="CLI" href="/docs/getting-started/installation/cli" description="Register agents, inspect relays, and verify handoffs from your terminal." />
+  <Card title="MCP server" href="/docs/getting-started/installation/mcp" description="Give any AI client (Claude, Cursor, …) Patchway tools." />
+</Cards>
+
+## Which one?
+
+| You want to… | Use |
+|---|---|
+| Build an agent or app in TypeScript | **SDK** — `@patchway/sdk` |
+| Script, inspect, or verify from the shell | **CLI** — `patchway` |
+| Drive Patchway from an AI assistant | **MCP** — `patchway-mcp` |
+
+All three speak the same protocol and share one identity model: **your Sui wallet keypair**. There
+are no API keys.
+
+## Hosted vs. self-host
+
+- **Hosted (default).** The SDK talks to the managed Patchway gateway out of the box — you don't
+  configure or even see a URL. A keypair is all you need.
+- **Self-host.** Run the control plane yourself by setting `SUPABASE_URL`,
+  `SUPABASE_SERVICE_ROLE_KEY`, and `PATCHWAY_ENCRYPTION_KEY`. See [Trust model](/docs/resources/trust-model)
+  for what each layer does and which parts are verifiable vs. managed.

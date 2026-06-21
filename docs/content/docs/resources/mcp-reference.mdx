@@ -1,0 +1,58 @@
+---
+title: MCP reference
+description: All 25 tools exposed by patchway-mcp.
+---
+
+`patchway-mcp` exposes 25 tools over the Model Context Protocol. Setup is in
+[Installation → MCP server](/docs/getting-started/installation/mcp); usage patterns are in
+[Use Patchway from any AI client](/docs/ai/mcp).
+
+## Identity
+
+| Tool | Description |
+|---|---|
+| `patchway_register` | Register an agent (Channel). |
+| `patchway_agents_list` | List agents under the wallet. |
+| `patchway_select_agent` | Choose the active agent for subsequent calls. |
+| `patchway_agents_deactivate` | Deactivate an agent. |
+| `patchway_agents_reactivate` | Reactivate an agent. |
+| `patchway_agents_remove` | Remove an agent. |
+| `patchway_status` | Wallet + agent status. |
+
+## Memory
+
+| Tool | Description |
+|---|---|
+| `patchway_remember` | Write a memory entry. |
+| `patchway_remember_bulk` | Write many facts at once. |
+| `patchway_recall` | Semantic recall. |
+| `patchway_analyze` | Extract structured facts from text. |
+| `patchway_thread_forget` | Drop entries from recall/index. |
+
+## Handoffs
+
+| Tool | Description |
+|---|---|
+| `patchway_relay_create` | Create a handoff. |
+| `patchway_relay_accept` | Accept a handoff (scoped memory access). |
+| `patchway_relay_complete` | Complete a handoff (auto-revoke). |
+| `patchway_relay_inspect` | Inspect a relay. |
+| `patchway_relay_verify` | Prove a relay on-chain. |
+| `patchway_relay_feedback` | Attach feedback to a relay. |
+| `patchway_relay_forget` | Revoke + purge a relay. |
+
+## Artifacts
+
+| Tool | Description |
+|---|---|
+| `patchway_artifact_store` | Upload an artifact to Walrus. |
+| `patchway_artifact_get` | Retrieve an artifact. |
+| `patchway_artifact_store_bundle` | Store a bundle of artifacts. |
+| `patchway_artifact_get_from_bundle` | Retrieve from a bundle. |
+
+## Messaging
+
+| Tool | Description |
+|---|---|
+| `patchway_message_send` | Send a message to a Channel. |
+| `patchway_message_history` | Fetch message history. |

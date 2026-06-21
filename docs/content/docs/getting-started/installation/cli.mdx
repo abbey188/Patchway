@@ -1,0 +1,41 @@
+---
+title: CLI
+description: The patchway CLI — register agents, inspect relays, and verify handoffs from your terminal.
+---
+
+The CLI wraps the SDK for scripting and inspection. It's self-documenting — run it with no
+arguments for the command list.
+
+## Run it
+
+```bash
+npx patchway
+```
+
+Or install globally:
+
+```bash
+npm install -g patchway
+```
+
+## Authentication
+
+The CLI signs with your Sui keypair, same as the SDK. Provide it via environment:
+
+```bash
+export SUI_PRIVATE_KEY=suiprivkey1...
+export PATCHWAY_NETWORK=testnet
+```
+
+## Common commands
+
+```bash
+patchway status                      # your wallet, agents, and recent activity
+patchway agents register <name>      # register an agent (Channel)
+patchway agents list                 # list your agents
+patchway relay inspect <relayId>     # inspect a handoff
+patchway relay verify <relayId>      # prove a handoff on-chain
+patchway thread recall "<query>"     # semantic recall from memory
+```
+
+See the full command set in the [CLI reference](/docs/resources/cli-reference).

@@ -1,0 +1,70 @@
+---
+title: Verification & revocation
+description: Prove a handoff from chain alone — the access window opened on accept and the delegate key was removed on complete.
+---
+
+This is the one genuinely novel thing about Patchway: you can **prove, from chain alone**, that a
+handoff's memory access was actually opened and then actually revoked. Not "we deleted a database
+row" — the delegate key is verified *absent from the sender's on-chain memory account*.
+
+## What `verify()` proves
+
+```ts
+const proof = await sdk.relay.verify(relayId)
+```
+
+It reconstructs the handoff's trust report from independent sources:
+
+| Layer | Checks |
+|---|---|
+| **Sui (on-chain)** | The Relay lifecycle, the access window (`granted → revoked` epochs), and the granted delegate public key. |
+| **Walrus (storage)** | The digest blob and any artifacts are available. |
+| **SHA-256 (integrity)** | The digest's bytes hash to the `digest_hash` recorded on-chain. |
+| **Revocation** | The granted delegate key is **gone** from the sender's MemWal account on-chain. |
+
+## The result
+
+```ts
+// proof.revocationStatus: 'proven' | 'not_revoked' | 'pending' | 'unverifiable'
+{
+  revocationStatus: 'proven',
+  accessWindow: { grantedAtEpoch, revokedAtEpoch, grantedPubkey },
+  digestIntegrity: true,
+  digestAvailable: true,
+  // ...
+}
+```
+
+<Callout title="Never fails open">
+`verify()` distinguishes "the key is still present" (`not_revoked`) from "we couldn't read the
+chain" (`unverifiable`). A read failure is never silently reported as success.
+</Callout>
+
+## Revocation status, explained
+
+- **`proven`** — the relay is closed and the granted delegate key is confirmed absent from the
+  sender's memory account on-chain. The access was real and it was really revoked.
+- **`not_revoked`** — the relay is closed but the granted key is still present. Something is wrong.
+- **`pending`** — the relay hasn't closed yet; access may legitimately still be open.
+- **`unverifiable`** — a chain read failed, so we won't assert either way.
+
+## Shareable proof page
+
+```ts
+const url = sdk.relay.proofUrl(relayId)
+// → a public, unauthenticated proof page on the console
+```
+
+Anyone can open it and see the full lifecycle, the access window, the integrity checks, and the
+revocation result — no login required.
+
+## Honest boundary
+
+The verifiable *data* lives on Sui + Walrus and is independently reproducible by anyone. The
+control-plane index that powers convenience lookups is a managed service — verifiability is not the
+same as decentralization, and we're explicit about it in the [Trust model](/docs/resources/trust-model).
+
+## Related
+
+- [Relay](/docs/concepts/relay) · [Thread](/docs/concepts/thread)
+- [Guides: Verify & share a proof](/docs/guides/verify-and-share-proof)

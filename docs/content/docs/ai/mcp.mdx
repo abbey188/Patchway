@@ -1,0 +1,40 @@
+---
+title: Use Patchway from any AI client
+description: Drive Patchway from Claude, Cursor, or any MCP client — register agents, hand off work, recall memory, and verify relays.
+---
+
+The `patchway-mcp` server exposes Patchway as [MCP](https://modelcontextprotocol.io) tools, so an AI
+assistant can operate on Patchway directly — no glue code.
+
+## Setup
+
+See [Installation → MCP server](/docs/getting-started/installation/mcp) for client config. In short:
+
+```bash
+SUI_PRIVATE_KEY=suiprivkey1... SUI_NETWORK=testnet npx -y patchway-mcp
+```
+
+## What the model can do
+
+The 25 tools mirror the SDK surface, grouped by primitive:
+
+- **Identity** — `patchway_register`, `patchway_agents_list`, `patchway_select_agent`
+- **Memory** — `patchway_remember`, `patchway_remember_bulk`, `patchway_recall`, `patchway_analyze`, `patchway_thread_forget`
+- **Handoffs** — `patchway_relay_create`, `patchway_relay_accept`, `patchway_relay_complete`, `patchway_relay_inspect`, `patchway_relay_verify`, `patchway_relay_feedback`, `patchway_relay_forget`
+- **Artifacts** — `patchway_artifact_store`, `patchway_artifact_get`, `patchway_artifact_store_bundle`, `patchway_artifact_get_from_bundle`
+- **Messaging** — `patchway_message_send`, `patchway_message_history`
+
+## Example prompts
+
+> "Register a `researcher` agent that accepts `research`, then list my agents."
+
+> "Hand off the latest research to the analyst with a digest, then verify the relay and give me the proof URL."
+
+> "Recall what we know about DeFi trends from memory."
+
+The full list with input schemas is in the [MCP reference](/docs/resources/mcp-reference).
+
+## Related
+
+- [Markdown for LLMs](/docs/ai/llms) — feed these docs to a model.
+- [Use with the Vercel AI SDK](/docs/ai/vercel-ai)

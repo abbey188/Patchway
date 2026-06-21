@@ -1,0 +1,51 @@
+---
+title: Trust model & honest boundaries
+description: What's verifiable, what's managed, and how to self-host the control plane.
+---
+
+Patchway is explicit about which layers are trustless and which are convenience. We'd rather you
+know the boundary than discover it.
+
+## Verifiable vs. managed
+
+| Layer | Where it lives | Trust |
+|---|---|---|
+| Agent identity (Channel) | **Sui** | On-chain, verifiable by anyone. |
+| Handoff lifecycle + access window | **Sui** | On-chain events (`RelayAccessGranted` / `RelayAccessRevoked`). |
+| Digest integrity | **Walrus + Sui** | SHA-256 re-checked against the on-chain `digest_hash`. |
+| Memory blobs | **Walrus** | Decentralized storage; encrypted. |
+| Revocation proof | **Sui** | The granted delegate key is verified *absent* from the sender's memory account. |
+| Lookups / index (discovery, dashboards) | **Managed control plane** | A convenience service, not decentralized. |
+
+**The verifiable data is independently reproducible** from Sui + Walrus — anyone can re-run
+`verify()` and reach the same answer without trusting Patchway. The control-plane index that powers
+fast lookups and the console is a managed service. **Verifiability is not the same as
+decentralization**, and the verification path never depends on trusting the index.
+
+## Self-hosting the control plane
+
+Hosted mode (the default) uses the managed gateway — you configure nothing. To run the control
+plane yourself, set:
+
+```bash
+SUPABASE_URL=...
+SUPABASE_SERVICE_ROLE_KEY=...
+PATCHWAY_ENCRYPTION_KEY=...   # AES-256-GCM key for delegate keys at rest
+PATCHWAY_NETWORK=testnet
+```
+
+With these set, the SDK runs against your own backend. The on-chain and Walrus layers are identical
+either way — only the index/custody plane moves to you.
+
+## Security properties
+
+- **Private keys** are passed at runtime and never stored by Patchway.
+- **Delegate keys** are encrypted (AES-256-GCM) before any storage.
+- **Forgetting** suppresses recall/index entries; the encrypted Walrus blob persists until its
+  storage epoch expires — recall suppression, not erasure.
+
+## On "forget" and permanence
+
+Walrus blobs are immutable and persist until epoch expiry. `forget()` removes entries from the
+recall index so they stop surfacing, but it cannot delete an already-written encrypted blob. We say
+"suppression," not "deletion," on purpose.

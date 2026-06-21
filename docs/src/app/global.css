@@ -1,0 +1,56 @@
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/neutral.css';
+@import 'fumadocs-ui/css/preset.css';
+
+html {
+  scrollbar-gutter: stable;
+}
+
+html > body[data-scroll-locked] {
+  margin-right: 0px !important;
+  --removed-body-scroll-bar-size: 0px !important;
+}
+
+:root {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ── Patchway brand (dark is primary) ──────────────────────────────────────
+   Map Fumadocs design tokens to .suiperpower/brand.md so docs match the console:
+   warm near-black surfaces, green #01703b / live #3AD17B, Geist + Geist Mono. */
+.dark {
+  --color-fd-background: #0c0d0c;
+  --color-fd-foreground: #ecefec;
+  --color-fd-card: #141614;
+  --color-fd-card-foreground: #ecefec;
+  --color-fd-popover: #1c201c;
+  --color-fd-popover-foreground: #ecefec;
+  --color-fd-primary: #3ad17b;
+  --color-fd-primary-foreground: #0c0d0c;
+  --color-fd-secondary: #1c201c;
+  --color-fd-secondary-foreground: #ecefec;
+  --color-fd-muted: #141614;
+  --color-fd-muted-foreground: #9ba39b;
+  --color-fd-accent: #1c201c;
+  --color-fd-accent-foreground: #ecefec;
+  --color-fd-border: rgba(255, 255, 255, 0.08);
+  --color-fd-ring: #3ad17b;
+}
+
+/* Light mode kept functional; brand green for accents. */
+:root {
+  --color-fd-primary: #01703b;
+  --color-fd-ring: #01703b;
+}
+
+body {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+code,
+pre,
+kbd {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}

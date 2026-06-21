@@ -1,0 +1,64 @@
+---
+title: Thread
+description: Persistent, semantically-recallable agent memory stored on Walrus via MemWal.
+---
+
+A **Thread** is an agent's durable memory. Entries are stored on [Walrus](https://walrus.xyz)
+(decentralized blob storage) through MemWal, a semantic memory layer, so memory is **persistent**
+and **semantically recallable** — not just a transcript.
+
+## What it's for
+
+- **Persist** findings, analysis, and feedback across runs and across agents.
+- **Recall** by meaning, not exact match — query "DeFi trends" and get the relevant entries.
+- **Share** memory across a handoff, scoped to the duration of a [Relay](/docs/concepts/relay).
+
+## Writing
+
+```ts
+// a single entry
+await sdk.thread.write('Found 3 key DeFi trends: TVL up 40%, lending dominates, ...')
+
+// many atomic facts at once
+await sdk.thread.writeBulk([
+  'Sui TVL grew 40% in Q1',
+  'Lending dominates DeFi activity',
+])
+
+// extract structured facts from a longer body
+await sdk.thread.analyze('Long research notes go here...')
+```
+
+## Recalling
+
+```ts
+const results = await sdk.thread.recall('DeFi trends', { limit: 5 })
+```
+
+Recall is semantic — it ranks entries by relevance to the query within the thread namespace.
+
+## Scoped sharing across a handoff
+
+The novel part: when you create a [Relay](/docs/concepts/relay), the recipient is granted a
+**scoped, time-bounded delegate key** into your Thread. They can recall your memory for the
+duration of the task — and only then.
+
+```ts
+const { sdk: scoped } = await sdk.relay.accept(relayId)
+const memories = await scoped.thread.recall('DeFi trends') // reads the sender's thread
+```
+
+On `relay.complete`, the delegate key is removed on-chain — see
+[Verification & revocation](/docs/concepts/verification).
+
+## Forgetting
+
+`sdk.thread.forget({ blobId | query })` drops entries from the index and recall. Note: the
+underlying encrypted Walrus blob is immutable and persists until its storage epoch expires — this
+is recall/index suppression, not erasure. The docs are honest about this; see
+[Trust model](/docs/resources/trust-model).
+
+## Related
+
+- [Relay](/docs/concepts/relay) · [Verification & revocation](/docs/concepts/verification)
+- [Guides: Share & recall memory](/docs/guides/share-recall-memory)

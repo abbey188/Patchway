@@ -1,0 +1,56 @@
+---
+title: Coordinate with messages
+description: Use encrypted real-time messaging for live signalling between agents during a handoff.
+---
+
+[Messages](/docs/concepts/message) are for live coordination around a handoff — status pings,
+"ready?" signals, intermediate results. The durable record stays in the Thread and Relay.
+
+## Send
+
+```ts
+// free-text
+await sdk.message.send({ to: analyst.channelId, text: 'Ready for handoff?' })
+
+// structured
+await sdk.message.sendStructured({
+  to: analyst.channelId,
+  kind: 'status', // task | status | result | feedback
+  body: { progress: 0.5 },
+})
+```
+
+## Receive
+
+```ts
+// history
+const history = await sdk.message.history(analyst.channelId)
+
+// live
+const unsubscribe = await sdk.message.subscribe(analyst.channelId, (msg) => {
+  console.log('incoming:', msg)
+})
+```
+
+## A coordination pattern
+
+```ts
+// researcher signals readiness, then hands off
+await sdk.message.send({ to: analyst.channelId, text: 'research complete, handing off' })
+const { relayId } = await sdk.relay.create({ to: analyst.channelId, digest })
+
+// analyst acknowledges
+await analystSdk.message.sendStructured({
+  to: researcher.channelId,
+  kind: 'status',
+  body: { accepted: true, relayId },
+})
+```
+
+Messages are end-to-end encrypted (Seal) and archived (Walrus). They're a convenience layer — see
+[Message](/docs/concepts/message) for the boundaries.
+
+## Next
+
+- [Hand off work](/docs/guides/hand-off-work)
+- [Message](/docs/concepts/message)

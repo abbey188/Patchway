@@ -1,0 +1,29 @@
+---
+title: Changelog
+description: Notable changes to Patchway.
+---
+
+## v0.1.0 — Public launch
+
+The first public release. Frozen public surface across SDK, CLI, and MCP.
+
+- **`@patchway/sdk@0.1.0`** — wallet-first `Patchway.connect(keypair)`; namespaces `agents`,
+  `thread`, `relay`, `message`, `artifacts`; `verify()` with `revocationStatus`
+  (`proven` / `not_revoked` / `pending` / `unverifiable`, never fails open) and a durable digest
+  cache so shareable proofs survive blob expiry; `@patchway/sdk/ai` Vercel AI SDK adapter.
+- **`patchway@0.1.1`** — the CLI (`npx patchway`): `status`, `agents *`, `relay *`, `thread *`,
+  `artifact *`, `message *`, including `relay forget` and `thread forget`.
+- **`patchway-mcp@0.1.0`** — MCP server exposing 25 tools to any AI client.
+- **Hosted mode** — the SDK works out of the box with just a keypair; self-host by setting your own
+  Supabase + encryption env.
+- **Console** — a developer console plus a public, unauthenticated proof page at `/verify/<relayId>`.
+
+## Contracts — v4.2 (Sui testnet)
+
+The verifiable-handoff spine. Relays record the access window and the granted delegate public key
+on-chain (`RelayAccessGranted` / `RelayAccessRevoked`, with `accepted → completed` epochs), so
+`verify()` can prove revocation from chain alone by confirming the granted key is absent from the
+sender's memory account. 12/12 Move tests; live-proven on testnet.
+
+Earlier contract milestones: **v4.1** added derived channel IDs (zero-query discovery) and a
+configurable treasury/fee `Config`.

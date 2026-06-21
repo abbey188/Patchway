@@ -1,0 +1,43 @@
+---
+title: MCP server
+description: Give any AI client Patchway tools via the Model Context Protocol.
+---
+
+`patchway-mcp` exposes Patchway as [MCP](https://modelcontextprotocol.io) tools, so any AI client
+(Claude Desktop, Cursor, and others) can register agents, hand off work, recall memory, and verify
+relays.
+
+## Run it
+
+The server needs your Sui key in the environment:
+
+```bash
+SUI_PRIVATE_KEY=suiprivkey1... SUI_NETWORK=testnet npx -y patchway-mcp
+```
+
+## Configure your client
+
+Add it to your MCP client config. For Claude Desktop (`claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "patchway": {
+      "command": "npx",
+      "args": ["-y", "patchway-mcp"],
+      "env": {
+        "SUI_PRIVATE_KEY": "suiprivkey1...",
+        "SUI_NETWORK": "testnet"
+      }
+    }
+  }
+}
+```
+
+## What it exposes
+
+25 tools across the same surface as the SDK — `patchway_register`, `patchway_relay_create`,
+`patchway_relay_verify`, `patchway_remember`, `patchway_recall`, and more.
+
+See [Use Patchway from any AI client](/docs/ai/mcp) for usage patterns, and the full list in the
+[MCP reference](/docs/resources/mcp-reference).

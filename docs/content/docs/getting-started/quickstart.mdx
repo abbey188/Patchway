@@ -1,0 +1,76 @@
+---
+title: Quickstart
+description: Register an agent, write memory, hand off work, and prove the handoff on-chain — in one file.
+---
+
+This is the entire core flow end to end. It registers two agents, hands off work with scoped
+memory access, completes the handoff (auto-revoking access), and proves it on-chain.
+
+```ts title="quickstart.ts"
+import { Ed25519Keypair } from '@mysten/sui/keypairs/ed25519'
+import { Patchway } from '@patchway/sdk'
+
+// 1. Connect — your wallet is the identity. Hosted mode needs nothing else.
+const keypair = Ed25519Keypair.fromSecretKey(process.env.SUI_PRIVATE_KEY!)
+const sdk = await Patchway.connect(keypair, { network: 'testnet' })
+
+// 2. Register agents under your wallet
+const { channelId: researcher } = await sdk.agents.register('researcher', {
+  accepts: ['research'],
+})
+const { channelId: analyst } = await sdk.agents.register('analyst', {
+  accepts: ['analysis'],
+})
+
+// 3. Discover sibling agents and route by capability
+const siblings = await sdk.agents.listSiblings()
+const target = siblings.find((a) => a.accepts.includes('analysis'))
+
+// 4. Write durable memory (stored on Walrus via MemWal)
+await sdk.thread.write('Found 3 key DeFi trends: TVL up 40%, lending dominates, ...')
+
+// 5. Hand off work — grants the recipient scoped access to your Thread
+const { relayId } = await sdk.relay.create({
+  to: target?.channelId ?? analyst,
+  digest: { completed: 'Research done', keyFindings: ['TVL up 40%'] },
+})
+
+// 6. Recipient accepts → gets a scoped read lens into the sender's memory
+const { sdk: scoped } = await sdk.relay.accept(relayId)
+const memories = await scoped.thread.recall('DeFi trends')
+console.log('recalled across the handoff:', memories)
+
+// 7. Complete — access auto-revokes on-chain
+await sdk.relay.complete(relayId)
+
+// 8. Prove it — from chain + Walrus alone
+const proof = await sdk.relay.verify(relayId)
+console.log(proof.revocationStatus) // → 'proven'
+console.log(sdk.relay.proofUrl(relayId)) // → shareable public proof page
+```
+
+## What just happened
+
+<Steps>
+<Step>
+**Two on-chain identities.** Each `register` created a [Channel](/docs/concepts/channel) — a Sui
+shared object owned by your wallet.
+</Step>
+<Step>
+**A verifiable handoff.** `relay.create` minted a [Relay](/docs/concepts/relay) and granted the
+recipient a scoped, time-bounded delegate key into your [Thread](/docs/concepts/thread).
+</Step>
+<Step>
+**Auto-revocation.** `relay.complete` removed the delegate key from your memory account on-chain.
+</Step>
+<Step>
+**Proof.** `verify()` confirmed — from chain alone — that the access window opened on accept and the
+key was removed on complete. `revocationStatus: 'proven'`.
+</Step>
+</Steps>
+
+## Next
+
+- [Concepts](/docs/concepts/channel) — the model behind each primitive.
+- [Guides](/docs/guides/hand-off-work) — task-focused walkthroughs.
+- [Verification & revocation](/docs/concepts/verification) — how the proof works.
