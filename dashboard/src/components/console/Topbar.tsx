@@ -32,7 +32,7 @@ function Logo() {
       <img
         src="/patchway-logo.svg"
         alt="Patchway"
-        style={{ height: '72px', width: 'auto', display: 'block' }}
+        style={{ height: '58px', width: 'auto', display: 'block' }}
       />
     </Link>
   )
@@ -306,7 +306,7 @@ export function Topbar() {
         top: 0,
         left: 0,
         right: 0,
-        height: '86px',
+        height: '72px',
         background: '#0C0D0C',
         display: 'flex',
         alignItems: 'center',
