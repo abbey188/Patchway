@@ -6,6 +6,7 @@ import { useCurrentAccount } from '@mysten/dapp-kit-react'
 import { useRouter } from 'next/navigation'
 import { StatCard } from '@/components/console/StatCard'
 import { DataTable, type Column } from '@/components/console/DataTable'
+import { RelayTrace } from '@/components/console/RelayTrace'
 import { StatusBadge } from '@/components/console/StatusBadge'
 import { MonoId } from '@/components/console/MonoId'
 import { fetchChannelsByWallet, fetchRelayEvents } from '@/lib/queries'
@@ -179,14 +180,17 @@ const RELAY_COLUMNS: Column<RelayGrant>[] = [
     render: (r) => <MonoId id={r.relayId} truncate showCopy />,
   },
   {
-    key: 'from',
-    header: 'From → To',
+    key: 'handoff',
+    header: 'Handoff',
     render: (r) => (
-      <span style={{ display: 'flex', alignItems: 'center', gap: '4px', flexWrap: 'wrap' }}>
-        <MonoId id={r.fromChannelId} truncate />
-        <span style={{ color: '#474D47' }}>→</span>
-        <MonoId id={r.toChannelId} truncate />
-      </span>
+      <RelayTrace
+        compact
+        fromSeed={r.fromChannelId}
+        fromLabel={r.fromChannelId.slice(0, 6)}
+        toSeed={r.toChannelId}
+        toLabel={r.toChannelId.slice(0, 6)}
+        status={effectiveRelayStatus(r)}
+      />
     ),
   },
   {

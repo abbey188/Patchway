@@ -5,6 +5,7 @@ import { useQuery, keepPreviousData } from '@tanstack/react-query'
 import { useCurrentAccount } from '@mysten/dapp-kit-react'
 import { useRouter } from 'next/navigation'
 import { DataTable, type Column } from '@/components/console/DataTable'
+import { RelayTrace } from '@/components/console/RelayTrace'
 import { StatusBadge } from '@/components/console/StatusBadge'
 import { MonoId } from '@/components/console/MonoId'
 import { fetchRelayEvents } from '@/lib/queries'
@@ -54,14 +55,18 @@ const COLUMNS: Column<RelayGrant>[] = [
     render: (r) => <MonoId id={r.relayId} truncate showCopy />,
   },
   {
-    key: 'from',
-    header: 'From',
-    render: (r) => <MonoId id={r.fromChannelId} truncate />,
-  },
-  {
-    key: 'to',
-    header: 'To',
-    render: (r) => <MonoId id={r.toChannelId} truncate />,
+    key: 'handoff',
+    header: 'Handoff',
+    render: (r) => (
+      <RelayTrace
+        compact
+        fromSeed={r.fromChannelId}
+        fromLabel={r.fromChannelId.slice(0, 6)}
+        toSeed={r.toChannelId}
+        toLabel={r.toChannelId.slice(0, 6)}
+        status={effectiveRelayStatus(r)}
+      />
+    ),
   },
   {
     key: 'created',
