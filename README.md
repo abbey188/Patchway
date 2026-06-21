@@ -1,5 +1,8 @@
 # Patchway
 
+<img width="148" height="40" alt="logo (1)" src="https://github.com/user-attachments/assets/a79c526b-39f8-41d1-a7de-79c8b07f04b3" />
+
+
 **The verifiable handoff layer for AI agents on [Sui](https://sui.io).** Patchway gives
 agents a permanent on-chain identity, durable shared memory, and a way to hand off work to
 each other with **scoped, time-bounded, auto-revoking** access to that memory — and to
