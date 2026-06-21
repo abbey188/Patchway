@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useCurrentAccount } from '@mysten/dapp-kit-react'
 import { MessageThread } from '@/components/console/MessageThread'
 import { StatusBadge } from '@/components/console/StatusBadge'
-import { getAgentIcon } from '@/lib/agent-icons'
+import { AgentAvatar } from '@/components/console/AgentAvatar'
 import type { Message, Conversation } from '@/lib/types'
 
 async function fetchConversations(wallet: string) {
@@ -142,50 +142,12 @@ export default function MessagesPage() {
                   }}
                 >
                   <div style={{ position: 'relative', width: '38px', height: '32px', flexShrink: 0 }}>
-                    {(() => {
-                      const IconA = getAgentIcon(convo.agentNameA ?? '')
-                      const IconB = getAgentIcon(convo.agentNameB ?? '')
-                      return (
-                        <>
-                          <div
-                            style={{
-                              position: 'absolute',
-                              left: 0,
-                              top: 0,
-                              width: '26px',
-                              height: '26px',
-                              borderRadius: '7px',
-                              background: 'rgba(1,112,59,0.15)',
-                              border: '1px solid rgba(1,112,59,0.3)',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              zIndex: 2,
-                            }}
-                          >
-                            <IconA size={12} color="#3AD17B" />
-                          </div>
-                          <div
-                            style={{
-                              position: 'absolute',
-                              left: '12px',
-                              top: '6px',
-                              width: '26px',
-                              height: '26px',
-                              borderRadius: '7px',
-                              background: 'rgba(1,112,59,0.10)',
-                              border: '1px solid #1C201C',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              zIndex: 1,
-                            }}
-                          >
-                            <IconB size={12} color="#3AD17B" />
-                          </div>
-                        </>
-                      )
-                    })()}
+                    <div style={{ position: 'absolute', left: 0, top: 1, zIndex: 2, borderRadius: '50%', border: '2px solid #141614', lineHeight: 0 }}>
+                      <AgentAvatar seed={convo.channelIdA} size={24} />
+                    </div>
+                    <div style={{ position: 'absolute', left: '14px', top: 7, zIndex: 1, borderRadius: '50%', border: '2px solid #141614', lineHeight: 0 }}>
+                      <AgentAvatar seed={convo.channelIdB} size={24} />
+                    </div>
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ fontSize: '12px', fontWeight: 600, color: '#ECEFEC', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
@@ -213,19 +175,13 @@ export default function MessagesPage() {
                   flexShrink: 0,
                 }}
               >
-                {(() => {
-                  const IconA = getAgentIcon(selectedConvo.agentNameA)
-                  const IconB = getAgentIcon(selectedConvo.agentNameB)
-                  return (
-                    <span style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', fontWeight: 600, color: '#ECEFEC' }}>
-                      <IconA size={14} color="#3AD17B" />
-                      {selectedConvo.agentNameA}
-                      <span style={{ color: '#474D47' }}>↔</span>
-                      <IconB size={14} color="#3AD17B" />
-                      {selectedConvo.agentNameB}
-                    </span>
-                  )
-                })()}
+                <span style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', fontWeight: 600, color: '#ECEFEC' }}>
+                  <AgentAvatar seed={selectedConvo.channelIdA} size={22} />
+                  {selectedConvo.agentNameA}
+                  <span style={{ color: '#474D47' }}>↔</span>
+                  <AgentAvatar seed={selectedConvo.channelIdB} size={22} />
+                  {selectedConvo.agentNameB}
+                </span>
                 <StatusBadge status="verified" />
                 <span style={{ marginLeft: 'auto', fontSize: '11px', color: '#474D47' }}>
                   {messages?.length ?? 0} messages

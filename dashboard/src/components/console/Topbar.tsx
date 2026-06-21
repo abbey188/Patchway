@@ -8,6 +8,7 @@ import { useCurrentAccount, useDAppKit } from '@mysten/dapp-kit-react'
 import { useQueryClient } from '@tanstack/react-query'
 import { Settings, User, Copy, ExternalLink, LogOut, Check, RefreshCw } from 'lucide-react'
 import { SUIVISION_BASE } from '@/lib/constants'
+import { UserAvatar } from './UserAvatar'
 
 const ConnectModal = dynamic(
   () => import('@mysten/dapp-kit-react/ui').then((m) => ({ default: m.ConnectModal })),
@@ -31,7 +32,7 @@ function Logo() {
       <img
         src="/patchway-logo.png"
         alt="Patchway"
-        style={{ height: '30px', width: 'auto', display: 'block' }}
+        style={{ height: '38px', width: 'auto', display: 'block' }}
       />
     </Link>
   )
@@ -350,20 +351,23 @@ export function Topbar() {
             <button
               onClick={() => setDropdownOpen((v) => !v)}
               style={{
-                width: '30px',
-                height: '30px',
+                width: '32px',
+                height: '32px',
                 borderRadius: '50%',
-                border: '1.5px solid #01703b',
-                background: 'rgba(1,112,59,0.12)',
+                border: '1.5px solid #242824',
+                padding: 0,
+                background: 'transparent',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
-                color: '#3AD17B',
+                overflow: 'hidden',
                 transition: 'border-color 0.15s',
               }}
+              onMouseEnter={(e) => (e.currentTarget.style.borderColor = '#01703b')}
+              onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#242824')}
             >
-              <User size={14} />
+              <UserAvatar seed={account.address} size={30} />
             </button>
 
             {dropdownOpen && (

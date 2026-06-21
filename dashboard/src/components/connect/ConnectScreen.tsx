@@ -62,7 +62,7 @@ export function ConnectScreen() {
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/patchway-logo.png" alt="Patchway" style={{ height: '40px', width: 'auto', display: 'block' }} />
+            <img src="/patchway-logo.png" alt="Patchway" style={{ height: '52px', width: 'auto', display: 'block' }} />
           </div>
           <p
             style={{

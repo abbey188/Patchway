@@ -8,7 +8,7 @@ import { StatCard } from '@/components/console/StatCard'
 import { DataTable, type Column } from '@/components/console/DataTable'
 import { StatusBadge } from '@/components/console/StatusBadge'
 import { MonoId } from '@/components/console/MonoId'
-import { getAgentIcon } from '@/lib/agent-icons'
+import { AgentAvatar } from '@/components/console/AgentAvatar'
 import { fetchObject } from '@/lib/queries'
 import { walruscanUrl } from '@/lib/walrus'
 import { effectiveRelayStatus, type ThreadEntry, type RelayGrant, type EntryType } from '@/lib/types'
@@ -158,7 +158,6 @@ export default function AgentDetailPage({ params }: Props) {
     ? chainObj.json.active !== false
     : true
 
-  const AgentIcon = getAgentIcon(agentName)
   // Exact totals from the server (the grants array is capped at 20 for display).
   const relaysSent = serverData?.relaysSentCount ?? grants.filter(g => g.fromChannelId === id).length
   const relaysReceived = serverData?.relaysReceivedCount ?? grants.filter(g => g.toChannelId === id).length
@@ -190,21 +189,7 @@ export default function AgentDetailPage({ params }: Props) {
 
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-        <div
-          style={{
-            width: '44px',
-            height: '44px',
-            borderRadius: '10px',
-            background: 'rgba(1,112,59,0.15)',
-            border: '1px solid rgba(1,112,59,0.3)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0,
-          }}
-        >
-          <AgentIcon size={20} color="#3AD17B" />
-        </div>
+        <AgentAvatar seed={id} size={48} />
         <div style={{ flex: 1 }}>
           <h1
             style={{
